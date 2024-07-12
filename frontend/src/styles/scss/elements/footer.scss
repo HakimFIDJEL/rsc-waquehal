@@ -1,0 +1,176 @@
+footer 
+{
+    background-color: $background-2;
+
+    display: flex;
+    align-items: flex-start;
+    justify-content: space-between;
+    width: 100%;
+
+    box-sizing: border-box;
+    padding: 50px 160px 50px 50px;
+
+    gap: 160px;
+
+    
+
+
+    @include respond(tablet)
+    {
+        gap: 80px;
+        padding: 50px 80px 50px 50px;
+    }
+
+    @include respond(mobile)
+    {
+        flex-direction: column;
+        align-items: center;
+        gap: 50px;
+        padding: 50px $padding-mob 50px $padding-mob;
+    }
+
+
+    .footer__content
+    {
+        display: flex;
+        flex-direction: column;
+        gap: 50px;
+
+       
+
+        .footer__title
+        {
+            display: flex;
+            align-items: center;
+            gap: 54px;
+
+            @include respond(mobile)
+            {
+                gap: 24px;
+            }
+
+            img.footer__logo
+            {
+                width: 110px;
+                height: 110px;
+                border-radius: 50%;
+                background-color: $typo;
+
+                flex-shrink: 0;
+
+                @include respond(mobile)
+                {
+                    width: 50px;
+                    height: 50px;
+                }
+            }
+            h1 
+            {
+                font-size: 32px;
+                line-height: auto;
+                font-weight: 500;
+                color: $typo;
+            }
+        }
+        .footer__description
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 16px;
+
+            p
+            {
+                font-size: 18px;
+                color: $typo;
+                font-weight: 300;
+            }
+        }
+    }
+
+    .footer__infos
+    {
+        width: 260px;
+        flex-shrink: 0;
+        box-sizing: border-box;
+        padding : 12px 0 12px 32px;
+        border-left: 2px solid $typo;
+
+        display: flex;
+        flex-direction: column;
+        gap: 44px;
+
+        color: $typo;
+
+        @include respond(mobile)
+        {
+            border-left: none;
+            border-top: 2px solid $typo;
+            padding: 32px 0 32px 0;
+            gap: 24px;
+            width: 100%;
+        }
+
+        .footer__info__group
+        {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+
+            .footer__subtitle
+            {
+                font-size: 22px;
+                font-weight: 500;
+            }
+            .footer__list 
+            {
+                list-style-type: none;
+                display: flex;
+                flex-direction: column;
+                gap: 12px;
+                li 
+                {
+                    font-size: 18px;
+                    font-weight: 300;
+                    cursor: pointer;
+                    transition: 0.4s $animation;
+
+                    display :flex;
+                    align-items: center;
+                    gap: 8px; 
+
+                    a 
+                    {
+                        text-decoration: none;
+                        color: $typo;
+                        position: relative;
+                        &::before 
+                        {
+                            content: '';
+                            position: absolute;
+                            width: 0%;
+                            height: 1px;
+                            left: 0;
+                            bottom: -4px;
+                            background-color: $typo;
+                            transition: 0.4s $animation;
+                        }                    
+                    }
+
+                    
+
+                    &:hover 
+                    {
+                        a::before 
+                        {
+                            width: 100%;
+                        }
+                    }
+
+                    
+                }
+            }
+
+            
+        }
+    }
+}

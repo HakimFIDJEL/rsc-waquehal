@@ -1,0 +1,186 @@
+// This is your Prisma schema file,
+// learn more about it in the docs: https://pris.ly/d/prisma-schema
+
+// Looking for ways to speed up your queries, or scale easily with your serverless or edge functions?
+// Try Prisma Accelerate: https://pris.ly/cli/accelerate-init
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "mysql"
+  url      = env("DATABASE_URL")
+}
+
+// Done
+model User {
+  id        Int       @id @default(autoincrement())
+  email     String    @unique
+  name      String?
+  password  String
+  passwordToken String? @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Todo News
+model News {
+  id        Int       @id @default(autoincrement())
+  status    Boolean @default(false)
+  title     String
+  content   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+  images    NewsImage[]
+}
+
+// Todo News images
+model NewsImage {
+  id        Int       @id @default(autoincrement())
+  url       String
+  news      News  @relation(fields: [newsId], references: [id])
+  newsId Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Todo Matchs
+model Match {
+  id           Int           @id @default(autoincrement())
+  status       Boolean       @default(false)
+  score_ally   Int
+  score_enemy  Int
+  localisation String
+  team_ally    MatchTeam     @relation(fields: [team_Id], references: [id])
+  team_Id      Int
+  team_enemy   String
+  date         DateTime
+  createdAt    DateTime      @default(now())
+  updatedAt    DateTime      @updatedAt
+}
+
+// Todo Matchs Team
+model MatchTeam {
+  id        Int      @id @default(autoincrement())
+  status    Boolean @default(false)
+  category     MatchCategory @relation(fields: [categoryId], references: [id])
+  categoryId   Int
+  matches   Match[]
+  players   MatchPlayer[]
+  image     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Todo Matchs Category
+model MatchCategory {
+  id        Int      @id @default(autoincrement())
+  name      String
+  teams     MatchTeam[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Todo Matchs Player
+model MatchPlayer {
+  id        Int      @id @default(autoincrement())
+  name      String
+  captain   Boolean
+  team      MatchTeam @relation(fields: [teamId], references: [id])
+  teamId    Int
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+// Todo Galerie
+model Galerie {
+  id        Int       @id @default(autoincrement())
+  status    Boolean @default(false)
+  title     String
+  image    String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Todo Palmares
+model Palmares {
+  id        Int       @id @default(autoincrement())
+  status    Boolean @default(false)
+  ranking  Int
+  season   String
+  title     String
+  category  String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Todo Sponsor
+model Sponsor {
+  id        Int       @id @default(autoincrement())
+  status    Boolean @default(false)
+  name      String
+  image     String
+  website  String?
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+
+
+// Todo Activity
+model Activity {
+  id        Int       @id @default(autoincrement())
+  status Boolean @default(false)
+  name      String
+  description String
+  website  String?    
+  category ActivityCategory @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  images      ActivityImage[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Todo Activity images
+model ActivityImage {
+  id        Int       @id @default(autoincrement())
+  url       String
+  activity  Activity  @relation(fields: [activityId], references: [id])
+  activityId Int
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Todo Activity Category
+model ActivityCategory {
+  id        Int      @id @default(autoincrement())
+  name      String
+  activities Activity[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+
+
+
+
+
+// Todo
+model Contact {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String
+  message   String
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+}
+
+// Todo Images
+// model Image {
+//   id        Int       @id @default(autoincrement())
+//   alt     String
+//   src       String
+//   createdAt DateTime  @default(now())
+//   updatedAt DateTime  @updatedAt
+// }

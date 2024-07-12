@@ -1,0 +1,511 @@
+// Variables
+$background-1 : #383A4B;
+$background-2 : #1C1D1F;
+$action       : #092140;
+$typo         : #F0f0f0;
+$error        : #7B241C;
+$success      : #4B8A68;
+$info         : #454869;
+$disabled     : #5d5C64;
+$max-width    : 1600px;
+$animation    : cubic-bezier(0.38, 0.005, 0.215, 1);
+
+$padding-pc      : 64px;
+$padding-tab     : 32px;
+$padding-mob     : 16px;
+
+
+// Font
+@import './fonts.scss';
+
+
+// Responsive
+$breakpoints: (
+    tablet: 1000px,
+    mobile: 600px
+);
+
+@mixin respond($breakpoint) {
+    @media (max-width: map-get($breakpoints, $breakpoint)) {
+        @content;
+    }
+}
+
+
+
+
+// common styles
+body
+{
+    font-family: sans-serif;
+    font-size: 18px;
+    margin: 0;
+    padding: 0;
+    overflow-x: hidden !important;
+    font-family: 'Montserrat', sans-serif;
+
+    // @include respond(tablet)
+    // {
+    //     font-size: 20px;
+    // }
+    // @include respond(mobile)
+    // {
+    //     font-size: 22px;
+    // }
+}
+
+main 
+{
+    overflow-x : hidden;
+}
+
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+// Scroll animations
+.fade-in-left
+{
+    opacity: 0;
+    transform: translateX(-60px);
+    transition: all 1s $animation;
+    &.active 
+    {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.fade-in-right
+{
+    opacity: 0;
+    transform: translateX(60px);
+    transition: all 1s $animation;
+    &.active 
+    {
+        opacity: 1;
+        transform: translateX(0);
+    }
+}
+.fade-in-up
+{
+    opacity: 0;
+    transform: translateY(60px);
+    transition: all 1s $animation;
+    &.active 
+    {
+        opacity: 1;
+        transform: translateY(0);
+    }
+}
+
+.fade-in 
+{
+    opacity: 0;
+    transform : scale(0.8);
+    transition: all 1s $animation;
+    &.active 
+    {
+        opacity: 1;
+        transform: scale(1);
+    }
+}
+
+
+
+.primary-button
+{
+    background-color: $action;
+    color: $background-2 !important;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s $animation;
+    outline: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    &::before 
+    {
+        display: none;
+    }
+    &::after 
+    {
+        display: none;
+    }
+
+    &:hover
+    {
+        background-color: $background-2;
+        color: $action !important;
+        outline: 1px solid $action;
+    }
+}
+
+.primary-outline-button
+{
+    background-color: $typo;
+    color: $background-2 !important;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s $animation;
+    outline: none;
+
+    text-decoration: none;
+
+    &::before 
+    {
+        display: none;
+    }
+    &::after 
+    {
+        display: none;
+    }
+
+    &:hover
+    {
+        background-color: $background-2;
+        color: $typo !important;
+        outline: 1px solid $typo;
+    }
+}
+
+.secondary-button
+{
+    background-color: $action;
+    color: $typo !important;
+    padding: 8px 16px;
+    border: none;
+    border-radius: 24px;
+    cursor: pointer;
+    font-weight: 500;
+    transition: 0.2s $animation;
+    outline: none;
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    text-decoration: none;
+
+    &::before 
+    {
+        display: none;
+    }
+    &::after 
+    {
+        display: none;
+    }
+
+    &:hover
+    {
+        background-color: $background-2;
+        color: $typo !important;
+    }
+
+
+}
+
+.input__container
+{
+    position: relative;
+    background-color: transparent;
+    padding: 4px 12px 4px 16px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    outline: 2px solid $action;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    @include respond(mobile)
+    {
+        width: 100%;
+        padding: 12px 18px;
+    }
+
+
+    input 
+    {
+        outline: none;
+        border: none;
+        height: 100%;
+
+        font-size: 22px;
+        font-weight: 400;
+        color: $background-2;
+        font-family: "Montserrat";
+
+        &::placeholder 
+        {
+            font-size: 22px;
+            font-weight: 400;
+            color: $background-2;
+            font-family: "Montserrat";
+        }
+    }
+    ul 
+    {
+        visibility: hidden;
+        position: absolute;
+        background-color: white;
+        top: calc(100% );
+
+        left: 0;
+        right: 0;
+        opacity: 0;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        box-sizing: border-box;
+        border-radius: 8px;
+        padding: 8px 0px;
+
+        transition: 0.2s $animation;
+
+        z-index: 90;
+
+        &.active 
+        {
+            top: calc(100% + 1rem);
+            visibility: visible;
+            opacity: 1;
+        }
+
+        li 
+        {
+            list-style: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: 0.2s $animation;
+
+            &:hover 
+            {
+                background-color: $action;
+                color: $typo;
+            }
+        }
+
+
+
+
+    }
+    .scope
+    {
+
+        @include respond(mobile)
+        {
+            position: absolute;
+            top: 50%;
+            right: 0.5rem;
+            transform: translateY(-50%);
+            
+        }
+
+        &:hover 
+        {
+            outline: none;
+        }
+    }
+}
+
+.select__container
+{
+    
+    position: relative;
+    background-color: transparent;
+    padding: 4px 12px 4px 16px;
+    box-sizing: border-box;
+    border-radius: 30px;
+    outline: 2px solid $action;
+
+    display: flex;
+    align-items: center;
+    gap: 16px;
+
+    @include respond(mobile)
+    {
+        width: 100%;
+        padding: 12px 18px;
+    }
+
+    &.active 
+    {
+        .scope
+        {
+            svg 
+            {
+                transform: rotate(180deg);
+            }
+        }
+        ul 
+        {
+            top: calc(100% + 1rem);
+            visibility: visible;
+            opacity: 1;
+        }
+    }
+
+
+    span 
+    {
+        outline: none;
+        border: none;
+        height: 100%;
+
+        font-size: 22px;
+        font-weight: 400;
+        color: $background-2;
+        font-family: "Montserrat";
+
+        padding: 0 12px;
+        box-sizing: border-box;
+
+
+        &::placeholder 
+        {
+            font-size: 22px;
+            font-weight: 400;
+            color: $background-2;
+            font-family: "Montserrat";
+        }
+    }
+    ul 
+    {
+        visibility: hidden;
+        position: absolute;
+        background-color: white;
+        top: calc(100% );
+
+        left: 0;
+        right: 0;
+        opacity: 0;
+
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+
+        box-sizing: border-box;
+        border-radius: 8px;
+        padding: 8px 0px;
+
+        transition: 0.2s $animation;
+
+        z-index: 90;
+
+       
+
+        li 
+        {
+            list-style: none;
+            padding: 8px 16px;
+            cursor: pointer;
+            transition: 0.2s $animation;
+
+            &:hover 
+            {
+                background-color: $action;
+                color: $typo;
+            }
+        }
+
+
+
+
+    }
+    .scope
+    {
+
+        @include respond(mobile)
+        {
+            position: absolute;
+            top: 50%;
+            right: 0.5rem;
+            transform: translateY(-50%);
+            
+        }
+
+        svg
+        {
+            transition: 0.6s $animation;
+        }
+
+        
+
+        &:hover 
+        {
+            outline: none;
+            path
+            {
+                &:nth-child(1)
+                {
+                    fill: white;
+                }
+                &:nth-child(2)
+                {
+                    stroke: white;
+                }
+            }
+        }
+    }
+     
+}
+
+
+section.section
+{
+
+    padding: 0 $padding-pc;
+    box-sizing: border-box;
+    width: 100%;
+    position: relative;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    @include respond(tablet)
+    {
+        padding: 0 $padding-tab;
+    }
+
+    @include respond(mobile)
+    {
+        padding: 0 $padding-mob;
+    }
+
+    .container 
+    {
+        width: 100%;
+        max-width: $max-width;
+        position: relative;
+
+      
+    }
+
+}
+
+
+
+
+
+
+
+
+// Include scss files
+@import './elements/header.scss';
+@import './elements/footer.scss';
+
+@import './pages/home.scss';
+@import './pages/matchs.scss';
+@import './pages/news.scss';
+@import './pages/galerie.scss';
+@import './pages/regles.scss';
+@import './pages/club.scss';
+@import './pages/contact.scss';

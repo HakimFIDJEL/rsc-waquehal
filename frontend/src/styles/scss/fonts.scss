@@ -1,0 +1,59 @@
+// Font Montserrat from the folder public/fonts 
+@font-face
+{
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-Regular.ttf');
+    font-weight: 400;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-Bold.ttf');
+    font-weight: 700;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-Italic.ttf');
+    font-weight: 400;
+    font-style: italic;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-BoldItalic.ttf');
+    font-weight: 700;
+    font-style: italic;
+}
+// light
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-Light.ttf');
+    font-weight: 300;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-LightItalic.ttf');
+    font-weight: 300;
+    font-style: italic;
+}
+// semi-bold
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-SemiBold.ttf');
+    font-weight: 600;
+    font-style: normal;
+}
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-SemiBoldItalic.ttf');
+    font-weight: 600;
+    font-style: italic;
+}
+// medium
+@font-face {
+    font-family: 'Montserrat';
+    src: url('/fonts/static/Montserrat-Medium.ttf');
+    font-weight: 500;
+    font-style: normal;
+}

@@ -1,0 +1,384 @@
+header.header
+{
+
+    transition : 0.4s $animation;
+
+    &.active 
+    {
+        background-color: $background-2;
+        padding: 24px $padding-pc;
+    }
+
+    color: $typo;
+    box-sizing: border-box;
+    padding: 40px $padding-pc;
+
+    @include respond(tablet)
+    {
+        padding: 40px $padding-tab;
+        &.active 
+        {
+            padding: 24px $padding-tab;
+        }
+    }
+
+    @include respond(mobile)
+    {
+        padding: 40px $padding-mob;
+        &.active 
+        {
+            padding: 24px $padding-mob;
+            
+        }
+        &.burger
+        {
+            .mobile__nav__container
+            {
+                transform : translateX(0) !important;
+            }
+            .mobile__nav__cover
+            {
+                // transform: translateX(-100%) !important;
+                opacity: 0.6 !important;
+                pointer-events: all !important;
+                visibility: visible !important;
+            }
+        }
+    }
+    
+    
+
+    display: flex;
+    align-items: center;
+    justify-content: center;
+
+    position: fixed;
+    top: 0;
+    width: 100vw;
+    z-index: 999;
+
+    .header__container
+    {
+        
+
+        display: flex;
+        align-items: center;
+        justify-content: space-between;
+        max-width: $max-width;
+        width: 100%;
+        .header__identity
+        {
+            display: flex;
+            align-items: center;
+            gap: 24px;
+            color: $typo;
+            text-decoration: none;
+    
+            .header__identity__logo
+            {
+                width: 32px;
+                height: 32px;
+                background-color: $typo;
+                border-radius: 50%;
+            }
+    
+            .header__identity__title
+            {
+                font-size: 24px;
+                font-weight: 500;
+            }
+        }
+
+        nav.mobile__header
+        {
+            display: none;
+
+            .hamburger {
+                cursor: pointer;
+
+                input 
+                {
+                    display: none;
+                    &:checked + svg .line-top-bottom {
+                        stroke-dasharray: 20 300;
+                        stroke-dashoffset: -32.42;
+                    }
+                    &:checked + svg {
+                        transform: rotate(-45deg);
+                    }
+                }
+                svg 
+                {
+                    height: 3em;
+                    transition: transform 600ms cubic-bezier(0.4, 0, 0.2, 1);
+                }
+                .line 
+                {
+                    fill: none;
+                    stroke: white;
+                    stroke-linecap: round;
+                    stroke-linejoin: round;
+                    stroke-width: 2;
+                    transition: stroke-dasharray 600ms cubic-bezier(0.4, 0, 0.2, 1),
+                                stroke-dashoffset 600ms cubic-bezier(0.4, 0, 0.2, 1);
+                
+                }
+
+                .line-top-bottom {
+                    stroke-dasharray: 12 63;
+                }
+                
+                
+
+            }
+          
+           
+            
+            
+              
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+            @include respond(mobile)
+            {
+                display :flex;
+            }
+        }
+    
+        .desktop__header
+        {
+
+            @include respond(mobile)
+            {
+                display: none;
+            }
+
+            .desktop__header__list
+            {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                font-weight: 300;
+    
+                @include respond(tablet)
+                {
+                    gap: 22px;
+                }
+    
+                .desktop__header__list__item
+                {
+                    a
+                    {
+                        color: $typo;
+                        text-decoration: none;
+                        position: relative;
+    
+                        &::before 
+                        {
+                            content : '';
+                            position: absolute;
+                            bottom: -8px;
+                            background-color: $typo;
+                            transition: 0.2s ease-in;
+                            height: 1px;
+    
+                            left: 50%;
+                            width: 0;
+                            
+                        }
+    
+                        &::after 
+                        {
+                            content : '';
+                            position: absolute;
+                            bottom: -8px;
+                            background-color: $typo;
+                            transition: 0.2s ease-in;
+                            height: 1px;
+    
+                            right: 50%;
+                            width: 0;
+                            
+                        }
+                        
+    
+                        &:hover 
+                        {
+                            background-color: transparent !important;
+                            &::before 
+                            {
+                                width: 50%;
+                            }
+                            &::after {
+                                width: 50%;
+                            }
+                        }
+                    }
+                }
+            }
+        }
+    }
+
+
+    &::before 
+    {
+        content: '';
+        position: absolute;
+        top: 0;
+        left: 0;
+        width: 100%;
+        height: 100%;
+        // linear gradient from $abckground-2 to transparent
+        background : linear-gradient(180deg, $background-2 20%, rgba(255, 255, 255, 0) 100%);
+        z-index: -1;
+        transition: 0.4s $animation;
+    }
+
+    .mobile__nav
+    {
+        // position: fixed;
+        position: absolute;
+        top: 100%;
+        right: 0;
+
+        height: 100vh;
+
+        
+
+
+
+        .mobile__nav__container
+        {
+            position: absolute;
+            top: 0;
+            right: 0;
+            bottom: 0;
+            background-color: $background-2;
+            z-index: 1;
+
+            padding : 40px $padding-pc;
+
+            transition : 0.4s $animation;
+
+            
+
+            transform : translateX(100%);
+
+            .mobile__nav__list
+            {
+                list-style: none;
+                display: flex;
+                align-items: center;
+                justify-content: space-between;
+                gap: 32px;
+                font-weight: 300;
+
+                flex-direction: column;
+    
+                @include respond(tablet)
+                {
+                    gap: 22px;
+                }
+
+                @include respond(mobile)
+                {
+                    gap: 32px;
+                }
+    
+                .mobile__nav__list__item
+                {
+                    a
+                    {
+                        color: $typo;
+                        text-decoration: none;
+                        position: relative;
+    
+                        &::before 
+                        {
+                            content : '';
+                            position: absolute;
+                            bottom: -8px;
+                            background-color: $typo;
+                            transition: 0.2s ease-in;
+                            height: 1px;
+    
+                            left: 50%;
+                            width: 0;
+                            
+                        }
+    
+                        &::after 
+                        {
+                            content : '';
+                            position: absolute;
+                            bottom: -8px;
+                            background-color: $typo;
+                            transition: 0.2s ease-in;
+                            height: 1px;
+    
+                            right: 50%;
+                            width: 0;
+                            
+                        }
+                        
+    
+                        &:hover 
+                        {
+                            background-color: transparent !important;
+                            &::before 
+                            {
+                                width: 50%;
+                            }
+                            &::after {
+                                width: 50%;
+                            }
+                        }
+                    }
+                }
+            }
+
+
+
+        }
+
+        .mobile__nav__cover 
+        {
+            position: absolute;
+            content : "";
+            top: 0;
+            left: 0;
+            width: 100vw;
+            height: 100vh;
+            background-color: $background-2;
+            opacity: 0;
+            z-index: -1;
+
+            transition: 0.4s $animation;
+
+            pointer-events: none;
+
+            transform: translateX(-100%);
+            visibility: hidden;
+            
+
+            
+        }
+    }
+
+}
+
