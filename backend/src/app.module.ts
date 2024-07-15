@@ -64,7 +64,7 @@ import { SponsorService } from './sponsor/sponsor.service';
         from: '"No Reply" <noreply@rsc-wasquehal.com>',
       },
       template: {
-        dir: join(__dirname, '..', 'email-templates'),
+        dir: '/app/email-templates',
         adapter: new HandlebarsAdapter(),
         options: {
           strict: true,

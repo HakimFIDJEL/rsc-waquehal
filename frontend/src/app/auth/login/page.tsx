@@ -11,22 +11,20 @@ import { useToast } from "@/components/ui/use-toast";
 import { authenticate } from "@/lib/actions";
 import { useFormState, useFormStatus } from 'react-dom';
 import { useRouter } from "next/navigation";
+import axios from 'axios';
+import { Backend_URL } from "@/lib/Constant";
 
 export default function LoginForm() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [disabled, setDisabled] = useState(false);
   const router = useRouter();
-
-  // const { data: session } = useSession();
   const { toast } = useToast();
-  const [errorMessage, dispatch] = useFormState(authenticate, undefined);
 
-  
 
-  const handleSubmit = async (event: React.FormEvent<HTMLFormElement>) => {
-    event.preventDefault();
-
+  const handleSubmit = async (e: any) => {
+    e.preventDefault();
+    
     if (!email || !password) {
       toast({ description: 'Veuillez remplir tous les champs', variant: "destructive", duration: 3000});
       return;
@@ -38,25 +36,43 @@ export default function LoginForm() {
     formData.append('email', email);
     formData.append('password', password);
 
-    try {
-      const result = await authenticate(null, formData);
-      console.log('Result:', result);
-      if (result && result.backendTokens) {
-        localStorage.setItem('accessToken', result.backendTokens.accessToken);
-        localStorage.setItem('refreshToken', result.backendTokens.refreshToken);
-        localStorage.setItem('user', JSON.stringify(result.user.id));
-        
-        router.push('/admin');
+    // use axios to send data to server
+    axios.post(`${Backend_URL}/auth/login`, JSON.stringify({ email, password }),
+    {
+      headers: {
+        'Content-Type': 'application/json',
+      },
+    })
+    .then((response: any) => {
+      if (response.status === 200 || response.status === 201) 
+      {
+        if(response.data.backendTokens && response.data.user)
+        {
+          localStorage.setItem('accessToken', response.data.backendTokens.accessToken);
+          localStorage.setItem('refreshToken', response.data.backendTokens.refreshToken);
+          localStorage.setItem('user', JSON.stringify(response.data.user.id));
+          
+          router.push('/admin');
+        }
+        else 
+        {
+          toast({ description: 'Email ou mot de passe invalide', variant: "destructive", duration: 3000 });
+        }
       } else {
         // Handle authentication failure
         toast({ description: 'Email ou mot de passe invalide', variant: "destructive", duration: 3000 });
       }
-    } catch (error) {
-      console.error('Error during authentication:', error);
-      toast({ description: 'Erreur d\'authentification', variant: "destructive", duration: 3000 });
-    } finally {
-      setDisabled(false);
-    }
+    })
+    .catch((error) => {
+        toast({
+            variant: 'destructive',
+            description: error.response?.data?.message || error.message,
+            duration: 3000
+        });
+    }).finally(() => {
+        setDisabled(false);
+    });
+        
   };
 
 

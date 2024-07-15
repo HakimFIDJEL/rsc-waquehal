@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { CreateNewsDto } from './dto/create-news.dto';
 import { UpdateNewsDto } from './dto/update-news.dto';
-import { PrismaService } from 'src/prisma.service';
-import { NewsImageService } from 'src/news-image/news-image.service';
+import { PrismaService } from '../prisma.service';
+import { NewsImageService } from '../news-image/news-image.service';
 import { ConflictException } from '@nestjs/common';
 
 @Injectable()

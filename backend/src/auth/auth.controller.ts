@@ -1,7 +1,7 @@
 import { Body, Get, Post, Controller, UseGuards, Req } from '@nestjs/common'; // Ajoutez Req à l'importation
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 import { LoginDto } from './dto/auth.dto';
-import { UserService } from 'src/user/user.service';
+import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { RefreshJwtGuard } from './guards/refresh.guard';
 import { Request } from 'express';

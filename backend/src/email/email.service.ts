@@ -1,6 +1,6 @@
 import { Injectable } from '@nestjs/common';
 import { MailerService } from '@nestjs-modules/mailer';
-import { CreateUserDto } from 'src/user/dto/create-user.dto';
+import { CreateUserDto } from '../user/dto/create-user.dto';
 
 
 @Injectable()
@@ -18,7 +18,7 @@ export class EmailService {
     await this.mailerService.sendMail({
       to: user.email,
       subject: 'Réinitialisation de mot de passe',
-      template: './password-reset', // Le nom du fichier de template sans l'extension
+      template: './password-reset', 
       context: { 
         name: user.name,
         url,

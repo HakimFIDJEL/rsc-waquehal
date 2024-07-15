@@ -13,11 +13,18 @@ RUN npm install
 # Copier tout le reste du code de l'application dans le répertoire de travail
 COPY . .
 
+# Supprimer node_modules et réinstaller les dépendances
+RUN rm -rf node_modules
+RUN npm install
+
 # Construire l'application
 RUN npm run build
+
+# Recompiler bcrypt
+RUN npm rebuild bcrypt
 
 # Exposer le port sur lequel l'application va tourner
 EXPOSE 3001
 
 # Commande pour démarrer l'application avec migrations et seeding
-CMD ["sh", "-c", "npx prisma migrate deploy && npx ts-node prisma/seed.ts && npm run start:prod"]
+CMD ["sh", "-c", "npx prisma migrate deploy && npx ts-node prisma/seed.ts && npm run start:dev"]
