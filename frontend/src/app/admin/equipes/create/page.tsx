@@ -1,13 +1,11 @@
-import Image from "next/image"
+"use client";
 import Link from "next/link"
 import {
   ChevronLeft,
   Upload,
   PlusCircle,
   Settings2,
-  Trash2,
 } from "lucide-react"
-
 import {
   Select,
   SelectContent,
@@ -15,38 +13,18 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-import { Textarea } from "@/components/ui/textarea"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/components/ui/toggle-group"
 import { Label } from "@/components/ui/label"
-
 import {
   Table,
   TableBody,
-  TableCaption,
   TableCell,
   TableFooter,
   TableHead,
@@ -63,7 +41,7 @@ import {
   SheetClose,
   SheetFooter,
 } from "@/components/ui/sheet"
-  
+
 import {
   Tooltip,
   TooltipContent,
@@ -73,12 +51,6 @@ import {
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
-import {
     Breadcrumb,
     BreadcrumbItem,
     BreadcrumbLink,
@@ -87,44 +59,224 @@ import {
     BreadcrumbSeparator,
   } from "@/components/ui/breadcrumb"
 import { Input } from "@/components/ui/input"
-export const metadata = {
-  title: 'RSC Admin - Tableau de bord',
-};
+
+import { useState } from "react"
+import { useEffect } from "react"
+import axios from 'axios';
+import { Backend_URL } from "@/lib/Constant";
+import { Toaster } from "@/components/ui/toaster"
+import { useRouter } from "next/navigation"
+import { useToast } from "@/components/ui/use-toast"
+
+import  ImageUploader  from "@/components/ImageUploader"
+
+interface ImageFile {
+  file: File;
+  src: string;
+}
 
 
-export default function Create() {
+export default function Create() 
+{
+
+  type Player = {
+    id: number;
+    name: string;
+    captain: string;
+  }
+
+  type Category = {
+    id: string;
+    name: string;
+  }
+
+
+  const [category, setCategory] = useState('');
+  const [players, setPlayers] = useState<Player[]>([]);
+
+  const [images, setImages] = useState<ImageFile[]>([]);
+
+  const [name, setName] = useState('');
+  const [captain, setCaptain] = useState(false);
+  const [editingPlayerId, setEditingPlayerId] = useState<number | null>(null);
+  const [editingName, setEditingName] = useState('');
+  const [editingCaptain, setEditingCaptain] = useState(false);
   
+  const [status, setStatus] = useState("");
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState<Category []>([]);
 
-  const players = [
-    {
-      id: "1",
-      name: "John Doe",
-      capitaine: "1",
-    },
-    {
-      id: "2",
-      name: "Jane Doe",
-      capitaine: "0",
-    },
-    {
-      id: "3",
-      name: "John Smith",
-      capitaine: "0",
-    },
-  ]
+  const router = useRouter();
+  const { toast } = useToast();
+  const access_key = localStorage.getItem('accessToken');
+
+  // Récupère les catégories de match
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${Backend_URL}/match-category`, {
+        headers: {
+          'Authorization': `Bearer ${access_key}`
+        }
+      });
+      setCategories(response.data);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: "Une erreur s'est produite lors de la récupération des actualités",
+        duration: 3000
+      });
+    }
+  };
+
+  const addPlayer = () => {
+    if (name === '') {
+      toast({
+        variant: 'destructive',
+        description: 'Veuillez remplir le nom du joueur',
+        duration: 3000
+      });
+      return;
+    }
+
+    if (players.find(player => player.name === name)) {
+      toast({
+        variant: 'destructive',
+        description: 'Un joueur avec ce nom existe déjà',
+        duration: 3000
+      });
+      return;
+    }
+
+    if (captain && players.find(player => player.captain === '1')) {
+      toast({
+        variant: 'destructive',
+        description: 'Un joueur capitaine existe déjà',
+        duration: 3000
+      });
+      return;
+    }
+
+    const player = {
+      id: players.length + 1,
+      name: name,
+      captain: captain ? '1' : '0'
+    };
+
+    setPlayers([...players, player]);
+    setName('');
+    setCaptain(false);
+  };
+
+  const editPlayer = (id: number) => {
+
+    if (editingName === '') {
+      toast({
+        variant: 'destructive',
+        description: 'Veuillez remplir le nom du joueur',
+        duration: 3000
+      });
+      return;
+    }
+
+    if (editingCaptain && players.find(player => player.captain === '1' && player.id !== id)) {
+      toast({
+        variant: 'destructive',
+        description: 'Un joueur capitaine existe déjà',
+        duration: 3000
+      });
+      return;
+    }
+
+    // Vérifie qu'un joueur avec le même nom n'existe pas
+    if (players.find(player => player.name === editingName && player.id !== id)) {
+      toast({
+        variant: 'destructive',
+        description: 'Un joueur avec ce nom existe déjà',
+        duration: 3000
+      });
+      return;
+    }
+
+    const updatedPlayers = players.map(player =>
+      player.id === id ? { ...player, name: editingName, captain: editingCaptain ? '1' : '0' } : player
+    );
+    setPlayers(updatedPlayers);
+    setEditingPlayerId(null);
+  };
+
+  const handleSubmit = async (e:any) => {
+
+    setLoading(true);
+
+    // Egalement vérifier qu'il y a un moins une image
+    if(true) {
+      toast({
+        variant: 'destructive',
+        description: 'Veuillez remplir tous les champs',
+        duration: 3000
+      });
+      setLoading(false);
+      return;
+    }
+
+    let localStatusBool = false;
+    if(status === 'online') {
+      localStatusBool = true;
+    } else {
+
+    }
+
+
+    // use axios to send data to server
+    axios.post(`${Backend_URL}/match-team`, {
+      
+      status: localStatusBool
+    }, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    })
+    .then((response) => {
+        if(response.status === 201 || response.status === 200) {
+            toast({
+                description: 'L\'équipe a été créé avec succès',
+                duration: 3000
+            });
+            router.push('/admin/equipes');
+        }
+    })
+    .catch((error) => {
+        toast({
+            variant: 'destructive',
+            description: error.response?.data?.message || error.message,
+            duration: 3000
+        });
+    }).finally(() => {
+        setLoading(false);
+    });
+  }
+
+  useEffect(() => {
+    fetchData();
+
+
+    return () => {
+      // cleanup
+    }
+  }, []);
 
 
   return (
 
    
 
-
-<main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+      <>
+        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
 
   
-    <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 pb-8">
+          <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4 pb-8">
 
-      {/* margin top */}
 
             <Breadcrumb className="hidden md:flex mt-4">
               <BreadcrumbList>
@@ -159,7 +311,7 @@ export default function Create() {
                 {/* <Button variant="outline" size="sm">
                   Annuler
                 </Button> */}
-                <Button size="sm" className="gap-1">
+                <Button size="sm" className="gap-1" onClick={handleSubmit} disabled={loading}>
                   <PlusCircle className="h-3.5 w-3.5" />
                   <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">
                     Enregistrer
@@ -178,12 +330,20 @@ export default function Create() {
                     <div className="grid gap-6">
                       <div className="grid gap-3">
                         <Label htmlFor="name">Catégorie</Label>
-                        <Input
-                          id="name"
-                          type="text"
-                          className="w-full"
-                          placeholder="Ex: U20, Pré nationale, etc."
-                        />
+                        <Select value={category} onValueChange={(value) => setCategory(value)}>
+                          <SelectTrigger id="status" aria-label="Catégorie">
+                            <SelectValue placeholder="Catégorie" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {/*  A regler  */}
+                            {categories.map((category) => (
+                              <SelectItem key={category.id} value={category.id}>
+                                {category.name}
+                              </SelectItem>
+                            ))}
+                            
+                          </SelectContent>
+                        </Select>
                       </div>
                       
                     </div>
@@ -214,14 +374,14 @@ export default function Create() {
                             <div className="grid gap-6 py-4">
                               <div className="grid gap-4">
                                 <Label htmlFor="name-1">Nom du joueur</Label>
-                                <Input id="name-1" value="Pedro Duarte" className="col-span-3" />
+                                <Input id="name-1"  className="col-span-3" value={name} onChange={(e) => setName(e.target.value)} />
                               </div>
                               <div className="grid gap-4">
-                                <Label htmlFor="logo-1">Joueur capitaine ?</Label>
+                                <Label htmlFor="logo-1">Joueur captain ?</Label>
                                 <div>
                                   <div className="flex items-center gap-2">
                                     <div>Non</div>
-                                    <Switch id="captain" />
+                                    <Switch id="captain" checked={captain} onCheckedChange={(e) => setCaptain(e)} />
                                     <div>Oui</div>
                                   </div>
                                 </div>
@@ -229,7 +389,7 @@ export default function Create() {
                             </div>
                             <SheetFooter>
                               <SheetClose asChild>
-                                  <Button type="submit" size="sm" className="w-full mt-4">
+                                  <Button type="submit" size="sm" className="w-full mt-4" onClick={addPlayer}>
                                     Ajouter le joueur
                                   </Button>
                               </SheetClose>
@@ -248,86 +408,97 @@ export default function Create() {
                         <TableRow>
                           <TableHead className="w-[100px]">ID</TableHead>
                           <TableHead>Nom</TableHead>
-                          <TableHead>Capitaine</TableHead>
+                          <TableHead>captain</TableHead>
                           <TableHead className="text-right">Action</TableHead>
                         </TableRow>
                       </TableHeader>
                       <TableBody>
-                      {players.map((player) => (
-                        <TableRow key={player.id}>
-                          <TableCell>{player.id}</TableCell>
-                          <TableCell>{player.name}</TableCell>
-                          <TableCell>
-                            {/* badge */}
 
-                            {player.capitaine === "1" ? (
-                              <Badge variant="default">Oui</Badge>
-                            ) : (
-                              <Badge variant="outline">Non</Badge>
-                            )}
-
-                          </TableCell>
-                          <TableCell className="text-right">
-                            <div className="flex items-center justify-end gap-2">
-                              {/* sheet */}
-                              <Sheet key="sheet-edit">
-                                <SheetTrigger asChild>
-                                  <Button variant="secondary" size="sm">
-                                    <Settings2 className="h-4 w-4" />
-                                  </Button>
-                                </SheetTrigger>
-                                <SheetContent>
-                                  <SheetHeader>
-                                    <SheetTitle>Modifier le joueur</SheetTitle>
-                                    <SheetDescription>
-                                      <Separator className="mt-2" />
-                                    </SheetDescription>
-                                  </SheetHeader>
-                                  <div className="grid gap-6 py-4">
-                                    <div className="grid gap-4">
-                                      <Label htmlFor="name-1">Nom du joueur</Label>
-                                      <Input id="name-1" value={player.name} className="col-span-3" />
-                                    </div>
-                                    <div className="grid gap-4">
-                                      <Label htmlFor="logo-1">Joueur capitaine ?</Label>
-                                      <div>
-                                        <div className="flex items-center gap-2">
-                                          <div>Non</div>
-                                          <Switch id="captain" />
-                                          <div>Oui</div>
+                        {players.map(player => (
+                          <TableRow key={player.id}>
+                            <TableCell>{player.id}</TableCell>
+                            <TableCell>{player.name}</TableCell>
+                            <TableCell>
+                              {player.captain === '1' ? (
+                                <Badge variant="default">Oui</Badge>
+                              ) : (
+                                <Badge variant="outline">Non</Badge>
+                              )}
+                            </TableCell>
+                            <TableCell className="text-right">
+                              <div className="flex items-center justify-end gap-2">
+                                <Sheet key={`sheet-edit-${player.id}`}>
+                                  <SheetTrigger asChild>
+                                    <Button variant="secondary" size="sm" onClick={() => {
+                                      setEditingPlayerId(player.id);
+                                      setEditingName(player.name);
+                                      setEditingCaptain(player.captain === '1');
+                                    }}>
+                                      <Settings2 className="h-4 w-4" />
+                                    </Button>
+                                  </SheetTrigger>
+                                  {editingPlayerId === player.id && (
+                                    <SheetContent>
+                                      <SheetHeader>
+                                        <SheetTitle>Modifier le joueur</SheetTitle>
+                                        <SheetDescription>
+                                          <Separator className="mt-2" />
+                                        </SheetDescription>
+                                      </SheetHeader>
+                                      <div className="grid gap-6 py-4">
+                                        <div className="grid gap-4">
+                                          <Label htmlFor={`name-${player.id}`}>Nom du joueur</Label>
+                                          <Input id={`name-${player.id}`} value={editingName} className="col-span-3" onChange={(e) => setEditingName(e.target.value)} />
+                                        </div>
+                                        <div className="grid gap-4">
+                                          <Label htmlFor={`captain-${player.id}`}>Joueur captain ?</Label>
+                                          <div>
+                                            <div className="flex items-center gap-2">
+                                              <div>Non</div>
+                                              <Switch id={`captain-${player.id}`} checked={editingCaptain} onCheckedChange={(e) => setEditingCaptain(e)} />
+                                              <div>Oui</div>
+                                            </div>
+                                          </div>
                                         </div>
                                       </div>
-                                    </div>
-                                  </div>
-                                  <SheetFooter>
-                                    <SheetClose asChild>
-                                      
-                                      <div className="grid gap-4 py-4 w-full">
-                                        <Button type="submit" className="w-full" size="sm">
-                                          Modifier le joueur
-                                        </Button>
-                                        <Button type="submit" variant="destructive" className="w-full" size="sm">
-                                          Supprimer le joueur
-                                        </Button>
+                                      <SheetFooter>
+                                        <SheetClose asChild>
+                                          <div className="grid gap-4 py-4 w-full">
+                                            <Button type="submit" className="w-full" size="sm" onClick={() => editPlayer(player.id)}>
+                                              Modifier le joueur
+                                            </Button>
+                                            <Button type="submit" variant="destructive" className="w-full" size="sm" onClick={() => setPlayers(players.filter(p => p.id !== player.id))}>
+                                              Supprimer le joueur
+                                            </Button>
+                                          </div>
+                                        </SheetClose>
+                                      </SheetFooter>
+                                    </SheetContent>
+                                  )}
+                                </Sheet>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        ))}
 
-                                      </div>
-                                      
-
-                                    </SheetClose>
-                                  </SheetFooter>
-                                </SheetContent>
-                              </Sheet>
-                            </div>
-                          </TableCell>
-                        </TableRow>
-                      ))}
+                        {players.length === 0 && (
+                          
+                          <TableRow>
+                            <TableCell colSpan={4}>
+                              <div className="flex items-center justify-center gap-2">
+                                <span className="text-muted-foreground">Aucun joueur trouvé</span>
+                              </div>
+                            </TableCell>
+                          </TableRow>
+                        
+                        )}
 
                       </TableBody>
                       <TableFooter>
                         <TableRow>
                           <TableHead className="w-[100px]">ID</TableHead>
                           <TableHead>Nom</TableHead>
-                          <TableHead>Capitaine</TableHead>
+                          <TableHead>captain</TableHead>
                           <TableHead className="text-right">Action</TableHead>
                         </TableRow>
                       </TableFooter>
@@ -350,19 +521,12 @@ export default function Create() {
                     <Separator className="mb-8" />
                   <CardContent>
                     <div className="grid gap-2">
-                    <TooltipProvider>
-                        <Tooltip>
-                          <TooltipTrigger asChild>
-                            <button className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed">
-                              <Upload className="h-4 w-4 text-muted-foreground" />
-                              <span className="sr-only">Upload</span>
-                            </button>
-                          </TooltipTrigger>
-                          <TooltipContent>
-                            <p>Ajouter une image</p>
-                          </TooltipContent>
-                        </Tooltip>
-                      </TooltipProvider>
+                      <ImageUploader 
+                        images={images} 
+                        setImages={setImages} 
+                        limit={1}
+                        deleteUrl=''
+                      />
                         
                       
                     </div>
@@ -377,7 +541,7 @@ export default function Create() {
                   <CardContent>
                     <div className="grid gap-6">
                       <div className="grid gap-3">
-                        <Select>
+                        <Select value={status} onValueChange={(value) => setStatus(value)}>
                           <SelectTrigger id="status" aria-label="Sélectionner le statut">
                             <SelectValue placeholder="Sélectionner le statut" />
                           </SelectTrigger>
@@ -395,6 +559,8 @@ export default function Create() {
             </div>
           </div>
         </main>
+        <Toaster />
+      </>
 
         
 

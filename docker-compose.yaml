@@ -1,5 +1,4 @@
 version: '3.8'
-
 services:
   frontend:
     build:
@@ -9,7 +8,15 @@ services:
       - "3000:3000"
     depends_on:
       - backend
-
+    develop:
+      watch:
+        - action: sync
+          path: ./frontend
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./frontend/package.json
   backend:
     build:
       context: ./backend
@@ -20,7 +27,15 @@ services:
       - db
     environment:
       DATABASE_URL: mysql://root:@db:3306/rsc-wasquehal
-
+    develop:
+      watch:
+        - action: sync
+          path: ./backend
+          target: /app
+          ignore:
+            - node_modules/
+        - action: rebuild
+          path: ./backend/package.json
   db:
     image: mysql:8.0
     ports:
@@ -30,7 +45,6 @@ services:
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
     volumes:
       - db_data:/var/lib/mysql
-
   phpmyadmin:
     image: phpmyadmin/phpmyadmin
     ports:
@@ -38,6 +52,5 @@ services:
     environment:
       PMA_HOST: db
       MYSQL_ALLOW_EMPTY_PASSWORD: "yes"
-
 volumes:
   db_data:

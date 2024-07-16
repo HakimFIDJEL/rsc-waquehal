@@ -5,6 +5,7 @@ import { UpdateMatchDto } from './dto/update-match.dto';
 
 @Controller('match')
 export class MatchController {
+  // Ne peut applier les JWT Guard !!
   constructor(private readonly matchService: MatchService) {}
 
   @Post()

@@ -276,7 +276,6 @@ export default function Create() {
                         setImages={setImages} 
                         limit={null}
                         deleteUrl=''
-                      
                       />
                         
 

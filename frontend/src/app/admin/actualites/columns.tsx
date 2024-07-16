@@ -90,34 +90,21 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         accessorKey: "images",
         header: "Image",
         cell: ({ row }) => {
-            const images = row.original.images ?? null; 
-            if(images && images.length > 0)
+            const images = row.original.images;
+            if (images && images.length > 0 && images !== undefined && images !== null) 
             {
-                const firstImageUrl = images.length > 0 ? images[0]?.url : null;
-                const imageUrl = `${Backend_URL}${firstImageUrl}`;
-
-                return imageUrl ? (
-                    <Image
-                        src= {imageUrl}
-                        alt="Actualité"
-                        width={100}
-                        height={100}
-                    />
-                ) : (
-                    <div className="flex items-center justify-center w-10 h-10 border rounded-lg">
-                        <FileImage />
-                    </div>
+                const imageUrl = `${Backend_URL}${images[0].url}`;
+                console.log(imageUrl);
+                return (
+                    <img src={imageUrl} alt="image" className="w-20 h-20 rounded-lg" />
                 );
-            }
 
+            }
             return (
                 <div className="flex items-center justify-center w-10 h-10 border rounded-lg">
                     <FileImage />
                 </div>
             );
-            
-            
-            
         },
     },
     {

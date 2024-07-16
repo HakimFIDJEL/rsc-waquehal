@@ -1,11 +1,10 @@
-import Image from "next/image"
+"use client";
 import Link from "next/link"
 import {
   ChevronLeft,
   Upload,
   PlusCircle,
 } from "lucide-react"
-
 import {
   Select,
   SelectContent,
@@ -13,45 +12,14 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select"
-
-import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
-import {
-  DropdownMenu,
-  DropdownMenuCheckboxItem,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu"
-
-
-
-import { Textarea } from "@/components/ui/textarea"
-import {
-  ToggleGroup,
-  ToggleGroupItem,
-} from "@/components/ui/toggle-group"
 import { Label } from "@/components/ui/label"
-
-
-
-
-import {
-  Tabs,
-  TabsContent,
-  TabsList,
-  TabsTrigger,
-} from "@/components/ui/tabs"
 import {
     Breadcrumb,
     BreadcrumbItem,
@@ -71,30 +39,129 @@ import {
   SheetClose,
   SheetFooter,
 } from "@/components/ui/sheet"
-
 import { Separator } from "@/components/ui/separator"
 
-export const metadata = {
-  title: 'RSC Admin - Tableau de bord',
-};
+import { useState } from "react"
+import { useEffect } from "react"
+import axios from 'axios';
+import { Backend_URL } from "@/lib/Constant";
+import { Toaster } from "@/components/ui/toaster"
+import { useRouter } from "next/navigation"
+import { useToast } from "@/components/ui/use-toast"
 
 
 export default function Create() {
   
 
+  const [category, setCategory] = useState("");
+  const [scoreAllie, setScoreAllie] = useState("");
+  const [scoreAdverse, setScoreAdverse] = useState("");
+  const [dateMatch, setDateMatch] = useState("");
+  const [lieuMatch, setLieuMatch] = useState("");
+  const [equipeAdverse, setEquipeAdverse] = useState("");
+  const [status, setStatus] = useState("offline");
+  const [loading, setLoading] = useState(false);
+  const [categories, setCategories] = useState([]);
+
+  const router = useRouter();
+  const { toast } = useToast();
+  const access_key = localStorage.getItem('accessToken');
+
+  // Récupère les catégories de match
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${Backend_URL}/equipes`, {
+        headers: {
+          'Authorization': `Bearer ${access_key}`
+        }
+      });
+      setCategories(response.data);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: "Une erreur s'est produite lors de la récupération des actualités",
+        duration: 3000
+      });
+    }
+  };
+
+  const handleSubmit = async (e:any) => {
+
+    setLoading(true);
+
+    // Egalement vérifier qu'il y a un moins une image
+    if(!category || !scoreAllie || !scoreAdverse || !dateMatch || !lieuMatch || !equipeAdverse || !status) {
+      toast({
+        variant: 'destructive',
+        description: 'Veuillez remplir tous les champs',
+        duration: 3000
+      });
+      setLoading(false);
+      return;
+    }
+
+    let localStatusBool = false;
+    if(status === 'online') {
+      localStatusBool = true;
+    } else {
+
+    }
+
+
+    // use axios to send data to server
+    axios.post(`${Backend_URL}/matchs`, {
+      category: category,
+      scoreAllie: scoreAllie,
+      scoreAdverse: scoreAdverse,
+      dateMatch: dateMatch,
+      lieuMatch: lieuMatch,
+      equipeAdverse: equipeAdverse,
+      status: localStatusBool
+    }, {
+      headers: {
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+      }
+    })
+    .then((response) => {
+        if(response.status === 201 || response.status === 200) {
+            toast({
+                description: 'Le match a été créé avec succès',
+                duration: 3000
+            });
+            router.push('/admin/matchs');
+        }
+    })
+    .catch((error) => {
+        toast({
+            variant: 'destructive',
+            description: error.response?.data?.message || error.message,
+            duration: 3000
+        });
+    }).finally(() => {
+        setLoading(false);
+    });
+  }
+
+  useEffect(() => {
+    fetchData();
+
+
+    return () => {
+      // cleanup
+    }
+  }, []);
 
 
   return (
 
    
-
-
-<main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
+      <>
+        <main className="grid flex-1 items-start gap-4 p-4 sm:px-6 sm:py-0 md:gap-8">
 
   
-    <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
+          <div className="mx-auto grid max-w-[59rem] flex-1 auto-rows-max gap-4">
 
-      {/* margin top */}
 
             <Breadcrumb className="hidden md:flex mt-4">
               <BreadcrumbList>
@@ -156,8 +223,7 @@ export default function Create() {
                             <SelectValue placeholder="Catégorie" />
                           </SelectTrigger>
                           <SelectContent>
-                            <SelectItem value="online">U20</SelectItem>
-                            <SelectItem value="offline">U17</SelectItem>
+                            
                           </SelectContent>
                         </Select>
                       </div>
@@ -336,6 +402,9 @@ export default function Create() {
             </div>
           </div>
         </main>
+        <Toaster />
+      </>
+
 
         
 

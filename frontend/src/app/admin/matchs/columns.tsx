@@ -1,15 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -43,7 +35,7 @@ export type data = {
     score1: number
     score2: number
     location: string
-    created_at: string
+    createdAt: string
 }
 
 // get a date formated as 2023-07-12 10:42 AM, 12/07/2023 10:42
@@ -57,7 +49,7 @@ export function formatDate(date: string) {
     })
 }
 
-export const columns: ColumnDef<data>[] = [    
+export const columns = (deleteData: (id: string | number) => void): ColumnDef<data>[] => [     
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -79,6 +71,16 @@ export const columns: ColumnDef<data>[] = [
     {
         accessorKey: "status",
         header: "Statut",
+        cell: ({ cell }) => (
+            cell.getValue<boolean>() === true ? (
+                <Badge variant="default">En ligne</Badge>
+            ) : (
+                <Badge variant="secondary">Hors ligne</Badge>
+            )
+        ),
+    },
+    {
+        header: "Résultat",
         cell: ({ cell }) => (
             // place a badge with a success, danger or warning color depending on the results, calculated from the score
             <Badge
@@ -112,7 +114,7 @@ export const columns: ColumnDef<data>[] = [
         header: "Lieu",
     },
     {
-        accessorKey: "created_at",
+        accessorKey: "createdAt",
         // sortable
         header: ({ column }) => {
             return (
@@ -163,8 +165,10 @@ export const columns: ColumnDef<data>[] = [
                         </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                        <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        <AlertDialogAction>Oui, supprimer !</AlertDialogAction>
+                            <AlertDialogCancel>Annuler</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => deleteData(row.original.id)}>
+                                Oui, supprimer !
+                            </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>
