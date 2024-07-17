@@ -139,7 +139,7 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         header: "Actions",
         cell: ({ row }) => (
             <div className="flex gap-2">
-                <Link href={`/admin/equipes/${row.original.id}`}>
+                <Link href={`/admin/equipes/edit/${row.original.id}`}>
                     <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>

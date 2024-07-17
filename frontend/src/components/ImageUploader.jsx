@@ -73,7 +73,7 @@ const ImageUploader = ({ images, setImages, limit, deleteUrl  }) => {
   };
 
   return (
-    <div className="grid grid-cols-3 gap-2" ref={ImageContainerRef}>
+    <div className={`grid gap-2 ${limit === 1 ? '' : 'grid-cols-3'}`} ref={ImageContainerRef}>
       {images.map((image, index) => (
         <div key={index} className="relative">
           <DropdownMenu>

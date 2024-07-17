@@ -17,6 +17,10 @@ export class MatchTeamController {
     return this.matchTeamService.findAll();
   }
 
+  @Get(':id')
+  findOne(@Param('id') id: string) {
+    return this.matchTeamService.findOne(+id);
+  }
 
   @UseGuards(JwtGuard)
   @Post()
@@ -33,6 +37,16 @@ export class MatchTeamController {
     return this.matchTeamService.upload(+id, file);
   }
 
+  @UseGuards(JwtGuard)
+  @Patch(':id')
+  update(
+    @Param('id') id: string, 
+    @Body('team') updateMatchTeamDto: UpdateMatchTeamDto, 
+    @Body('players') createMatchPlayerDto: CreateMatchPlayerDto[])
+  {
+    return this.matchTeamService.update(+id, updateMatchTeamDto, createMatchPlayerDto);
+  }
+
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.matchTeamService.remove(+id);
@@ -40,15 +54,9 @@ export class MatchTeamController {
 
 
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.matchTeamService.findOne(+id);
-  }
+  
 
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMatchTeamDto: UpdateMatchTeamDto) {
-    return this.matchTeamService.update(+id, updateMatchTeamDto);
-  }
+  
 
   
 }

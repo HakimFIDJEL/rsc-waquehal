@@ -64,14 +64,15 @@ import { useRouter } from "next/navigation"
 import { useToast } from "@/components/ui/use-toast"
 
 import  ImageUploader  from "@/components/ImageUploader"
+import { set } from "date-fns";
 
 interface ImageFile {
   file: File;
-  src: string;
+  url: string;
 }
 
 
-export default function Create() 
+export default function Edit({ params }: {params : { id: number | string }}) 
 {
 
   type Player = {
@@ -107,6 +108,7 @@ export default function Create()
 
   // Récupère les catégories de match
   const fetchData = async () => {
+    // On récupère les catégories de match
     try {
       const response = await axios.get(`${Backend_URL}/match-category`, {
         headers: {
@@ -115,6 +117,41 @@ export default function Create()
       });
       setCategories(response.data);
       setLoading(false);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: "Une erreur s'est produite lors de la récupération des équipes",
+        duration: 3000
+      });
+    }
+
+    // On récupère le match
+    try {
+      const response = await axios.get(`${Backend_URL}/match-team/${params.id}`, {
+        headers: {
+          'Authorization': `Bearer ${access_key}`
+        }
+      });
+      const team = response.data;
+      setCategory(team.categoryId);
+      setStatus(team.status ? 'online' : 'offline');
+      setPlayers(team.players.map((player: any) => ({
+        id: player.id,
+        name: player.name,
+        captain: player.captain ? '1' : '0'
+      })));
+
+      const imageUrl = `${Backend_URL}${team.image}`;
+      const imageResponse = await fetch(imageUrl);
+      const blob = await imageResponse.blob();
+      const file = new File([blob], 'team-image');
+
+      setImages([{
+        file: file,
+        url: imageUrl
+      }]);
+
+
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -217,7 +254,6 @@ export default function Create()
       return;
     }
 
-    console.log(category, status);
     // La catégorie et la statut de l'équipe sont obligatoires
     if(category === '' || status === '') {
       toast({
@@ -268,26 +304,35 @@ export default function Create()
     });
 
 
+
+    
     // use axios to send data to server
-    axios.post(`${Backend_URL}/match-team`, {
+    axios.patch(`${Backend_URL}/match-team/${params.id}`, {
       team: {
         status: localStatusBool,
         categoryId: category,
-        image: "",
       },
-      players: playersDto
+      players: playersDto,
     }, {
       headers: {
-        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
+        'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
       }
     })
     .then((response) => {
         if(response.status === 201 || response.status === 200) 
         {
 
+          console.log(images[0].file);
+
             // Upload de l'image
             const formData = new FormData();
             formData.append('file', images[0].file);
+
+            
+
+
+            
+
             axios.post(`${Backend_URL}/match-team/upload/${response.data.id}`, formData, {
               headers: {
                 'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
@@ -296,7 +341,7 @@ export default function Create()
             }).then((response) => {
                 if(response.status === 201 || response.status === 200) {
                   toast({
-                    description: 'L\'équipe a été créée avec succès',
+                    description: 'L\'équipe a été modifiée avec succès',
                     duration: 3000
                   });
                   router.push('/admin/equipes');

@@ -51,7 +51,8 @@ export class MatchTeamService {
     await fs.mkdir(uploadDir, { recursive: true });
 
     const uniqueSuffix = `${Date.now()}-${Math.round(Math.random() * 1e9)}`;
-    const filename = `${uniqueSuffix}-${file.originalname}`;
+    const fileExtension = file.originalname.split('.').pop();
+    const filename = `${uniqueSuffix}.${fileExtension}`;
     const filePath = join(uploadDir, filename);
 
     if (!file.buffer) {
@@ -78,17 +79,83 @@ export class MatchTeamService {
           select: {
             name: true
           }
-        }
+        },
+        players: true
       }
     });
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} matchTeam`;
+  async findOne(id: number)
+  {
+    return this.prisma.matchTeam.findUnique({
+      where: { id },
+      include: {
+        category: {
+          select: {
+            name: true
+          }
+        },
+        players: true
+      }
+    });
   }
 
-  update(id: number, updateMatchTeamDto: UpdateMatchTeamDto) {
-    return `This action updates a #${id} matchTeam`;
+  async update(id: number, updateMatchTeamDto: UpdateMatchTeamDto, createMatchPlayerDto: CreateMatchPlayerDto[]) 
+  {
+    const matchTeam = await this.prisma.matchTeam.findUnique({
+      where: { id }
+    });
+
+    // On supprime l'image si elle existe
+    const filePath = join(__dirname, '..', '..', 'uploads', matchTeam?.image?.split('/').pop());
+    if(await fs.stat(filePath).then(() => true).catch(() => false)) {
+      await fs.unlink(filePath);
+    }
+
+    // On vide le champ image
+    updateMatchTeamDto.image = "";
+
+    
+
+    // update team
+    await this.prisma.matchTeam.update({
+      where: { id },
+      data: {
+        status: updateMatchTeamDto.status,
+        image: updateMatchTeamDto.image,
+        category: {
+          connect: { id: updateMatchTeamDto.categoryId }
+        }
+      }
+    });
+
+    // remove all players
+    await this.prisma.matchPlayer.deleteMany({
+      where: { teamId: id }
+    });
+
+    // add new players
+    for (const player of createMatchPlayerDto) {
+      await this.prisma.matchPlayer.create({
+        data: {
+          ...player,
+          teamId: id
+        }
+      });
+    }
+
+    // return updated team
+    return this.prisma.matchTeam.findUnique({
+      where: { id },
+      include: {
+        category: {
+          select: {
+            name: true
+          }
+        },
+        players: true
+      }
+    });
   }
 
   async remove(id: number) {
@@ -104,7 +171,12 @@ export class MatchTeamService {
 
     if (matchTeam?.image) {
       const filePath = join(__dirname, '..', '..', 'uploads', matchTeam.image.split('/').pop());
-      await fs.unlink(filePath);
+
+      // if the file exists, delete it
+      if (await fs.stat(filePath).then(() => true).catch(() => false)) {
+        await fs.unlink(filePath);
+      }
+
     }
 
     // remove team
