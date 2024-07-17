@@ -32,7 +32,7 @@ import {
 import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
-import { useState } from "react"
+import { useState, useEffect } from "react"
 import { useRouter } from "next/navigation"
 import axios from 'axios';
 import { Backend_URL } from "@/lib/Constant";
@@ -43,6 +43,12 @@ import { useToast } from "@/components/ui/use-toast"
 
 export default function Create() {
   
+  type Category = {
+    id: string;
+    name: string;
+  }
+
+
   const [title, setTitle] = useState('');
   const [ranking, setRanking] = useState('');
   const [season, setSeason] = useState('');
@@ -51,6 +57,26 @@ export default function Create() {
   const [loading, setLoading] = useState(false);
   const { toast } = useToast();
   const router = useRouter();
+  const [categories, setCategories] = useState<Category[]>([]);
+  const access_key = localStorage.getItem('accessToken');
+
+  const fetchData = async () => {
+    try {
+      const response = await axios.get(`${Backend_URL}/match-category`, {
+        headers: {
+          'Authorization': `Bearer ${access_key}`
+        }
+      });
+      setCategories(response.data);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: "Une erreur s'est produite lors de la récupération des actualités",
+        duration: 3000
+      });
+    }
+  };
 
   const handleSubmit = async (e:any) => {
 
@@ -102,6 +128,15 @@ export default function Create() {
     });
 
   }
+
+  useEffect(() => {
+    fetchData();
+
+
+    return () => {
+      // cleanup
+    }
+  }, []);
 
 
   return (
@@ -183,7 +218,20 @@ export default function Create() {
                       
                       <div className="grid gap-3">
                         <Label htmlFor="name">Catégorie</Label>
-                        <Input id="category" type="text" placeholder="Ex: U18" value={category} onChange={(e) => setCategory(e.target.value)} />
+                        <Select value={category} onValueChange={(value) => setCategory(value)}>
+                          <SelectTrigger id="status" aria-label="Catégorie">
+                            <SelectValue placeholder="Catégorie" />
+                          </SelectTrigger>
+                          <SelectContent>
+                            {/*  A regler  */}
+                            {categories.map((category) => (
+                              <SelectItem key={category.id} value={category.name}>
+                                {category.name}
+                              </SelectItem>
+                            ))}
+                            
+                          </SelectContent>
+                        </Select>
                       </div>
                     </div>
                   </CardContent>

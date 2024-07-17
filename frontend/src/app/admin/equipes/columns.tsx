@@ -90,11 +90,10 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         accessorKey: "image",
         header: "Image",
         cell: ({ row }) => {
-            const images = row.original.image;
-            if (images && images.length > 0 && images !== undefined && images !== null) 
+            const image = row.original.image;
+            if (image ) 
             {
-                const imageUrl = `${Backend_URL}${images[0].url}`;
-                console.log(imageUrl);
+                const imageUrl = `${Backend_URL}${image}`;
                 return (
                     <img src={imageUrl} alt="image" className="w-20 h-20 rounded-lg" />
                 );
@@ -108,8 +107,13 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         },
     },
     {
-        accessorKey: "category",
+        accessorKey: "category.name",
         header: "Catégorie",
+        // Ajax that fetches the category name from the backend
+        cell: ({ cell }) => (
+            <span>{cell.getValue<string>()}</span>
+        ),
+
     },
     
     {

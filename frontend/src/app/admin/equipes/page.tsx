@@ -62,7 +62,7 @@ export default function Index() {
       });
       if(response.status === 200) {
         toast({
-          description: "L'actualité a été supprimée avec succès",
+          description: "L'équipe a été supprimée avec succès",
           duration: 3000
         });
         fetchData();

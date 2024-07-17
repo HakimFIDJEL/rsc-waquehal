@@ -42,12 +42,7 @@ import {
   SheetFooter,
 } from "@/components/ui/sheet"
 
-import {
-  Tooltip,
-  TooltipContent,
-  TooltipProvider,
-  TooltipTrigger,
-} from "@/components/ui/tooltip"
+
 import { Separator } from "@/components/ui/separator"
 import { Switch } from "@/components/ui/switch"
 import {
@@ -207,10 +202,24 @@ export default function Create()
 
   const handleSubmit = async (e:any) => {
 
+    e.preventDefault();
+
     setLoading(true);
 
-    // Egalement vérifier qu'il y a un moins une image
-    if(true) {
+    // L'équipe doit avoir une image
+    if(images.length === 0) {
+      toast({
+        variant: 'destructive',
+        description: 'L\'image de l\'équipe est requise',
+        duration: 3000
+      });
+      setLoading(false);
+      return;
+    }
+
+    console.log(category, status);
+    // La catégorie et la statut de l'équipe sont obligatoires
+    if(category === '' || status === '') {
       toast({
         variant: 'destructive',
         description: 'Veuillez remplir tous les champs',
@@ -220,6 +229,29 @@ export default function Create()
       return;
     }
 
+    // Il doit y avoir au moins un joueur dans l'équipe
+    if(players.length === 0) {
+      toast({
+        variant: 'destructive',
+        description: 'Veuillez ajouter au moins un joueur',
+        duration: 3000
+      });
+      setLoading(false);
+      return;
+    }
+
+    // Il doit y avoir un seul capitaine
+    if(players.filter(player => player.captain === '1').length !== 1) {
+      toast({
+        variant: 'destructive',
+        description: 'Il doit y avoir un seul capitaine',
+        duration: 3000
+      });
+      setLoading(false);
+      return;
+    }
+
+
     let localStatusBool = false;
     if(status === 'online') {
       localStatusBool = true;
@@ -227,23 +259,55 @@ export default function Create()
 
     }
 
+    // replace the players with the dto adjusting the captain boolean
+    const playersDto = players.map(player => {
+      return {
+        name: player.name,
+        captain: player.captain === '1' ? true : false
+      }
+    });
+
 
     // use axios to send data to server
     axios.post(`${Backend_URL}/match-team`, {
-      
-      status: localStatusBool
+      team: {
+        status: localStatusBool,
+        categoryId: category,
+        image: "",
+      },
+      players: playersDto
     }, {
       headers: {
         'Authorization': `Bearer ${localStorage.getItem('accessToken')}`
       }
     })
     .then((response) => {
-        if(response.status === 201 || response.status === 200) {
-            toast({
-                description: 'L\'équipe a été créé avec succès',
-                duration: 3000
-            });
-            router.push('/admin/equipes');
+        if(response.status === 201 || response.status === 200) 
+        {
+
+            // Upload de l'image
+            const formData = new FormData();
+            formData.append('file', images[0].file);
+            axios.post(`${Backend_URL}/match-team/upload/${response.data.id}`, formData, {
+              headers: {
+                'Authorization': `Bearer ${localStorage.getItem('accessToken')}`,
+                'Content-Type': 'multipart/form-data',
+              }
+            }).then((response) => {
+                if(response.status === 201 || response.status === 200) {
+                  toast({
+                    description: 'L\'équipe a été créée avec succès',
+                    duration: 3000
+                  });
+                  router.push('/admin/equipes');
+                }
+              }).catch((error) => {
+                toast({
+                  variant: 'destructive',
+                  description: error.response?.data?.message || error.message,
+                  duration: 3000
+                });
+              });
         }
     })
     .catch((error) => {
