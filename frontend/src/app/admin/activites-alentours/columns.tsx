@@ -34,18 +34,18 @@ import {
   } from "@/components/ui/tooltip"
 
 import { ArrowUpDown, MoreHorizontal, Trash2, Settings2, FileImage  } from "lucide-react"
-
+import { Backend_URL } from "@/lib/Constant"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
 export type data = {
     id: string
-    image: string
+    images: []
     status: string
     name: string
     website: string
     category: string
-    created_at: string
+    createdAt: string
 }
 
 // get a date formated as 2023-07-12 10:42 AM, 12/07/2023 10:42
@@ -59,7 +59,7 @@ export function formatDate(date: string) {
     })
 }
 
-export const columns: ColumnDef<data>[] = [    
+export const columns = (deleteData: (id: string | number) => void): ColumnDef<data>[] => [     
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -82,7 +82,7 @@ export const columns: ColumnDef<data>[] = [
         accessorKey: "status",
         header: "Statut",
         cell: ({ cell }) => (
-            cell.getValue<string>() === "1" ? (
+            cell.getValue<boolean>() === true ? (
                 <Badge variant="default">En ligne</Badge>
             ) : (
                 <Badge variant="secondary">Hors ligne</Badge>
@@ -90,25 +90,25 @@ export const columns: ColumnDef<data>[] = [
         ),
     },
     {
-        accessorKey: "image",
+        accessorKey: "images",
         header: "Image",
-        cell: ({ cell }) => (
-            // if there is a link, display it, if it's empty or null, display a placeholder
-            cell.getValue<string>() ? (
-                <Image
-                    src={cell.getValue<string>()}
-                    alt="Actualité"
-                    width={50}
-                    height={50}
-                    className="rounded-lg"
-                />
-            ) : (
+        cell: ({ row }) => {
+            const images = row.original.images;
+            if (images && images.length > 0 && images !== undefined && images !== null) 
+            {
+                const imageUrl = `${Backend_URL}${images[0].url}`;
+                console.log(imageUrl);
+                return (
+                    <img src={imageUrl} alt="image" className="w-20 h-20 rounded-lg" />
+                );
+
+            }
+            return (
                 <div className="flex items-center justify-center w-10 h-10 border rounded-lg">
                     <FileImage />
                 </div>
-            )
-
-        ),
+            );
+        },
     },
     {
         accessorKey: "name",
@@ -129,11 +129,11 @@ export const columns: ColumnDef<data>[] = [
         ),
     },
     {
-        accessorKey: "category",
+        accessorKey: "category.name",
         header: "Catégorie",
     },
     {
-        accessorKey: "created_at",
+        accessorKey: "createdAt",
         // sortable
         header: ({ column }) => {
             return (
@@ -155,7 +155,7 @@ export const columns: ColumnDef<data>[] = [
         header: "Actions",
         cell: ({ row }) => (
             <div className="flex gap-2">
-                <Link href={`/admin/actualites/${row.original.id}`}>
+                <Link href={`/admin/activites-alentours/edit/${row.original.id}`}>
                     <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
@@ -185,8 +185,10 @@ export const columns: ColumnDef<data>[] = [
                         </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                        <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        <AlertDialogAction>Oui, supprimer !</AlertDialogAction>
+                            <AlertDialogCancel>Annuler</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => deleteData(row.original.id)}>
+                                Oui, supprimer !
+                            </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>

@@ -61,7 +61,7 @@ const ImageUploader = ({ images, setImages, limit, deleteUrl  }) => {
         method: 'DELETE',
         headers: {
           'Content-Type': 'application/json',
-          'Authorization': 'Bearer ' + localStorage.getItem('access_token')
+          'Authorization': 'Bearer ' + localStorage.getItem('accessToken')
         },
         body: JSON.stringify({ id: images[index].id }),
       })

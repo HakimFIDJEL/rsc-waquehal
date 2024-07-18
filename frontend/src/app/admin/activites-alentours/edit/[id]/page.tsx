@@ -68,7 +68,7 @@ interface Category {
 }
 
 
-export default function Create() {
+export default function Edit({ params }: {params : { id: number | string }}) {
   
   const [categoryId, setCategoryId] = useState('');
   const [categoryTitle, setCategoryTitle] = useState('');
@@ -87,6 +87,7 @@ export default function Create() {
   const access_key = localStorage.getItem('accessToken');
 
   const fetchData = async () => {
+    // On récupère les catégories
     try {
       const response = await axios.get(`${Backend_URL}/activity-category`, {
         headers: {
@@ -99,6 +100,33 @@ export default function Create() {
       toast({
         variant: 'destructive',
         description: "Une erreur s'est produite lors de la récupération des actualités",
+        duration: 3000
+      });
+    }
+
+    // On récupère les informations de l'activité
+    try {
+      const response = await axios.get(`${Backend_URL}/activity/${params.id}`, {
+        headers: {
+          'Authorization': `Bearer ${access_key}`
+        }
+      });
+      const activity = response.data;
+      setName(activity.name);
+      setDescription(activity.description);
+      setWebsite(activity.website);
+      setStatus(activity.status ? 'online' : 'offline');
+      setCategoryId(activity.categoryId);
+      for(let i = 0; i < activity.images.length; i++) {
+        activity.images[i].url = `${Backend_URL}${activity.images[i].url}`;
+        activity.images[i].preloaded = true;
+      }
+      setImages(activity.images);
+      setLoading(false);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: "Une erreur s'est produite lors de la récupération des informations de l'activité",
         duration: 3000
       });
     }
@@ -201,7 +229,7 @@ export default function Create() {
 
 
     // use axios to send data to server
-    axios.post(`${Backend_URL}/activity`, {
+    axios.patch(`${Backend_URL}/activity/${params.id}`, {
       name: name,
       description: description,
       website: website,
@@ -214,9 +242,9 @@ export default function Create() {
     })
     .then((response) => {
         if(response.status === 201 || response.status === 200) {
-          const newsId = response.data.id;
+          const activityId = response.data.id;
           toast({
-            description: 'activitée créée avec succès, les images sont en cours de chargement',
+            description: 'L\'activitée créée avec succès, les images sont en cours de chargement',
             duration: 3000
           });
 
@@ -227,7 +255,7 @@ export default function Create() {
           });
 
 
-          axios.post(`${Backend_URL}/activity/upload/${newsId}`, formData, {
+          axios.post(`${Backend_URL}/activity/upload/${activityId}`, formData, {
             headers: {
                "Authorization": `Bearer ${localStorage.getItem('accessToken')}`,
                 "Content-Type": "multipart/form-data"
@@ -411,14 +439,6 @@ export default function Create() {
                   </CardContent>
                 </Card>
 
-                
-
-
-               
-
-                
-               
-               
               </div>
               <div className="grid auto-rows-max items-start gap-4 lg:gap-8">
                 
@@ -437,7 +457,7 @@ export default function Create() {
                           images={images} 
                           setImages={setImages} 
                           limit={null}
-                          deleteUrl=''
+                          deleteUrl={`${Backend_URL}/activity-image/`}
                         />
                     </div>
                   </CardContent>

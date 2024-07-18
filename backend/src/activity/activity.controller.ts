@@ -1,16 +1,15 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Get, Post, Body, Patch, Param, Delete, UseGuards, UseInterceptors, UploadedFiles } from '@nestjs/common';
 import { ActivityService } from './activity.service';
 import { CreateActivityDto } from './dto/create-activity.dto';
 import { UpdateActivityDto } from './dto/update-activity.dto';
+import { JwtGuard } from '../auth/guards/jwt.guard';
+import { AnyFilesInterceptor } from '@nestjs/platform-express';
 
 @Controller('activity')
 export class ActivityController {
   constructor(private readonly activityService: ActivityService) {}
 
-  @Post()
-  create(@Body() createActivityDto: CreateActivityDto) {
-    return this.activityService.create(createActivityDto);
-  }
+  
 
   @Get()
   findAll() {
@@ -22,11 +21,26 @@ export class ActivityController {
     return this.activityService.findOne(+id);
   }
 
+  @UseGuards(JwtGuard)
+  @Post()
+  create(@Body() createActivityDto: CreateActivityDto) {
+    return this.activityService.create(createActivityDto);
+  }
+
+  @UseGuards(JwtGuard)
+  @Post('upload/:id')
+  @UseInterceptors(AnyFilesInterceptor())
+  upload(@Param('id') id: string, @UploadedFiles() files: Express.Multer.File[]) {
+    return this.activityService.upload(+id, files);
+  }
+
+  @UseGuards(JwtGuard)
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
     return this.activityService.update(+id, updateActivityDto);
   }
 
+  @UseGuards(JwtGuard)
   @Delete(':id')
   remove(@Param('id') id: string) {
     return this.activityService.remove(+id);
