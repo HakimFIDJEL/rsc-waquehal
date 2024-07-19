@@ -58,7 +58,7 @@ interface Category {
 
 
 
-export default function Create() {
+export default function Edit({ params }: {params : { id: number | string }}) {
   
 
   const [category, setCategory] = useState("");
@@ -90,6 +90,8 @@ export default function Create() {
   }, []);
 
   const fetchData = async () => {
+    setLoading(true);
+    // Récupérer les catégories et les équipes et le match
     try {
       const categoriesResponse = await axios.get(`${Backend_URL}/match-category`, {
         headers: { 'Authorization': `Bearer ${access_key}` }
@@ -100,13 +102,28 @@ export default function Create() {
         headers: { 'Authorization': `Bearer ${access_key}` }
       });
 
+      const match = await axios.get(`${Backend_URL}/match/${params.id}`, {
+        headers: { 'Authorization': `Bearer ${access_key}` }
+      });
+
+
       const equipesReponseTab: string[] = [];
       equipesResponse.data.forEach((equipe: any) => {
         equipesReponseTab.push(equipe.team_enemy);
       });
+
+
       setEquipes(equipesReponseTab);
 
-      setUsedEquipes(equipesResponse.data);
+      setEquipeAdverse(match.data.team_enemy);
+
+      setCategory(match.data.categoryId);
+      setScoreAllie(match.data.score_ally);
+      setScoreAdverse(match.data.score_enemy);
+      setDateMatch(new Date(match.data.date).toISOString().slice(0, 16));
+      setLieuMatch(match.data.localisation);
+      setStatus(match.data.status ? 'online' : 'offline');
+      
     } catch (error) {
       toast({
         variant: 'destructive',
@@ -116,6 +133,8 @@ export default function Create() {
     } finally {
       setLoading(false);
     }
+
+
   };
 
   const addEquipe = () => {
@@ -216,7 +235,7 @@ export default function Create() {
 
 
     // use axios to send data to server
-    axios.post(`${Backend_URL}/match`, {
+    axios.patch(`${Backend_URL}/match/${params.id}`, {
       categoryId: category,
       score_ally: parseInt(scoreAllie),
       score_enemy: parseInt(scoreAdverse),

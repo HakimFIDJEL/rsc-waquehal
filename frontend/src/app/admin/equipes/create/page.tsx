@@ -405,6 +405,9 @@ export default function Create()
                                 {category.name}
                               </SelectItem>
                             ))}
+                            {categories.length === 0 && (
+                                <SelectItem value="null" disabled>Aucune catégorie disponible</SelectItem>
+                            )}
                             
                           </SelectContent>
                         </Select>

@@ -52,8 +52,8 @@ model Match {
   score_ally   Int
   score_enemy  Int
   localisation String
-  team_ally    MatchTeam     @relation(fields: [team_Id], references: [id])
-  team_Id      Int
+  categoryId   Int
+  category     MatchCategory @relation(fields: [categoryId], references: [id])
   team_enemy   String
   date         DateTime
   createdAt    DateTime      @default(now())
@@ -62,24 +62,24 @@ model Match {
 
 // Todo Matchs Team
 model MatchTeam {
-  id        Int      @id @default(autoincrement())
-  status    Boolean @default(false)
-  category     MatchCategory @relation(fields: [categoryId], references: [id])
-  categoryId   Int
-  matches   Match[]
-  players   MatchPlayer[]
-  image     String
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  id         Int           @id @default(autoincrement())
+  status     Boolean       @default(false)
+  category   MatchCategory @relation(fields: [categoryId], references: [id])
+  categoryId Int
+  players    MatchPlayer[]
+  image      String
+  createdAt  DateTime      @default(now())
+  updatedAt  DateTime      @updatedAt
 }
 
 // Todo Matchs Category
 model MatchCategory {
-  id        Int      @id @default(autoincrement())
+  id        Int         @id @default(autoincrement())
   name      String
   teams     MatchTeam[]
-  createdAt DateTime @default(now())
-  updatedAt DateTime @updatedAt
+  matches   Match[]
+  createdAt DateTime    @default(now())
+  updatedAt DateTime    @updatedAt
 }
 
 // Todo Matchs Player

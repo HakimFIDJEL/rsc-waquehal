@@ -30,10 +30,10 @@ import { ArrowUpDown, MoreHorizontal, Trash2, Settings2, FileImage } from "lucid
 // You can use a Zod schema here if you want.
 export type data = {
     id: string
-    opponent: string
+    team_enemy: string
     category: string
-    score1: number
-    score2: number
+    score_ally: number
+    score_enemy: number
     location: string
     createdAt: string
 }
@@ -83,34 +83,37 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         header: "Résultat",
         cell: ({ cell }) => (
             // place a badge with a success, danger or warning color depending on the results, calculated from the score
-            <Badge
-                variant={cell.row.original.score1 > cell.row.original.score2 ? "default" : cell.row.original.score1 < cell.row.original.score2 ? "destructive" : "secondary"}
-            >
-                {cell.row.original.score1 > cell.row.original.score2 ? "Victoire" : cell.row.original.score1 < cell.row.original.score2 ? "Défaite" : "Match nul"}
-            </Badge>
+            cell.row.original.score_ally > cell.row.original.score_enemy ? (
+                <Badge variant="secondary">Victoire</Badge>
+            ) : cell.row.original.score_ally < cell.row.original.score_enemy ? (
+                <Badge variant="destructive">Défaite</Badge>
+            ) : (
+                <Badge variant="outline">Match nul</Badge>
+            )
             
         ),
     },
     {
-        accessorKey: "opponent",
+        accessorKey: "team_enemy",
         header: "Adversaire",
     },
     {
-        accessorKey: "category",
+        accessorKey: "category.name",
         header: "Catégorie",
     },
     {
-        accessorKey: "score",
         header: "Score",
         cell: ({ cell }) => (
-            // according to the location, if it's "Domicile" or "Extérieur", we display the score in the right order
-            <span>
-                {cell.row.original.location === "Domicile" ? `${cell.row.original.score1} - ${cell.row.original.score2}` : `${cell.row.original.score2} - ${cell.row.original.score1}`}
-            </span>
+            cell.row.original.location === "domicile" ? (
+                <span>{cell.row.original.score_ally} - {cell.row.original.score_enemy}</span>
+            ) : (
+                <span>{cell.row.original.score_enemy} - {cell.row.original.score_ally}</span>
+            )
+
         ),
     },
     {
-        accessorKey: "location",
+        accessorKey: "localisation",
         header: "Lieu",
     },
     {
@@ -136,7 +139,7 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         header: "Actions",
         cell: ({ row }) => (
             <div className="flex gap-2">
-                <Link href={`/admin/actualites/${row.original.id}`}>
+                <Link href={`/admin/matchs/edit/${row.original.id}`}>
                     <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>

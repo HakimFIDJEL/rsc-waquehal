@@ -10,23 +10,11 @@ export class MatchCategoryService {
     private prisma: PrismaService,
   ){}
 
-  create(createMatchCategoryDto: CreateMatchCategoryDto) {
-    return 'This action adds a new matchCategory';
-  }
+
 
   async findAll() {
     return await this.prisma.matchCategory.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} matchCategory`;
-  }
-
-  update(id: number, updateMatchCategoryDto: UpdateMatchCategoryDto) {
-    return `This action updates a #${id} matchCategory`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} matchCategory`;
-  }
+ 
 }

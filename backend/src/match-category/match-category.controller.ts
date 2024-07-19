@@ -10,28 +10,12 @@ export class MatchCategoryController {
     private readonly matchCategoryService: MatchCategoryService,
   ) {}
 
-  // @Post()
-  // create(@Body() createMatchCategoryDto: CreateMatchCategoryDto) {
-  //   return this.matchCategoryService.create(createMatchCategoryDto);
-  // }
+ 
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.matchCategoryService.findAll();
   }
 
-  // @Get(':id')
-  // findOne(@Param('id') id: string) {
-  //   return this.matchCategoryService.findOne(+id);
-  // }
-
-  // @Patch(':id')
-  // update(@Param('id') id: string, @Body() updateMatchCategoryDto: UpdateMatchCategoryDto) {
-  //   return this.matchCategoryService.update(+id, updateMatchCategoryDto);
-  // }
-
-  // @Delete(':id')
-  // remove(@Param('id') id: string) {
-  //   return this.matchCategoryService.remove(+id);
-  // }
+ 
 }

@@ -44,12 +44,13 @@ export default function Index() {
           'Authorization': `Bearer ${access_key}`
         }
       });
+      console.log(response.data);
       setData(response.data);
       setLoading(false);
     } catch (error) {
       toast({
         variant: 'destructive',
-        description: "Une erreur s'est produite lors de la récupération des actualités",
+        description: "Une erreur s'est produite lors de la récupération des matchs",
         duration: 3000
       });
     }
@@ -64,7 +65,7 @@ export default function Index() {
       });
       if(response.status === 200) {
         toast({
-          description: "L'actualité a été supprimée avec succès",
+          description: "Le match a été supprimé avec succès",
           duration: 3000
         });
         fetchData();
@@ -72,7 +73,7 @@ export default function Index() {
     } catch (error) {
       toast({
         variant: 'destructive',
-        description: "Une erreur s'est produite lors de la suppression de l'actualitée",
+        description: "Une erreur s'est produite lors de la suppression du match",
         duration: 3000
       });
     }

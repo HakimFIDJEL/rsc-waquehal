@@ -14,7 +14,7 @@ export class CreateMatchDto {
   localisation: string;
 
   @IsInt()
-  team_Id: number;
+  categoryId: number;
 
   @IsString()
   team_enemy: string;
