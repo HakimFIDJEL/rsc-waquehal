@@ -12,46 +12,37 @@ export class NewsController {
 
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.newsService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.newsService.findOne(+id);
   }
 
-  @UseGuards(JwtGuard)
   @Post()
-  create(@Body() createNewsDto: CreateNewsDto) {
+  @UseGuards(JwtGuard)
+  async create(@Body() createNewsDto: CreateNewsDto) {
     return this.newsService.create(createNewsDto);
   }
 
-  @UseGuards(JwtGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateNewsDto: UpdateNewsDto) {
+  @UseGuards(JwtGuard)
+  async update(@Param('id') id: string, @Body() updateNewsDto: UpdateNewsDto) {
     return this.newsService.update(+id, updateNewsDto);
   }
 
-  @UseGuards(JwtGuard)
   @Post('upload/:id')
+  @UseGuards(JwtGuard)
   @UseInterceptors(AnyFilesInterceptor())
-  upload(@Param('id') id: string, @UploadedFiles() files: Express.Multer.File[]) {
+  async upload(@Param('id') id: string, @UploadedFiles() files: Express.Multer.File[]) {
     return this.newsService.upload(+id, files);
   }
 
-  @UseGuards(JwtGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  @UseGuards(JwtGuard)
+  async remove(@Param('id') id: string) {
     return this.newsService.remove(+id);
   }
-
-  
-
-
-  
-
-  
-
-  
 }

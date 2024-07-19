@@ -14,9 +14,8 @@ export class MatchTeamService {
     private prisma: PrismaService,
   ){}
 
-
-  async create(createMatchTeamDto: CreateMatchTeamDto,  createMatchPlayerDto: CreateMatchPlayerDto[])
-  {
+  // Création d'une équipe - Fait
+  async create(createMatchTeamDto: CreateMatchTeamDto,  createMatchPlayerDto: CreateMatchPlayerDto[]) {
     const matchTeam = await this.prisma.matchTeam.create({
       data: createMatchTeamDto
     });
@@ -29,10 +28,10 @@ export class MatchTeamService {
         }
       });
     }
-
     return matchTeam;
   }
 
+  // Upload d'une image - Fait
   async upload(id: number, file: Express.Multer.File) {
     if (!file) {
       await this.remove(id);
@@ -70,9 +69,9 @@ export class MatchTeamService {
     });
   }
 
+  // Retournes toutes les équipes - Fait
   async findAll() 
   {
-    // return all teams, make a join for the categoryId and return the category name
     return this.prisma.matchTeam.findMany({
       include: {
         category: {
@@ -85,6 +84,7 @@ export class MatchTeamService {
     });
   }
 
+  // Retournes une équipe - Fait
   async findOne(id: number)
   {
     return this.prisma.matchTeam.findUnique({
@@ -100,6 +100,7 @@ export class MatchTeamService {
     });
   }
 
+  // Mise à jour d'une équipe - Fait
   async update(id: number, updateMatchTeamDto: UpdateMatchTeamDto, createMatchPlayerDto: CreateMatchPlayerDto[]) 
   {
     const matchTeam = await this.prisma.matchTeam.findUnique({
@@ -115,7 +116,6 @@ export class MatchTeamService {
     // On vide le champ image
     updateMatchTeamDto.image = "";
 
-    
 
     // update team
     await this.prisma.matchTeam.update({
@@ -158,6 +158,7 @@ export class MatchTeamService {
     });
   }
 
+  // Suppression d'une équipe - Fait
   async remove(id: number) {
     // remove all players
     await this.prisma.matchPlayer.deleteMany({

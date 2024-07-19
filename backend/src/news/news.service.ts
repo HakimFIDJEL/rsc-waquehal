@@ -13,7 +13,7 @@ export class NewsService {
     private newsImage: NewsImageService
   ){}
 
-  // give a type to createNewsDto and images type file
+  // Création d'une actualité - Fait
   async create(createNewsDto: CreateNewsDto) {
     return await this.prisma.news.create({
       data: {
@@ -24,6 +24,7 @@ export class NewsService {
     });
   }
 
+  // Upload d'une ou plusieurs image(s) - Fait
   async upload(id: number, files: Express.Multer.File[]) 
   {
     const news = await this.prisma.news.findUnique({
@@ -38,9 +39,56 @@ export class NewsService {
     return await this.newsImage.upload(id, files);
   }
 
+
+  // Récupération de toutes les actualités - Fait
+  async findAll(){
+    return await this.prisma.news.findMany({
+      include: {
+        images: true
+      }
+    });
+  }
+
+  // Récupération d'une actualité - Fait
+  async findOne(id: number) {
+    return await this.prisma.news.findUnique({
+      where: {
+        id: id
+      },
+      include: {
+        images: true
+      }
+    });
+  }
+
+  // Mise à jour d'une actualité - Fait
+  async update(id: number, updateNewsDto: UpdateNewsDto) 
+  {
+    const news = await this.prisma.news.findUnique({
+      where: {
+        id: id
+      }
+    });
+
+    if(!news) {
+      throw new ConflictException('L\'actualité n\'existe pas');
+    }
+
+    return await this.prisma.news.update({
+      where: {
+        id: id
+      },
+      data: {
+        title: updateNewsDto.title,
+        content: updateNewsDto.content,
+        status: updateNewsDto.status,
+      }
+    });
+  }
+
+  // Suppression d'une actualité - Fait
   async remove(id: number) 
   {
-
     const images = await this.prisma.newsImage.findMany({
       where: {
         newsId: id
@@ -54,54 +102,6 @@ export class NewsService {
     return await this.prisma.news.delete({
       where: {
         id: id
-      }
-    });
-  }
-
-  async findAll(){
-    const news = await this.prisma.news.findMany({
-      include: {
-        images: true
-      }
-    });
-    return news;
-  }
-
-  async findOne(id: number) {
-    const news = await this.prisma.news.findUnique({
-      where: {
-        id: id
-      },
-      include: {
-        images: true
-      }
-    });
-    return news
-  }
-
-  async update(id: number, updateNewsDto: UpdateNewsDto) 
-  {
-    const news = await this.prisma.news.findUnique({
-      where: {
-        id: id
-      }
-    });
-
-    if(!news) {
-      throw new ConflictException('L\'actualité n\'existe pas');
-    }
-
-    
-
-    // On met à jour l'actualité
-    return await this.prisma.news.update({
-      where: {
-        id: id
-      },
-      data: {
-        title: updateNewsDto.title,
-        content: updateNewsDto.content,
-        status: updateNewsDto.status,
       }
     });
   }

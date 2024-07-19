@@ -16,8 +16,6 @@ import { Button } from "@/components/ui/button"
 import {
   Card,
   CardContent,
-  CardDescription,
-  CardFooter,
   CardHeader,
   CardTitle,
 } from "@/components/ui/card"
@@ -44,10 +42,10 @@ import  ImageUploader  from "@/components/ImageUploader"
 
 interface ImageFile {
   file: File;
-  src: string;
+  url: string;
 }
 
-export default function Create() {
+export default function Edit({ params }: {params : { id: number | string }}) {
   
 
   const [images, setImages] = useState<ImageFile[]>([]);
@@ -61,6 +59,52 @@ export default function Create() {
   const router = useRouter();
   const { toast } = useToast();
   const access_key = localStorage.getItem('accessToken');
+
+
+  const fetchData = async () => {
+    // On récupère les catégories de match
+    try {
+      const response = await axios.get(`${Backend_URL}/sponsor/${params.id}`, {
+        headers: {
+          'Authorization': `Bearer ${access_key}`
+        }
+      });
+      
+
+      const sponsor = response.data;
+      setName(sponsor.name);
+      setWebsite(sponsor.website);
+      setStatus(sponsor.status ? 'online' : 'offline');
+     
+
+      const imageUrl = `${Backend_URL}${sponsor.image}`;
+      const imageResponse = await fetch(imageUrl);
+      const blob = await imageResponse.blob();
+      const file = new File([blob], 'sponsor');
+
+      setImages([{
+        file: file,
+        url: imageUrl
+      }]);
+
+      setLoading(false);
+    } catch (error) {
+      toast({
+        variant: 'destructive',
+        description: "Une erreur s'est produite lors de la récupération des équipes",
+        duration: 3000
+      });
+    }
+  }
+
+  useEffect(() => {
+    fetchData();
+
+
+    return () => {
+      // cleanup
+    }
+  }, []);
 
   const handleSubmit = async (e:any) => {
 
@@ -99,7 +143,7 @@ export default function Create() {
 
 
     // use axios to send data to server
-    axios.post(`${Backend_URL}/sponsor`, {
+    axios.patch(`${Backend_URL}/sponsor/${params.id}`, {
       name: name,
       website: website,
       status: localStatusBool,
@@ -172,7 +216,7 @@ export default function Create() {
                 </BreadcrumbItem>
                 <BreadcrumbSeparator />
                 <BreadcrumbItem>
-                  <BreadcrumbPage>Créer</BreadcrumbPage>
+                  <BreadcrumbPage>Modifier</BreadcrumbPage>
                 </BreadcrumbItem>
               </BreadcrumbList>
             </Breadcrumb>
@@ -184,7 +228,7 @@ export default function Create() {
                 </Button>
               </Link>
               <h1 className="flex-1 shrink-0 whitespace-nowrap text-xl font-semibold tracking-tight sm:grow-0">
-                Créer un sponsor
+                Modifier un sponsor
               </h1>
               <div className="hidden items-center gap-2 md:ml-auto md:flex">
                 {/* <Button variant="outline" size="sm">
@@ -211,11 +255,11 @@ export default function Create() {
 
                       <div className="grid gap-3">
                         <Label htmlFor="name">Nom</Label>
-                        <Input id="name"  placeholder="Ex: Adidas" onChange={(e) => setName(e.target.value)}/>
+                        <Input id="name"  placeholder="Ex: Adidas" onChange={(e) => setName(e.target.value)} value={name}/>
                       </div>
                       <div className="grid gap-3">
                         <Label htmlFor="name">Site internet</Label>
-                        <Input id="name" placeholder="Ex: https://adidas.com" onChange={(e) => setWebsite(e.target.value)}/>
+                        <Input id="name" placeholder="Ex: https://adidas.com" onChange={(e) => setWebsite(e.target.value)} value={website}/>
                       </div>
                     </div>
                   </CardContent>
@@ -270,12 +314,6 @@ export default function Create() {
           </div>
         </main>
         <Toaster />
-      </>
-
-
-        
-
-
-      
+      </> 
   )
 }

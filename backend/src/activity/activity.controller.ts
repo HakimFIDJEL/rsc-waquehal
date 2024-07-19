@@ -12,37 +12,37 @@ export class ActivityController {
   
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.activityService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.activityService.findOne(+id);
   }
 
   @UseGuards(JwtGuard)
   @Post()
-  create(@Body() createActivityDto: CreateActivityDto) {
+  async create(@Body() createActivityDto: CreateActivityDto) {
     return this.activityService.create(createActivityDto);
   }
 
   @UseGuards(JwtGuard)
   @Post('upload/:id')
   @UseInterceptors(AnyFilesInterceptor())
-  upload(@Param('id') id: string, @UploadedFiles() files: Express.Multer.File[]) {
+  async upload(@Param('id') id: string, @UploadedFiles() files: Express.Multer.File[]) {
     return this.activityService.upload(+id, files);
   }
 
   @UseGuards(JwtGuard)
   @Patch(':id')
-  update(@Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
+  async update(@Param('id') id: string, @Body() updateActivityDto: UpdateActivityDto) {
     return this.activityService.update(+id, updateActivityDto);
   }
 
   @UseGuards(JwtGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.activityService.remove(+id);
   }
 }

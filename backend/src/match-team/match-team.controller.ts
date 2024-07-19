@@ -13,42 +13,39 @@ export class MatchTeamController {
 
   
   @Get()
-  findAll() {
+  async findAll() {
     return this.matchTeamService.findAll();
   }
 
   @Get(':id')
-  findOne(@Param('id') id: string) {
+  async findOne(@Param('id') id: string) {
     return this.matchTeamService.findOne(+id);
   }
 
-  @UseGuards(JwtGuard)
   @Post()
-  create(@Body('team') createMatchTeamDto: CreateMatchTeamDto, @Body('players') createMatchPlayerDto: CreateMatchPlayerDto[])
-  {
+  @UseGuards(JwtGuard)
+  async create(@Body('team') createMatchTeamDto: CreateMatchTeamDto, @Body('players') createMatchPlayerDto: CreateMatchPlayerDto[]) {
     return this.matchTeamService.create(createMatchTeamDto, createMatchPlayerDto);
   }
 
-  @UseGuards(JwtGuard)
   @Post('upload/:id')
+  @UseGuards(JwtGuard)
   @UseInterceptors(FileInterceptor('file'))
-  upload(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) 
-  {
+  async upload(@Param('id') id: string, @UploadedFile() file: Express.Multer.File) {
     return this.matchTeamService.upload(+id, file);
   }
 
   @UseGuards(JwtGuard)
   @Patch(':id')
-  update(
+  async update(
     @Param('id') id: string, 
     @Body('team') updateMatchTeamDto: UpdateMatchTeamDto, 
-    @Body('players') createMatchPlayerDto: CreateMatchPlayerDto[])
-  {
+    @Body('players') createMatchPlayerDto: CreateMatchPlayerDto[]) {
     return this.matchTeamService.update(+id, updateMatchTeamDto, createMatchPlayerDto);
   }
 
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.matchTeamService.remove(+id);
   }
 

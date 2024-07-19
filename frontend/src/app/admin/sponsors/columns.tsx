@@ -1,15 +1,7 @@
 "use client"
 
 import { ColumnDef } from "@tanstack/react-table"
-import {
-    DropdownMenu,
-    DropdownMenuContent,
-    DropdownMenuItem,
-    DropdownMenuLabel,
-    DropdownMenuTrigger,
-  } from "@/components/ui/dropdown-menu"
 import Link from "next/link"
-import Image from "next/image"
 import { Button } from "@/components/ui/button"
 import { Badge } from "@/components/ui/badge"
 
@@ -23,17 +15,16 @@ import {
     AlertDialogHeader,
     AlertDialogTitle,
     AlertDialogTrigger,
-  } from "@/components/ui/alert-dialog"
-  
-  
-  import {
+} from "@/components/ui/alert-dialog"
+import {
     Tooltip,
     TooltipContent,
     TooltipProvider,
     TooltipTrigger,
-  } from "@/components/ui/tooltip"
+} from "@/components/ui/tooltip"
 
-  import { ArrowUpDown, MoreHorizontal, Trash2, Settings2, FileImage  } from "lucide-react"
+import { ArrowUpDown, MoreHorizontal, Trash2, Settings2, FileImage  } from "lucide-react"
+import { Backend_URL } from "@/lib/Constant"
 
 // This type is used to define the shape of our data.
 // You can use a Zod schema here if you want.
@@ -41,7 +32,7 @@ export type data = {
     id: string
     status: string
     name: string
-    logo: string
+    image: string
     website: string
     created_at: string
 }
@@ -57,7 +48,7 @@ export function formatDate(date: string) {
     })
 }
 
-export const columns: ColumnDef<data>[] = [    
+export const columns = (deleteData: (id: string | number) => void): ColumnDef<data>[] => [      
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -80,7 +71,7 @@ export const columns: ColumnDef<data>[] = [
         accessorKey: "status",
         header: "Statut",
         cell: ({ cell }) => (
-            cell.getValue<string>() === "1" ? (
+            cell.getValue<boolean>() === true ? (
                 <Badge variant="default">En ligne</Badge>
             ) : (
                 <Badge variant="secondary">Hors ligne</Badge>
@@ -88,23 +79,24 @@ export const columns: ColumnDef<data>[] = [
         ),
     },
     {
-        accessorKey: "logo",
-        header: "Logo",
-        cell: ({ cell }) => (
-            cell.getValue<string>() ? (
-                <Image
-                    src={cell.getValue<string>()}
-                    alt="Actualité"
-                    width={50}
-                    height={50}
-                    className="rounded-lg"
-                />
-            ) : (
+        accessorKey: "image",
+        header: "Image",
+        cell: ({ row }) => {
+            const image = row.original.image;
+            if (image ) 
+            {
+                const imageUrl = `${Backend_URL}${image}`;
+                return (
+                    <img src={imageUrl} alt="image" className="w-20 h-20 rounded-lg" />
+                );
+
+            }
+            return (
                 <div className="flex items-center justify-center w-10 h-10 border rounded-lg">
                     <FileImage />
                 </div>
-            )
-        ),
+            );
+        },
     },
     
     {
@@ -127,7 +119,7 @@ export const columns: ColumnDef<data>[] = [
     },
     
     {
-        accessorKey: "created_at",
+        accessorKey: "createdAt",
         // sortable
         header: ({ column }) => {
             return (
@@ -149,7 +141,7 @@ export const columns: ColumnDef<data>[] = [
         header: "Actions",
         cell: ({ row }) => (
             <div className="flex gap-2">
-                <Link href={`/admin/actualites/${row.original.id}`}>
+                <Link href={`/admin/sponsors/edit/${row.original.id}`}>
                     <TooltipProvider>
                         <Tooltip>
                           <TooltipTrigger asChild>
@@ -179,8 +171,10 @@ export const columns: ColumnDef<data>[] = [
                         </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                        <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        <AlertDialogAction>Oui, supprimer !</AlertDialogAction>
+                            <AlertDialogCancel>Annuler</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => deleteData(row.original.id)}>
+                                Oui, supprimer !
+                            </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>

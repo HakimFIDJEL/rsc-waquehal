@@ -14,18 +14,18 @@ export class ActivityService {
   ){}
 
 
-  async findAll() 
-  {
-    const activities = await this.prisma.activity.findMany({
+  // Retournes toutes les activités - Fait
+  async findAll() {
+    return await this.prisma.activity.findMany({
       include: {
         images: true,
         category: true
       }
     });
-    return activities;
   }
-  async create(createActivityDto: CreateActivityDto) 
-  {
+
+  // Création d'une activité - Fait
+  async create(createActivityDto: CreateActivityDto) {
     return await this.prisma.activity.create({
       data: {
         name: createActivityDto.name,
@@ -39,11 +39,10 @@ export class ActivityService {
         }
       }
     });
-    
   }
 
-  async upload(id: number, files: Express.Multer.File[]) 
-  {
+  // Upload d'une ou plusieurs image(s) - Fait
+  async upload(id: number, files: Express.Multer.File[]) {
     const activity = await this.prisma.activity.findUnique({
       where: {
         id: id
@@ -52,31 +51,36 @@ export class ActivityService {
     if(!activity) {
       throw new ConflictException('L\'activité n\'existe pas');
     }
-    
-   
     return await this.activityImage.upload(id, files);
   }
 
+  // Suppression d'une activité - Fait
   async remove(id: number) {
+    // On récupère l'activité
     const activity = await this.prisma.activity.findUnique({
       where: {
         id: id
       }
     });
+
+    // Si l'activité n'existe pas on retourne une erreur
     if(!activity) {
       throw new ConflictException('L\'activité n\'existe pas');
     }
     
+    // On récupère les images de l'activité
     const images = await this.prisma.activityImage.findMany({
       where: {
         activityId: id
       }
     });
 
+    // Pour chaque image, on la supprime
     for (const image of images) {
       await this.activityImage.remove(image.id);
     }
 
+    // On supprime l'activité
     return await this.prisma.activity.delete({
       where: {
         id: id
@@ -85,8 +89,8 @@ export class ActivityService {
   }
 
 
-  async findOne(id: number) 
-  {
+  // Récupération d'une activité - Fait
+  async findOne(id: number) {
     return await this.prisma.activity.findUnique({
       where: {
         id: id
@@ -98,6 +102,7 @@ export class ActivityService {
     });
   }
 
+  // Mise à jour d'une activité - Fait
   async update(id: number, updateActivityDto: UpdateActivityDto) {
     const activity = await this.prisma.activity.findUnique({
       where: {

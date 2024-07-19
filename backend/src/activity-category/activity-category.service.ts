@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { CreateActivityCategoryDto } from './dto/create-activity-category.dto';
 import { UpdateActivityCategoryDto } from './dto/update-activity-category.dto';
 import { PrismaService } from '../prisma.service';
+import { ConflictException } from '@nestjs/common';
 
 @Injectable()
 export class ActivityCategoryService {
@@ -10,25 +11,33 @@ export class ActivityCategoryService {
     private prisma: PrismaService,
   ){}
 
-
+  // Retournes toutes les catégories d'activités - Fait
   async findAll() {
-    const activityCategories = await this.prisma.activityCategory.findMany();
-    return activityCategories;
+    return await this.prisma.activityCategory.findMany();
   }
 
-  async create(createActivityCategoryDto: CreateActivityCategoryDto) 
-  {
-    const activityCategory = await this.prisma.activityCategory.create({
+  // Création d'une catégorie d'activité - Fait
+  async create(createActivityCategoryDto: CreateActivityCategoryDto) {
+    return await this.prisma.activityCategory.create({
       data: createActivityCategoryDto
     });
-    return activityCategory;
   }
 
+  // Mise à jour d'une catégorie d'activité - Fait
   async remove(id: number) {
-    const activityCategory = await this.prisma.activityCategory.delete({
+    const activities = await this.prisma.activity.findMany({
+      where: {
+        categoryId: id
+      }
+    });
+
+    if(activities.length > 0) {
+      throw new ConflictException('Des activités sont associées à cette catégorie');
+    }
+
+    return await this.prisma.activityCategory.delete({
       where: {id}
     });
-    return activityCategory;
   }
 }
 

@@ -14,6 +14,7 @@ export class ActivityImageService {
   ){}
 
 
+  // Création d'une image d'activité - Fait
   async upload(id: number, files: Express.Multer.File[]) 
   {
     const activity = await this.prisma.activity.findUnique({
@@ -50,20 +51,28 @@ export class ActivityImageService {
     return uploadedFiles;
   }
 
+  // Suppression d'une image d'activité - Fait
   async remove(id: number) 
   {
+    // Vérification de l'existence de l'image
     const image = await this.prisma.activityImage.findUnique({
       where: {
         id: id
       }
     });
 
+    // Si l'image n'existe pas, on renvoie une erreur
     if(!image) {
       throw new ConflictException('L\'image n\'existe pas');
     }
 
-    await fs.unlink(join(__dirname, '..', '..', image.url));
+    // Suppression de l'image du serveur
+    if(await fs.stat(join(__dirname, '..', '..', image.url)).then(() => true).catch(() => false))
+    {
+      await fs.unlink(join(__dirname, '..', '..', image.url));
+    }
 
+    // Suppression de l'image de la base de données
     return await this.prisma.activityImage.delete({
       where: {
         id: id

@@ -11,19 +11,19 @@ export class ActivityCategoryController {
   
 
   @Get()
-  findAll() {
+  async findAll() {
     return this.activityCategoryService.findAll();
   }
 
   @UseGuards(JwtGuard)
   @Post()
-  create(@Body() createActivityCategoryDto: CreateActivityCategoryDto) {
+  async create(@Body() createActivityCategoryDto: CreateActivityCategoryDto) {
     return this.activityCategoryService.create(createActivityCategoryDto);
   }
 
   @UseGuards(JwtGuard)
   @Delete(':id')
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.activityCategoryService.remove(+id);
   }
 

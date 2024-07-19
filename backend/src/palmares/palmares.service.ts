@@ -10,17 +10,19 @@ export class PalmaresService {
     private prisma: PrismaService,
   ){}
 
+  // Création d'un palmares - Fait
   async create(createPalmareDto: CreatePalmaresDto) {
     return await this.prisma.palmares.create({
       data: createPalmareDto
     });
-
   }
 
+  // Récupération de tous les palmares - Fait
   async findAll() {
     return await this.prisma.palmares.findMany();
   }
 
+  // Suppression d'un palmares - Fait
   async remove(id: number) {
     return await this.prisma.palmares.delete({
       where: {
@@ -29,6 +31,7 @@ export class PalmaresService {
     });
   }
 
+  // Récupération d'un palmares - Fait
   async findOne(id: number) {
     return await this.prisma.palmares.findUnique({
       where: {
@@ -37,6 +40,7 @@ export class PalmaresService {
     });
   }
 
+  // Mise à jour d'un palmares - Fait
   async update(id: number, updatePalmareDto: UpdatePalmaresDto) 
   {
     return await this.prisma.palmares.update({

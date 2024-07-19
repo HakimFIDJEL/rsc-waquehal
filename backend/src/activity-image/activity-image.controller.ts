@@ -11,7 +11,7 @@ export class ActivityImageController {
 
   @Delete(':id')
   @UseGuards(JwtGuard)
-  remove(@Param('id') id: string) {
+  async remove(@Param('id') id: string) {
     return this.activityImageService.remove(+id);
   }
 }
