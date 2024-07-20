@@ -56,7 +56,7 @@ export type data = {
     name: string
     email: string
     message: string
-    created_at: string
+    createdAt: string
 }
 
 // get a date formated as 2023-07-12 10:42 AM, 12/07/2023 10:42
@@ -70,7 +70,7 @@ export function formatDate(date: string) {
     })
 }
 
-export const columns: ColumnDef<data>[] = [    
+export const columns = (deleteData: (id: string | number) => void): ColumnDef<data>[] => [    
     {
         accessorKey: "id",
         header: ({ column }) => {
@@ -103,7 +103,7 @@ export const columns: ColumnDef<data>[] = [
         ),
     },
     {
-        accessorKey: "created_at",
+        accessorKey: "createdAt",
         // sortable
         header: ({ column }) => {
             return (
@@ -159,8 +159,10 @@ export const columns: ColumnDef<data>[] = [
                         </AlertDialogDescription>
                         </AlertDialogHeader>
                         <AlertDialogFooter>
-                        <AlertDialogCancel>Annuler</AlertDialogCancel>
-                        <AlertDialogAction>Oui, supprimer !</AlertDialogAction>
+                            <AlertDialogCancel>Annuler</AlertDialogCancel>
+                            <AlertDialogAction onClick={() => deleteData(row.original.id)}>
+                                Oui, supprimer !
+                            </AlertDialogAction>
                         </AlertDialogFooter>
                     </AlertDialogContent>
                 </AlertDialog>

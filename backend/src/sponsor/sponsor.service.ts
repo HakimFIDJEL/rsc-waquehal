@@ -70,6 +70,19 @@ export class SponsorService {
   }
 
   async update(id: number, updateSponsorDto: UpdateSponsorDto) {
+
+    const sponsor = await this.prisma.sponsor.findUnique({
+      where: { id }
+    });
+
+    const image = sponsor?.image;
+    const filePath = join(__dirname, '..', '..', 'uploads', image.split('/').pop());
+
+    if(image && await fs.stat(filePath).then(() => true).catch(() => false))
+    {
+      await fs.unlink(filePath);
+    }
+
     return await this.prisma.sponsor.update({
       where: { id },
       data: updateSponsorDto

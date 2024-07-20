@@ -1,3 +1,4 @@
+"use client";
 import React from 'react';
 
 import { Input } from '@/components/forms/Input';
@@ -7,6 +8,8 @@ import { ActivityCard } from '@/components/elements/ActivityCard';
 import { Arrow } from '@/components/elements/Arrow';
 
 import  Carousel  from '@/components/elements/Carousel';
+import axios from 'axios';
+import { Backend_URL } from '@/lib/Constant';
 
 export default function Contact()
 {
@@ -47,6 +50,26 @@ export default function Contact()
         },
     };
 
+    const [name, setName] = React.useState('');
+    const [email, setEmail] = React.useState('');
+    const [message, setMessage] = React.useState('');
+
+    const handleSubmit = async (e: any) => {
+        e.preventDefault();
+
+        try {
+            await axios.post(`${Backend_URL}/contact`, {
+                name,
+                email,
+                message
+            });
+
+            console.log('Message envoyé avec succès');
+            
+        } catch (error) {
+            console.log(error);
+        }
+    }
 
     return <main className="contact">
         <section className="hero section">
@@ -103,33 +126,40 @@ export default function Contact()
                         <h1>Nous contacter</h1>
                     </div>
 
-                    <form action="" className="">
+                    <form onSubmit={handleSubmit}>
                         <div className="input__group">
                             <Input 
                                 type="text"
                                 name="name"
                                 label="Votre nom"
+                                value={name}
+                                onChange={(e: any) => setName(e.target.value)}
                             />
                         </div>
                         <div className="input__group">
                             <Input 
                                 type="text"
-                                name="mail"
+                                name="email"
                                 label="Votre adresse mail"
+                                value={email}
+                                onChange={(e: any) => setEmail(e.target.value)}
                             />
 
                         </div>
                         <div className="input__group">
                             <Input 
                                 type="textarea"
-                                name="content"
+                                name="message"
                                 label="Votre message"
+                                value={message}
+                                onChange={(e: any) => setMessage(e.target.value)}
                             />
                         </div>
 
                         <span>
                             <Button 
                                 className="btn secondary-button"
+                                type="submit"
                             >
                                 Envoyer
                             </Button>

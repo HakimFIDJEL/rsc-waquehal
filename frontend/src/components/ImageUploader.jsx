@@ -78,7 +78,7 @@ const ImageUploader = ({ images, setImages, limit, deleteUrl  }) => {
         <div key={index} className="relative">
           <DropdownMenu>
             <DropdownMenuTrigger asChild>
-                <span className="flex aspect-square w-full items-center justify-center cursor-pointer">
+                <span className="flex aspect-square w-full items-center justify-center cursor-pointer" style={{ aspectRatio: '1/1' }}>
                     <img src={image.url} alt={`Image ${index + 1}`} className="w-full h-full object-cover rounded-lg" />
                 </span>
             </DropdownMenuTrigger>
@@ -115,7 +115,7 @@ const ImageUploader = ({ images, setImages, limit, deleteUrl  }) => {
       {(limit - 1) >= images.length && (
         <>
             <Label htmlFor="image">
-                <span className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed cursor-pointer">
+                <span className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed cursor-pointer" style={{ aspectRatio: '1/1' }}>
                 <Upload className="h-4 w-4 text-muted-foreground" />
                 <span className="sr-only">Upload</span>
                 </span>

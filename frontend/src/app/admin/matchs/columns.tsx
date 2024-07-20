@@ -34,7 +34,7 @@ export type data = {
     category: string
     score_ally: number
     score_enemy: number
-    location: string
+    localisation: string
     createdAt: string
 }
 
@@ -104,7 +104,7 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
     {
         header: "Score",
         cell: ({ cell }) => (
-            cell.row.original.location === "domicile" ? (
+            cell.row.original.localisation === "domicile" ? (
                 <span>{cell.row.original.score_ally} - {cell.row.original.score_enemy}</span>
             ) : (
                 <span>{cell.row.original.score_enemy} - {cell.row.original.score_ally}</span>

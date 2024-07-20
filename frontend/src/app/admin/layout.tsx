@@ -1,13 +1,8 @@
 "use client";
-import type { Metadata } from "next";
 import React from "react";
 import { useEffect } from "react";
 import Link from "next/link";
-import $ from "jquery";
-
-// Styles
 import "@/styles/css/admin.css";
-
 import {
   Home,
   LineChart,
@@ -30,14 +25,11 @@ import { Button } from "@/components/ui/button"
 import { Separator } from "@/components/ui/separator"
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet"
 import  LogoutButton  from "./LogoutButton"
-
-import { useRouter } from "next/navigation";
-import { useState } from "react";
 import { useAuth } from "@/utils/auth";
-
+import { useRouter, usePathname } from "next/navigation";
 import  LoadingScreen  from "@/components/LoadingScreen";
 
-
+import NavLink from "./NavLink";
 
 
 
@@ -48,23 +40,20 @@ export default function AdminLayout  ({
 })  {
 
 
+
   const { isAuthenticated, checkAuth } = useAuth();
+  const router = useRouter();
+  const pathname = usePathname();
 
   useEffect(() => {
     checkAuth();
-
-    return () => {
-      // cleanup
-    }
-  }, []);
+  }, [pathname]);
 
   if (!isAuthenticated) {
-    return (
-      <LoadingScreen />
-    )
+    return <LoadingScreen />;
   }
- 
 
+  
 
   
   
@@ -72,7 +61,6 @@ export default function AdminLayout  ({
   return (
       <html lang="fr" className="light">
         <head>
-          
         </head>
 
         <body className="bg-gray-100 flex items-center justify-center min-h-screen">
@@ -87,89 +75,51 @@ export default function AdminLayout  ({
               </div>
               <div className="flex-1">
                 <nav className="grid items-start px-2 text-sm font-medium lg:px-4">
-                  <Link
-                    href="/admin"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all hover:text-primary"
-                  >
-                    <Home className="h-4 w-4" />
+                  <NavLink href="/admin" icon={<Home className="h-4 w-4" />}>
                     Tableau de bord
-                  </Link>
-                  <Link
-                    href="/admin/actualites"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Newspaper className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/actualites" icon={<Newspaper className="h-4 w-4" />}>
                     Actualités
-                    {/* <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                      6
-                    </Badge> */}
-                  </Link>
-                  <Link
-                    href="/admin/matchs"
-                    className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Archive className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/matchs" icon={<Archive className="h-4 w-4" />}>
                     Matchs
-                  </Link>
-                  
-                  <Link
-                    href="/admin/galerie"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Aperture className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/galerie" icon={<Aperture className="h-4 w-4" />}>
                     Galerie
-                  </Link>
-                  <Link
-                    href="/admin/palmares"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Trophy className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/palmares" icon={<Trophy className="h-4 w-4" />}>
                     Palmares
-                  </Link>
-                  <Link
-                    href="/admin/sponsors"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Handshake className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/sponsors" icon={<Handshake className="h-4 w-4" />}>
                     Sponsors
-                  </Link>
-                  <Link
-                    href="/admin/equipes"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <ContactRound className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/equipes" icon={<ContactRound className="h-4 w-4" />}>
                     Equipes
-                  </Link>
-                  <Link
-                    href="/admin/activites-alentours"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <MapPin className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/activites-alentours" icon={<MapPin className="h-4 w-4" />}>
                     Activités alentours
-                  </Link>
-                  <Link
-                    href="/admin/contact"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Mail className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/contact" icon={<Mail className="h-4 w-4" />}>
                     Contact
-                  </Link>
-                  <Link
-                    href="/admin/calendar"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <CalendarDays className="h-4 w-4" />
+                  </NavLink>
+
+                  <NavLink href="/admin/calendar" icon={<CalendarDays className="h-4 w-4" />}>
                     Calendrier
-                  </Link>
+                  </NavLink>
+
                   <Separator className="my-4" />
-                  <Link
-                    href="/admin/users"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Users className="h-4 w-4" />
+
+                  <NavLink href="/admin/users" icon={<Users className="h-4 w-4" />}>
                     Administrateurs
-                  </Link>
-                  
+                  </NavLink>
                 </nav>
               </div>
               
@@ -190,88 +140,51 @@ export default function AdminLayout  ({
                 </SheetTrigger>
                 <SheetContent side="left" className="flex flex-col">
                   <nav className="grid gap-2 text-lg font-medium">
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-primary transition-all hover:text-primary"
-                  >
-                    <Home className="h-4 w-4" />
-                    Tableau de bord
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <ShoppingCart className="h-4 w-4" />
-                    Actualités
-                    {/* <Badge className="ml-auto flex h-6 w-6 shrink-0 items-center justify-center rounded-full">
-                      6
-                    </Badge> */}
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg bg-muted px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Package className="h-4 w-4" />
-                    Matchs
-                  </Link>
-                  
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <LineChart className="h-4 w-4" />
-                    Galerie
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <LineChart className="h-4 w-4" />
-                    Palmares
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <LineChart className="h-4 w-4" />
-                    Sponsors
-                  </Link>
-                  <Link
-                    href="/admin/equipes"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <ContactRound className="h-4 w-4" />
-                    Equipes
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <LineChart className="h-4 w-4" />
-                    Activités alentours
-                  </Link>
-                  <Link
-                    href="#"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <LineChart className="h-4 w-4" />
-                    Contact
-                  </Link>
-                  <Link
-                    href="/admin/calendar"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <CalendarDays className="h-4 w-4" />
-                    Calendrier
-                  </Link>
-                  <Separator className="my-4" />
-                  <Link
-                    href="/admin/users"
-                    className="flex items-center gap-3 rounded-lg px-3 py-2 text-muted-foreground transition-all hover:text-primary"
-                  >
-                    <Users className="h-4 w-4" />
-                    Administrateurs
-                  </Link>
+                    <NavLink href="/admin" icon={<Home className="h-4 w-4" />}>
+                      Tableau de bord
+                    </NavLink>
+
+                    <NavLink href="/admin/actualites" icon={<Newspaper className="h-4 w-4" />}>
+                      Actualités
+                    </NavLink>
+
+                    <NavLink href="/admin/matchs" icon={<Archive className="h-4 w-4" />}>
+                      Matchs
+                    </NavLink>
+
+                    <NavLink href="/admin/galerie" icon={<Aperture className="h-4 w-4" />}>
+                      Galerie
+                    </NavLink>
+
+                    <NavLink href="/admin/palmares" icon={<Trophy className="h-4 w-4" />}>
+                      Palmares
+                    </NavLink>
+
+                    <NavLink href="/admin/sponsors" icon={<Handshake className="h-4 w-4" />}>
+                      Sponsors
+                    </NavLink>
+
+                    <NavLink href="/admin/equipes" icon={<ContactRound className="h-4 w-4" />}>
+                      Equipes
+                    </NavLink>
+
+                    <NavLink href="/admin/activites-alentours" icon={<MapPin className="h-4 w-4" />}>
+                      Activités alentours
+                    </NavLink>
+
+                    <NavLink href="/admin/contact" icon={<Mail className="h-4 w-4" />}>
+                      Contact
+                    </NavLink>
+
+                    <NavLink href="/admin/calendar" icon={<CalendarDays className="h-4 w-4" />}>
+                      Calendrier
+                    </NavLink>
+
+                    <Separator className="my-4" />
+
+                    <NavLink href="/admin/users" icon={<Users className="h-4 w-4" />}>
+                      Administrateurs
+                    </NavLink>
                   </nav>
                   
                 </SheetContent>

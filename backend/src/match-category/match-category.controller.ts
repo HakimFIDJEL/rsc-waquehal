@@ -17,5 +17,19 @@ export class MatchCategoryController {
     return this.matchCategoryService.findAll();
   }
 
+  @Post()
+  @UseGuards(JwtGuard)
+  async create(@Body() createMatchCategoryDto: CreateMatchCategoryDto) {
+    return this.matchCategoryService.create(createMatchCategoryDto);
+  }
+
+  @Delete(':id')
+  @UseGuards(JwtGuard)
+  async remove(@Param('id') id: string, @Body('teamID') teamID?: string) {
+    return this.matchCategoryService.remove(+id, teamID ? +teamID : null);
+  }
+
+
+
  
 }
