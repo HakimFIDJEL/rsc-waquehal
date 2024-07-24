@@ -4,6 +4,8 @@ import { useEffect, useState } from "react";
 import axios from "axios";
 import { Backend_URL } from "@/lib/Constant";
 import MatchCard from "@/components/u/MatchCard";
+import GalerieCard from "@/components/u/GalerieCard";
+import NewCard from "@/components/u/NewCard";
 
 type Match = {
   id: string
@@ -35,6 +37,7 @@ type News = {
   id: string
   images: [Image]
   title: string
+  content: string
   status: string
   createdAt: string
 }
@@ -57,17 +60,14 @@ export default function Index()
   const fetchData = async () => {
 
     try {
-      const matchs = await axios.get(`${Backend_URL}/match`);
-      const galeries = await axios.get(`${Backend_URL}/galerie`);
-      const news = await axios.get(`${Backend_URL}/news`);
+      const matchsFetched = await axios.get(`${Backend_URL}/match`);
+      const galeriesFetched = await axios.get(`${Backend_URL}/galerie`);
+      const newsFetched = await axios.get(`${Backend_URL}/news`);
 
-      setMatchs(matchs.data.slice(0, 3));
-      setGaleries(galeries.data.slice(0, 8));
-      setNews(news.data.slice(0, 3));
+      setMatchs(matchsFetched.data.slice(0, 3));
+      setGaleries(galeriesFetched.data.slice(0, 8));
+      setNews(newsFetched.data.slice(0, 3));
 
-      console.log('matchs', matchs.data);
-      console.log('galeries', galeries.data);
-      console.log('news', news.data);
 
     } catch (error) {
       console.error(error);
@@ -225,7 +225,7 @@ export default function Index()
       </div>
     </div>
 
-    {/* Matchs - Todo*/}
+    {/* Matchs - Done*/}
     <div className="upcoming_match_wrapper float_left" style={{ marginTop: 0, paddingTop: "100px" }}>
       <div className="container">
         <div className="row">
@@ -240,6 +240,8 @@ export default function Index()
 
            
             <MatchCard matches={matchs} />
+
+            {matchs.length === 0 && <div className="alert alert-info w-100">Aucun match enregistré</div>}
 
 
           </div>
@@ -258,7 +260,7 @@ export default function Index()
       </div>
     </div>
 
-    {/* Banner - Todo*/}
+    {/* Banner - Done+*/}
     <div className="next_match_new float_left">
       <div className="next_match_overlay">
         <img src="" alt="" className="img-responsive" style={{ width: "100%", height: "100%", objectFit: "cover", position: "fixed" }} />
@@ -266,7 +268,7 @@ export default function Index()
      
     </div>
 
-    {/* Gallery - Todo*/}
+    {/* Gallery - Done*/}
     <div className="portfolio_grid float_left">
       <div className="container">
         <div className="row">
@@ -277,22 +279,11 @@ export default function Index()
             </div>
           </div>
         </div>
-        <div className="row portfoli_inner">
+        <div className="row" style={{ height: "auto" }}>
 
-          {/* Element à répéter */}
-          <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-            <div className="portfolio_item">
-              <img src="images/hockey/pic1.jpg" alt="" />
-              <div className="portfolio_hover">
-                <a href="#"> hockey world cup 2023</a>
-                <div className="zoom_popup">
-                  <a className="img-link" href="images/hockey/pic1.jpg">
-                    <i className="flaticon-magnifier" />
-                  </a>
-                </div>
-              </div>
-            </div>
-          </div>
+          <GalerieCard galeries={galeries} />
+
+          {galeries.length === 0 && <div className="alert alert-info w-100">Aucune image enregistrée</div>}
           
         </div>
       </div>
@@ -379,7 +370,7 @@ export default function Index()
     </div>
 
 
-    {/* News - Todo*/}
+    {/* News - Done*/}
     <div className="latest_news_wraper float_left" style={{ marginBottom: "560px" }}>
       <div className="container">
         <div className="row">
@@ -393,68 +384,9 @@ export default function Index()
             <div className="ne_recent_left_side_wrapper float_left">
               <div className="row">
 
-                {/* Element à répéter */}
-                <div className="col-md-12">
-                  <div className="ne_re_left_bottom_main_wrapper aa">
-                    <div className="ne_re_bottom_img">
-                      <div className="news_overlay" />
-                      <img src="images/hockey/ne1.jpg" alt="rs_img" />
-                      
-                    </div>
-                    <div className="ne_re_bottom_img_cont">
-                      <h1>the world championship</h1>
-                      <p style={{visibility: "hidden"}}>
-                        <i className="fa fa-map-marker" />
-                        New Salford Road, Uk, M6 7AF
-                      </p>
-                      <p className="cntnt_pp">
-                        Atletico had some success in friendlies in 2012 and 2013.
-                        The team won 1–0 in Italy on February 29, 2012, the team's
-                        first ever win over Italy. On June 2, 2013, the U.S. played
-                        a friendly against Germany at a sold out RFK Stadium.
-                      </p>
-                      <div className="news_bottom_text float_left">
-                        <div className="news_text_left">
-                          <div className="adminActions" style={{visibility: "hidden"}}>
-                            <input
-                              type="checkbox"
-                              name="adminToggle"
-                              className="adminToggle"
-                            />
-                            <a className="adminButton" href="#!">
-                              <i className="fa fa-share-alt" />
-                            </a>
-                            <div className="adminButtons">
-                              <a href="#" title="Add Company">
-                                <i className="fa fa-facebook-f" />
-                              </a>
-                              <a href="#" title="Add User">
-                                <i className="fa fa-linkedin" />
-                              </a>
-                              <a href="#" title="Edit Company">
-                                <i className="fa fa-twitter" />
-                              </a>
-                              <a href="#" title="Edit User">
-                                <i className="fa fa-instagram" />
-                              </a>
-                            </div>
-                          </div>
-                        </div>
-                        <div className="news_text_center">
-                          <p>MONDAY 08:00 PM</p>
-                        </div>
-                        <div className="news_text_right">
-                          <div className="hs_btn_wrapper cart_btn news_btn">
-                            <a href="#" className="hocky_btn ckeck_btn">
-                              <div className="btn-front">En savoir plus</div>
-                              <div className="btn-back">En savoir plus</div>
-                            </a>
-                          </div>
-                        </div>
-                      </div>
-                    </div>
-                  </div>
-                </div>
+                <NewCard news={news} />
+
+                {news.length === 0 && <div className="alert alert-info w-100">Aucune actualité enregistrée</div>}
 
                 <div className="hs_btn_wrapper cart_btn news_btn awerer">
                   <a href="/actualites" className="hocky_btn ckeck_btn">
@@ -468,6 +400,8 @@ export default function Index()
         </div>
       </div>
     </div>
+
+
 
     {/* Footer - Todo*/}
     <div className="footer_wrapper float_left">
