@@ -2,7 +2,6 @@
 import Link from "next/link"
 import {
   ChevronLeft,
-  Upload,
   PlusCircle,
 } from "lucide-react"
 import {
@@ -32,7 +31,6 @@ import { Input } from "@/components/ui/input"
 import { Separator } from "@/components/ui/separator"
 
 import { useState } from "react"
-import { useEffect } from "react"
 import axios from 'axios';
 import { Backend_URL } from "@/lib/Constant";
 import { Toaster } from "@/components/ui/toaster"
@@ -56,7 +54,6 @@ export default function Create() {
 
   const router = useRouter();
   const { toast } = useToast();
-  const access_key = localStorage.getItem('accessToken');
 
   const handleSubmit = async (e:any) => {
 
@@ -182,9 +179,6 @@ export default function Create() {
                   Ajouter une image
                 </h1>
                 <div className="hidden items-center gap-2 md:ml-auto md:flex">
-                  {/* <Button variant="outline" size="sm">
-                    Annuler
-                  </Button> */}
                   <Button size="sm" className="gap-1" onClick={handleSubmit} disabled={loading}>
                     <PlusCircle className="h-3.5 w-3.5" />
                     <span className="sr-only sm:not-sr-only sm:whitespace-nowrap">

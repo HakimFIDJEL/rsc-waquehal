@@ -17,19 +17,9 @@ export class MatchPlayerService {
     });
   }
 
-  findAll() {
-    return `This action returns all matchPlayer`;
+  async findAll() {
+    return await this.prisma.matchPlayer.findMany();
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} matchPlayer`;
-  }
 
-  update(id: number, updateMatchPlayerDto: UpdateMatchPlayerDto) {
-    return `This action updates a #${id} matchPlayer`;
-  }
-
-  remove(id: number) {
-    return `This action removes a #${id} matchPlayer`;
-  }
 }

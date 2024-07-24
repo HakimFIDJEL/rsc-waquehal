@@ -19,20 +19,5 @@ export class MatchPlayerController {
     return this.matchPlayerService.findAll();
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.matchPlayerService.findOne(+id);
-  }
-
-  @Patch(':id')
-  @UseGuards(JwtGuard)
-  update(@Param('id') id: string, @Body() updateMatchPlayerDto: UpdateMatchPlayerDto) {
-    return this.matchPlayerService.update(+id, updateMatchPlayerDto);
-  }
-
-  @Delete(':id')
-  @UseGuards(JwtGuard)
-  remove(@Param('id') id: string) {
-    return this.matchPlayerService.remove(+id);
-  }
+ 
 }

@@ -46,39 +46,25 @@ export function MatchCard({team1, team2, team1Logo, team2Logo, exterieur, catego
         {exterieur &&
         
             <div className="match__content">
-            <img src={team2Logo} className="match__team__logo" alt=""/>
+                <div className="match__team">{ team2 }</div>
             <div className="match__score">
                 { team2Score } - { team1Score }
             </div>
-            <img src={team1Logo} className="match__team__logo" alt=""/>
+                <div className="match__team">{ team1 }</div>
             </div>
         }
 
         {!exterieur &&
 
             <div className="match__content">
-            <img src={team1Logo} className="match__team__logo" alt=""/>
+                <div className="match__team">{ team1 }</div>
             <div className="match__score">
                 { team1Score } - { team2Score }
             </div>
-            <img src={team2Logo} className="match__team__logo" alt=""/>
+                <div className="match__team">{ team2 }</div>
             </div>
         }
 
-        {exterieur && 
-            <div className="match__teams">
-                    
-                    <div className="match__team">{ team2 }</div>
-                    <div className="match__team">{ team1 }</div>
-            </div>
-        }
-        {!exterieur && 
-            <div className="match__teams">
-                    
-                    <div className="match__team">{ team1 }</div>
-                    <div className="match__team">{ team2 }</div>
-            </div>
-        }
       </div>
       <div className="match__infos">
         <div className="match__infos__category">

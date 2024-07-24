@@ -818,6 +818,7 @@ main.home section.infos .infos__container {
   }
 }
 main.home section.infos .infos__container .infos__container__wrapper {
+  align-items: stretch;
   width: 21%;
   aspect-ratio: 1/1;
   background-color: #383A4B;
@@ -1256,16 +1257,27 @@ main.home section.matchs .matchs__container .matchs__content .match .match__card
   font-weight: 300;
 }
 main.home section.matchs .matchs__container .matchs__content .match .match__card .match__content {
-  display: flex;
+  display: grid;
+  grid-template-columns: 1fr 2fr 1fr;
+  width: 100%;
   align-items: center;
   justify-content: space-between;
   width: 100%;
-  margin: 5px 0 20px 0;
+  margin: 5px 0 10px 0;
 }
 main.home section.matchs .matchs__container .matchs__content .match .match__card .match__content .match__score {
   font-size: 45px;
   font-weight: 600;
   letter-spacing: 2px;
+  text-align: center;
+}
+@media (max-width: 600px) {
+  main.home section.matchs .matchs__container .matchs__content .match .match__card .match__content .match__score {
+    font-size: 32px;
+  }
+}
+main.home section.matchs .matchs__container .matchs__content .match .match__card .match__content .match__team {
+  text-align: center;
 }
 main.home section.matchs .matchs__container .matchs__content .match .match__card .match__content .match__team__logo {
   width: 90px;

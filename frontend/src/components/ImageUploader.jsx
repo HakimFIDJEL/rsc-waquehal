@@ -73,7 +73,11 @@ const ImageUploader = ({ images, setImages, limit, deleteUrl  }) => {
   };
 
   return (
-    <div className={`grid gap-2 ${limit === 1 ? '' : 'grid-cols-3'}`} ref={ImageContainerRef}>
+    <div 
+      className={`grid gap-2 ${limit === 1 ? '' : 'grid-cols-3'}`} 
+      ref={ImageContainerRef} 
+      style={limit === 1 ? {} : { gridTemplateColumns: 'repeat(3,minmax(0,1fr))' }}
+    >
       {images.map((image, index) => (
         <div key={index} className="relative">
           <DropdownMenu>
@@ -116,8 +120,8 @@ const ImageUploader = ({ images, setImages, limit, deleteUrl  }) => {
         <>
             <Label htmlFor="image">
                 <span className="flex aspect-square w-full items-center justify-center rounded-md border border-dashed cursor-pointer" style={{ aspectRatio: '1/1' }}>
-                <Upload className="h-4 w-4 text-muted-foreground" />
-                <span className="sr-only">Upload</span>
+                  <Upload className="h-4 w-4 text-muted-foreground" />
+                  <span className="sr-only">Upload</span>
                 </span>
             </Label>
             <Input

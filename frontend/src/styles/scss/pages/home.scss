@@ -86,6 +86,7 @@ main.home
             
             .infos__container__wrapper
             {
+                align-items: stretch;
                 width: 21%;
                 aspect-ratio: 1/1;
                 background-color: $background-1;
@@ -673,18 +674,29 @@ main.home
     
                         .match__content
                         {
-                            display: flex;
+                            display: grid;
+                            grid-template-columns: 1fr 2fr 1fr;
+                            width: 100%;
                             align-items: center;
                             justify-content: space-between;
                             width: 100%;
     
-                            margin: 5px 0 20px 0;
+                            margin: 5px 0 10px 0;
     
                             .match__score
                             {
                                 font-size: 45px;
                                 font-weight: 600;
                                 letter-spacing: 2px;
+                                text-align: center;
+                                @include respond(mobile)
+                                {
+                                    font-size: 32px;
+                                }
+                            }
+                            .match__team
+                            {
+                                text-align: center;
                             }
     
                             .match__team__logo
