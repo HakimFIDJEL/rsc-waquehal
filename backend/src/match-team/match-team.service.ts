@@ -16,6 +16,21 @@ export class MatchTeamService {
 
   // Création d'une équipe - Fait
   async create(createMatchTeamDto: CreateMatchTeamDto,  createMatchPlayerDto: CreateMatchPlayerDto[]) {
+
+    const category = await this.prisma.matchCategory.findUnique({
+      where: { id: createMatchTeamDto.categoryId }
+    });
+
+    const team = await this.prisma.matchTeam.findFirst({
+      where: {
+        categoryId: createMatchTeamDto.categoryId
+      }
+    });
+
+    if (team) {
+      throw new ConflictException('Une équipe existe déjà pour cette catégorie');
+    }
+  
     const matchTeam = await this.prisma.matchTeam.create({
       data: createMatchTeamDto
     });
@@ -103,6 +118,21 @@ export class MatchTeamService {
   // Mise à jour d'une équipe - Fait
   async update(id: number, updateMatchTeamDto: UpdateMatchTeamDto, createMatchPlayerDto: CreateMatchPlayerDto[]) 
   {
+    const category = await this.prisma.matchCategory.findUnique({
+      where: { id: updateMatchTeamDto.categoryId }
+    });
+
+    const team = await this.prisma.matchTeam.findFirst({
+      where: {
+        categoryId: updateMatchTeamDto.categoryId
+      }
+    });
+
+    if (team) {
+      throw new ConflictException('Une équipe existe déjà pour cette catégorie');
+    }
+
+
     const matchTeam = await this.prisma.matchTeam.findUnique({
       where: { id }
     });

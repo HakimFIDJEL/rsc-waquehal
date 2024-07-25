@@ -260,7 +260,7 @@ export default function Index()
       </div>
     </div>
 
-    {/* Banner - Done+*/}
+    {/* Banner - Done*/}
     <div className="next_match_new float_left">
       <div className="next_match_overlay">
         <img src="" alt="" className="img-responsive" style={{ width: "100%", height: "100%", objectFit: "cover", position: "fixed" }} />

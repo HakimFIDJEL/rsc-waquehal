@@ -1,11 +1,59 @@
 "use client";
 
 import { Hero } from "@/components/u/Hero";
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
+
+import { Backend_URL } from "@/lib/Constant";
+import axios from "axios";
+
+type Galerie = {
+  id: string
+  title: string
+  image: string
+  status: string
+  createdAt: string
+}
+
+import {
+  AlertDialog,
+  AlertDialogAction,
+  AlertDialogCancel,
+  AlertDialogContent,
+  AlertDialogDescription,
+  AlertDialogFooter,
+  AlertDialogHeader,
+  AlertDialogTitle,
+  AlertDialogTrigger,
+} from "@/components/ui/alert-dialog"
+import GalerieCard from "@/components/u/GalerieCard";
 
 
 export default function Index()
 {
+  const [galeries, setGaleries] = useState<Galerie[]>([]);
+
+  const fetchData = async () => {
+
+    try {
+      const galeriesFetched = await axios.get(`${Backend_URL}/galerie`);
+
+      setGaleries(galeriesFetched.data);
+
+    } catch (error) {
+      console.error(error);
+    }
+
+  }
+
+
+  useEffect(() => {
+
+      fetchData();
+
+      return () => {
+          // cleanup
+      }
+  }, []);
 
     return <>
       <Hero 
@@ -17,7 +65,7 @@ export default function Index()
           },
           {
             title: "La galerie",
-            link: "/u/galeries"
+            link: "/galeries"
           }
         ]}
         image=""
@@ -35,23 +83,12 @@ export default function Index()
               
             </div>
           </div>
-          <div className="row portfoli_inner">
+          <div className="row">
 
             {/* A répéter par image */}
 
-            <div className="col-xl-4 col-lg-4 col-md-6 col-sm-12 col-12">
-              <div className="portfolio_item">
-                <img src="/images/inner/pic1.jpg" alt="" />
-                <div className="portfolio_hover">
-                  <a href="#">the final championship</a>
-                  <div className="zoom_popup">
-                    <a className="img-link" href="/images/inner/pic1.jpg">
-                      <i className="flaticon-search" />
-                    </a>
-                  </div>
-                </div>
-              </div>
-            </div>
+            <GalerieCard galeries={galeries} />
+            {galeries.length === 0 && <div className="alert alert-info w-100">Aucune image enregistrée</div>}
             
           </div>
         </div>
