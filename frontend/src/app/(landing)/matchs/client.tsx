@@ -101,15 +101,13 @@ export default function Index()
       <div className="news_wrapper float_left">
         <div className="container">
           <div className="row">
-            <div className="col-lg-4 col-md-4 col-sm-12 d-none d-sm-none d-md-none d-lg-block d-xl-block relative" >
-            
-              <div className="sidebar_widget  sticky-top" style={{top: "100px"}}>
+            <div className="col-lg-4 col-md-4 col-sm-12 d-none d-sm-none d-md-block">
+              <div className="sidebar_widget" style={{position: 'sticky', top: '20px', height: 'fit-content'}}>
                 <div className="widget_heading">
                   <h2>Categories</h2>
                 </div>
                 <div className="category_wrapper">
                   <ul>
-
                     {categories.map((category, index) => (
                       <li key={category.id} className={categorySelected?.id === category.id ? "active" : ""}>
                         <a href="javascript:void(0);" onClick={() => handleChangeCategory(category)}>
@@ -117,19 +115,205 @@ export default function Index()
                         </a>
                       </li>
                     ))}
-                    
                   </ul>
                 </div>
+              </div>
+            </div>
+
+            <div className="col-lg-8 col-md-12 col-sm-12">
+              <div className="row">
+                      {equipeSelected && (
+                        <>
+                          <div className="col-lg-12 col-md-12 col-sm-12">
+                            <div className="widget_heading">
+                              <h2>Equipe</h2>
+                            </div>
+                            <div className="widget_heading">
+                              <img src={`${Backend_URL}${equipeSelected.image}`} className="img-fluid w-100" />
+                            </div>
+                          </div>
+
+                          <div>
+                            <br />
+                            <br />
+                          </div>
+
+
+                          <div className="col-lg-12 col-md-12 col-sm-12">
+                            <div className="widget_heading">
+                              <h2>Joueurs</h2>
+                            </div>
+                            <table className="table table-striped">
+                              <thead>
+                                <tr>
+                                  <th scope="col">Nom</th>
+                                  <th scope="col">Capitaine</th>
+                                </tr>
+                              </thead>
+                              <tbody>
+                                {equipeSelected.players.map((player, index) => (
+                                  <tr key={player.id}>
+                                    <td>{player.name}</td>
+
+                                    {player.captain && (
+                                      <td>
+                                        <span className="badge bg-success">Capitaine</span>
+                                      </td>
+                                    ) || (
+                                      <td></td>
+                                    )}
+                                      
+                                  </tr>
+                                ))}
+                              </tbody>
+                            </table>
+                          </div>  
+
+                          <div>
+                            <br />
+                            <br />
+                          </div>
+
+
+                          <div className="col-lg-12 col-md-12 col-sm-12">
+                            <div className="widget_heading">
+                              <h2>Matchs</h2>
+                            </div>
+                            <div>
+
+                            
+                              
+                            <div className="container">
+                              <div className="row">
+
+                                <div className="col-md-12">
+                                  <div className="upcoming_slider_wrapper">
+                                    <div className="owl-carousel owl-theme">
+
+                                      {matchs.map((match, index) => (
+                                        <div className="item">
+                                          <div className="game1_slider_wrapper float_left">
+                                            <div className="game_slider_wrapper">
+                                              <div className="game_1">
+                                                <div className="match_list_wrapper">
+                                                  <div className="match_list_img">
+                                                    <img
+                                                      src="images/inner/gm1.png"
+                                                      className="img-responsive"
+                                                      alt="logo"
+                                                    />
+                                                    <h4>LEYON</h4>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                              <div className="game_2">
+                                                <div className="new new_2">
+                                                  <a href="#">
+                                                    <span>VS</span>
+                                                  </a>
+                                                </div>
+                                              </div>
+                                              <div className="game_3">
+                                                <div className="match_list_wrapper">
+                                                  <div className="match_list_img">
+                                                    <img
+                                                      src="images/inner/gm2.png"
+                                                      className="img-responsive"
+                                                      alt="logo"
+                                                    />
+                                                    <h4>psg</h4>
+                                                  </div>
+                                                </div>
+                                              </div>
+                                            </div>
+                                            <div className="game_btm_cntnt float_left">
+                                              <p>thu, 21 may - 01:00 PM</p>
+                                              <a href="#">
+                                                buy ticket
+                                                <i className="flaticon-up-arrow" />
+                                              </a>
+                                            </div>
+                                          </div>
+                                        </div>
+                                      ))}
+                                      
+                                    </div>
+                                  </div>
+                                </div>
+
+                              </div>
+
+
+                              {matchs.length == 0 && (
+                                <div className="alert alert-info w-100 text-center" role="alert">
+                                  Aucun match pour le moment
+
+                                </div>
+                              )}
+
+
+                            </div>
+
+                            </div>
+                          </div>
+
+
+                        </>
+                      )}
+
+                      {equipeSelected === null && (
+                        <>
+                          <div className="alert alert-info w-100 text-center" role="alert">
+                            Veuillez sélectionner une catégorie
+
+                          </div>
+                        </> 
+                      )}
+                      
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+
+
+
+      {/* <div className="news_wrapper float_left">
+        <div className="container">
+          <div className="row">
+            <div className="col-lg-4 col-md-4 col-sm-12 d-none d-sm-none d-md-block" >
+
+              <div className="sidebar_widget">
+
+
+                  <div className="widget_heading">
+                    <h2>Categories</h2>
+                  </div>
+                  <div className="category_wrapper">
+                    <ul>
+
+                      {categories.map((category, index) => (
+                        <li key={category.id} className={categorySelected?.id === category.id ? "active" : ""}>
+                          <a href="javascript:void(0);" onClick={() => handleChangeCategory(category)}>
+                            {category.name}
+                          </a>
+                        </li>
+                      ))}
+                      
+                    </ul>
+                  </div>
+
+
               </div>
               
             </div>
 
-            <div className="col-lg-8 col-md-12 col-sm-12 col-12">
-              <div className="widget_heading">
 
-              </div>
+
+
+            <div className="col-lg-8 col-md-12 col-sm-12">
+              
               <div className="row">
-                    {/* Affiche l'image de l'équipe en grand puis un tableau avec les joueurs, on fait ça uniquement pour l'équipe dont la catégorie est sélectionnée */}
                     {equipeSelected && (
                       <>
                         <div className="col-lg-12 col-md-12 col-sm-12">
@@ -141,7 +325,6 @@ export default function Index()
                           </div>
                         </div>
 
-                        {/* Separation */}
                         <div>
                           <br />
                           <br />
@@ -163,12 +346,37 @@ export default function Index()
                               {equipeSelected.players.map((player, index) => (
                                 <tr key={player.id}>
                                   <td>{player.name}</td>
-                                  <td>{player.captain}</td>
+
+                                  {player.captain && (
+                                    <td>
+                                      <span className="badge bg-success">Capitaine</span>
+                                    </td>
+                                  ) || (
+                                    <td></td>
+                                  )}
+                                    
                                 </tr>
                               ))}
                             </tbody>
                           </table>
                         </div>  
+
+                        <div>
+                          <br />
+                          <br />
+                        </div>
+
+
+                        <div className="col-lg-12 col-md-12 col-sm-12">
+                          <div className="widget_heading">
+                            <h2>Matchs</h2>
+                          </div>
+                          <div>
+
+                          </div>
+                        </div>
+
+
                       </>
                     )}
 
@@ -188,7 +396,7 @@ export default function Index()
 
           </div>
         </div>
-      </div>
+      </div> */}
 
 
     
