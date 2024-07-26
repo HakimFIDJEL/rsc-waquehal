@@ -6,8 +6,8 @@ export const metadata = {
   description: "Les actualités du club",
 }
 
-export default function Index() {
+export default function Show({ id } : { id: string }) {
   return (
-    <Client />
+    <Client id={id} />
   )
 }

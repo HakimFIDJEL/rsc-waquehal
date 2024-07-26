@@ -124,7 +124,10 @@ export class MatchTeamService {
 
     const team = await this.prisma.matchTeam.findFirst({
       where: {
-        categoryId: updateMatchTeamDto.categoryId
+        categoryId: updateMatchTeamDto.categoryId,
+        NOT: {
+          id: id
+        }
       }
     });
 

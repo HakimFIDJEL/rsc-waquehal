@@ -55,7 +55,7 @@ const NewCard = ({ news }: { news: News[] }) => (
 
     <>
         {news.map((newItem, index) => (
-            <div className="col-md-12" key={index}>
+            <div className="col-md-12 " key={index}>
                 <div className="ne_re_left_bottom_main_wrapper" style={{ display: "flex" }}>
                     <div className="ne_re_bottom_img" style={{ maxHeight: "400px" }}>
 
