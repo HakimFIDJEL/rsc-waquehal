@@ -6,8 +6,8 @@ export const metadata = {
   description: "Les actualités du club",
 }
 
-export default function Show({ id } : { id: string }) {
+export default function Show({ params }: { params: { id: string } }) {
   return (
-    <Client id={id} />
+    <Client id={params.id} />
   )
 }

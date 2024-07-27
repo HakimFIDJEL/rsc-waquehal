@@ -61,12 +61,7 @@ const NewCard = ({ news }: { news: News[] }) => (
 
                         <Carousel images={newItem.images} />
 
-                        {/* <div className="news_overlay" />
-                        <img 
-                            src={`${Backend_URL}${newItem.images[0].url}`} 
-                            alt={newItem.images[0].title}
-                            style={{ maxHeight: "400px", objectFit: "cover" }}
-                        /> */}
+                       
                     </div>
                     <div className="ne_re_bottom_img_cont" style={{ display: "flex", flexDirection: "column", justifyContent: "space-between", padding: "30px 80px 30px 30px" }}>
 
@@ -80,10 +75,14 @@ const NewCard = ({ news }: { news: News[] }) => (
                             </p>
                         </div>
 
-                        <div className="news_bottom_text float_left">
+                        <div className="news_bottom_text float_left d-flex justify-content-between">
                             <div className="news_text_center">
                                     {new Date(newItem.createdAt).toLocaleDateString()}
                             </div>
+                            {/* Button for the news */}
+                            <a href={`/actualites/${newItem.id}`}>
+                                <button className="btn btn-primary">En savoir plus</button>
+                            </a>
                         </div>
                     </div>
                 </div>
