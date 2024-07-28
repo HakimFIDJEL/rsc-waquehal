@@ -124,7 +124,7 @@ ul{
 }
 .cursor.cursor-shadow {
     background-color: transparent;
-    border: 3px solid #65ad43;
+    border: 3px solid #232325;
     --size: 40px;
 }
 .cursor.cursor-dot {
@@ -133,8 +133,8 @@ ul{
 }
 .cursor-shadow.active {
     --size: 40px;
-    border-color: #65ad43;
-    background-color: #65ad43;
+    border-color: #232325;
+    background-color: #232325;
 }
 .cursor-dot.active {
 	  --size: 0;
@@ -158,7 +158,7 @@ a:hover {
 	text-align:center;
 	line-height:35px;
 	background:#fff;
-	color:#65ad43;
+	color:#232325;
 	position:relative;
 	border:2px solid #fff;
 	-webkit-transition: all 0.5s;
@@ -179,7 +179,7 @@ a:hover {
     line-height: 35px;
     width: 140px;
 	border:2px solid #fff;
-	color:#65ad43;
+	color:#232325;
     overflow: hidden;
     background: #fff;
     transition: all 0.5s ease;
@@ -228,18 +228,18 @@ a:hover {
 }
 .ckeck_btn{
 	 color: #fff;
-    background: #65ad43;
+    background: #232325;
 }
 .ckeck_btn:hover .btn-back {
     transform: scale(1);
     opacity: 1;
-	color:#65ad43;
+	color:#232325;
     background: transparent;
 }
 .ckeck_btn:hover{
-	color:#65ad43;
+	color:#232325;
     background: transparent;
-    border: 2px solid #65ad43;
+    border: 2px solid #232325;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -275,7 +275,7 @@ a:hover {
     position: fixed;
     bottom: 53px;
     right: 30px;
-    background: #65ad43;
+    background: #232325;
     width: 45px;
     height: 45px;
     display: block;
@@ -376,7 +376,7 @@ a:hover {
 }
 .menu_wrapper_2 li a:hover {
     color: #fff;
-    background: #65ad43;
+    background: #232325;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -425,7 +425,7 @@ a:hover {
 	right:0;
 }
 .cc_cart_wrapper1 .close:hover{
-	color:#65ad43 !important;
+	color:#232325 !important;
 	-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -505,7 +505,7 @@ a:hover {
    width: 100%;	
 }
 .drop-menu > .menu-button:hover .cc_cart_cont_wrapper h4 a{
-  color: #65ad43; 
+  color: #232325; 
       -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -634,7 +634,7 @@ a:hover {
 .menu_toggle i:before{
 	font-size:24px;
 	margin-top:3px;
-	color:#65ad43;
+	color:#232325;
 }
 .rotate {
     -moz-transition: all .5s linear;
@@ -653,7 +653,7 @@ a:hover {
 	left:0;
     display: inline-block;
     border-radius: 0px;
-    background-color: #65ad43;
+    background-color: #232325;
     display: none;
 }
 .menu_dropdown input{
@@ -680,8 +680,8 @@ a:hover {
 }
 .menu_dropdown button:hover{
 	color:#ffffff;
-	background:#65ad43;
-	border-color:#65ad43;
+	background:#232325;
+	border-color:#232325;
 	-webkit-transition: all 0.5s;
 	-o-transition: all 0.5s;
 	-ms-transition: all 0.5s;
@@ -711,7 +711,7 @@ a:hover {
 .menu_dropdown:before {
     content: '';
     position: absolute;
-    border-top: 150px solid #65ad43;
+    border-top: 150px solid #232325;
     left: 0;
     right: 0;
     bottom: -80px;
@@ -730,10 +730,10 @@ a:hover {
 	border-bottom:0 !important;
 }
 .menu_wrapper_resp li ul{
-	background:#65ad43 !important;
+	background:#232325 !important;
 }
 .resp_menu li a:hover {
-    color: #65ad43;
+    color: #232325;
     background: #fff;
     -webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
@@ -761,7 +761,7 @@ a:hover {
 }
 .resp_logo_wrapper{
 	float:left;
-	background:#65ad43;
+	background:#232325;
 	text-align:center;
 	position:relative;
 	padding:30px 0;
@@ -771,7 +771,7 @@ a:hover {
 .resp_logo_wrapper:after{
 	content: '';
     position: absolute;
-    border-top: 129px solid #65ad43;
+    border-top: 129px solid #232325;
     left: 0;
     right: 0;
     bottom: -55px;
@@ -819,7 +819,7 @@ a:hover {
     position: relative;
 	text-align:center;
     line-height: 50px;
-    background: #65ad43;
+    background: #232325;
     border-radius: 100px;
 	  -webkit-transition: all .5s;
     -moz-transition: all .5s;
@@ -889,7 +889,7 @@ a:hover {
 	font-size:50px;
 	font-weight:700;
 	padding-top:14px;
-	color:#65ad43;
+	color:#232325;
 	text-align:center;
 }
 #clockdiv div > span{
@@ -943,7 +943,7 @@ a:hover {
     left: 34px;
     bottom: -16px;
     height: 2px;
-    background: #65ad43;
+    background: #232325;
     width: 90px;
 }
 /****------next match wrapper css-------****/
@@ -1114,7 +1114,7 @@ a:hover {
     position: relative;
     text-align: center;
     line-height: 50px;
-    background: #65ad43;
+    background: #232325;
     font-size: 24px;
     color: #fff;
     border-radius: 100px;
@@ -1140,7 +1140,7 @@ a:hover {
 	width:100%;
 	padding:33px 20px 21px 30px;
 	position:absolute;
-	background:#65ad43;
+	background:#232325;
 	-webkit-transform: translateX(-100%);
 	-moz-transform: translateX(-100%);
 	-ms-transform: translateX(-100%);
@@ -1246,7 +1246,7 @@ a:hover {
 	padding-right:20px;
 }
 .next_box_green{
-	background:#65ad43;
+	background:#232325;
 	padding:20px;
 	color:#fff;
 	text-align:center;
@@ -1321,7 +1321,7 @@ a:hover {
 .tg-player + .tg-player{margin:10px 0 0;}
 .tg-player:hover{
 	height:300px;
-	background:#65ad43 url(../images/hockey/bg-pattran.png) no-repeat;
+	background:#232325 url(../images/hockey/bg-pattran.png) no-repeat;
 	-webkit-transition: all 300ms ease-in-out;
     -moz-transition: all 300ms ease-in-out;
     -ms-transition: all 300ms ease-in-out;
@@ -1349,7 +1349,7 @@ a:hover {
     line-height: 20px;
     position: relative;
     text-align: center;
-    background: #65ad43;
+    background: #232325;
     padding: 2px 10px 2px 10px;
     text-transform: uppercase;
 }
@@ -1381,7 +1381,7 @@ a:hover {
 	font-size:26px;
 	font-weight:500;
 	line-height:30px;
-	color:#65ad43;
+	color:#232325;
 	text-align:left;
 }
 .tg-playcontent .tg-stars{ margin:0 0 20px;}
@@ -1430,7 +1430,7 @@ a:hover {
     transition: all .5s;
 }
 .best-players-list .item:hover .number, .best-players-list .item:hover .number:before{
-	background:#65ad43;
+	background:#232325;
 	color:#fff;
 	-webkit-transition: all .5s;
     -moz-transition: all .5s;
@@ -1511,7 +1511,7 @@ a:hover {
 }
 .best-players-list .item .achievement {
     color: #fff;
-    background: #65ad43
+    background: #232325
 }
 .best-players-list .item .achievement:before {
     content: '';
@@ -1522,7 +1522,7 @@ a:hover {
     bottom: 0;
     transform: skew(-10deg);
     z-index: -1;
-    background: #65ad43
+    background: #232325
 }
 .best-players-list .item:first-child {
     margin-bottom: 13px;
@@ -1569,7 +1569,7 @@ a:hover {
   padding: 5px 15px;
 }
 .portfolio_grid .protfoli_filter li:hover a, .portfolio_grid .protfoli_filter li:focus a, .portfolio_grid .protfoli_filter li.active a {
-	color: #65ad43;
+	color: #232325;
   	-webkit-transition: all .5s;
 	-moz-transition: all .5s;
 	-ms-transition: all .5s;
@@ -1681,7 +1681,7 @@ a:hover {
 .portfolio_grid  .portfolio_item .portfolio_hover .zoom_popup i:before {
     line-height: 50px;
     font-size: 20px;
-	color:#65ad43;
+	color:#232325;
     font-weight: 500;
 }
 .portfolio_grid .portfolio_item .portfolio_hover .zoom_popup {
@@ -1757,7 +1757,7 @@ a:hover {
 .icon i:before {
     font-size: 60px !important;
     text-align: center;
-    color: #65ad43;
+    color: #232325;
 	line-height:70px;
 }
 .tb_icon {
@@ -1792,7 +1792,7 @@ a:hover {
 	right:0;
 	margin:0px auto;
     height: 2px;
-    background: #65ad43;
+    background: #232325;
     width: 100px;
 }
 .counter_wrapper{
@@ -1846,7 +1846,7 @@ a:hover {
 	padding-bottom:15px;
 }
 .ne_re_bottom_img_cont p i{
-	color:#65ad43;
+	color:#232325;
 	margin-right:10px;
 }
 .cntnt_pp{
@@ -1912,7 +1912,7 @@ a:hover {
 .lest_news_date_wrapper{
    width: 60px;
     height: 55px;
-    background:#65ad43;
+    background:#232325;
     text-align: center;
     position: absolute;
     top: 20px;
@@ -1984,7 +1984,7 @@ a:hover {
 }
 .ne_re_left_bottom_main_wrapper:hover .lest_news_date_wrapper{
 	background:#fff;
-	color:#65ad43;
+	color:#232325;
 	transition: all 0.5s;
 }
 /* official store css */
@@ -2060,7 +2060,7 @@ a:hover {
 	border-left:0;
 }
 .x_offer_tabs_wrapper .nav-tabs .nav-item.show .nav-link, .x_offer_tabs_wrapper .nav-tabs .nav-link.active {
-    color: #65ad43;
+    color: #232325;
 	border-radius:0;
 	border:0;
 	background:transparent;
@@ -2084,7 +2084,7 @@ a:hover {
     transition: all 0.5s;
 }
 .offer_main_boxes_wrapper:hover{
-	border:1px solid #65ad43;
+	border:1px solid #232325;
 	-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -2180,7 +2180,7 @@ a:hover {
 	text-align:center;
 	color:#fff;
 	text-transform:capitalize;
-	background:#65ad43;
+	background:#232325;
 }
 .ft_offer_img{
 	text-align:center;
@@ -2211,11 +2211,11 @@ a:hover {
 	text-transform:capitalize;
 }
 .offer_main_boxes_wrapper:hover .ft_offer_heading h2 a{
-	color:#65ad43;
+	color:#232325;
 }
 .offer_main_boxes_wrapper:hover .football_offer_starts{
 	background:#fff;
-	color:#65ad43;
+	color:#232325;
 		-webkit-transition: all 0.5s;
     -o-transition: all 0.5s;
     -ms-transition: all 0.5s;
@@ -2235,7 +2235,7 @@ a:hover {
 .ft_offer_heading p del{
 	font-size:16px;
 	padding-left:10px;
-	color:#65ad43;
+	color:#232325;
 }
 .x_tabs_botton_wrapper li a i {
     font-size: 12px;
@@ -2257,7 +2257,7 @@ a:hover {
 	padding-bottom: 40px;
 	padding-left:30px;
 	padding-right:20px;
-	background:#65ad43;
+	background:#232325;
 }
 .lr_nl_heading_wrapper{
 	float:left;
@@ -2298,7 +2298,7 @@ a:hover {
 	float:left;
 	background:#fff;
 	border:1px solid #fff;
-	color:#65ad43;
+	color:#232325;
 	text-transform:uppercase;
 	letter-spacing:1px;
 	font-weight:700;
@@ -2387,7 +2387,7 @@ a:hover {
     padding-bottom: 32px;
 	font-weight:500;
     text-transform: uppercase;
-    color: #65ad43;
+    color: #232325;
 }
 .wrapper_first_image{
 	margin-top:-12px;
@@ -2410,7 +2410,7 @@ a:hover {
     list-style: none;
 }
 .section2_about_wrapper a{
-	color:#65ad43;
+	color:#232325;
 	font-size: 16px;
     line-height: 26px;
 }
@@ -2433,7 +2433,7 @@ a:hover {
     transition: all .5s;
 }
 .section2_useful_wrapper ul li a:hover {
-    color: #65ad43;
+    color: #232325;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
     -ms-transition: all .5s;
@@ -2483,7 +2483,7 @@ a:hover {
     transition: all .5s;
 }
 .ft_blog_text h5 a:hover {
-    color: #65ad43;
+    color: #232325;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
     -ms-transition: all .5s;
@@ -2531,7 +2531,7 @@ a:hover {
     transition: all .5s;
 }
 .section2_useful_second_wrapper ul li a:hover {
-    color: #65ad43;
+    color: #232325;
     -webkit-transition: all .5s;
     -moz-transition: all .5s;
     -ms-transition: all .5s;
@@ -2577,8 +2577,8 @@ a:hover {
     transition: all .5s;
 }
 .aboutus_social_icons li a:hover{
-	background:#65ad43;
-	border:1px solid #65ad43;
+	background:#232325;
+	border:1px solid #232325;
 	color:#fff;
 	-webkit-transition: all .5s;
     -moz-transition: all .5s;
@@ -2626,7 +2626,7 @@ a:hover {
  .adminButton {
     height: 40px;
     width: 45px;
-    background-color: #65ad43;
+    background-color: #232325;
     display: block;
     color: #fff;
     text-align: center;
@@ -2742,7 +2742,7 @@ a:hover {
 .menu_wrapper_2 > li:hover > a{
     opacity: 1;
 	color: #fff !important;
-	background:#65ad43;
+	background:#232325;
 }
 .menu_wrapper_2 > li:hover > a i{
 	color:#fff;
@@ -2759,14 +2759,14 @@ a:hover {
 }
 .menu_wrapper_resp > li:hover > a{
     opacity: 1;
-	color: #65ad43 !important;
+	color: #232325 !important;
 	background:#fff;
 }
 .menu_wrapper_resp > li:hover > a i{
-	color:#65ad43;
+	color:#232325;
 }
 .select2-container--default .select2-results__option--highlighted[aria-selected]{
-	background-color:#65ad43 !important;
+	background-color:#232325 !important;
 	color:white !important;
 }
 .select2-container--default.select2-container--open .select2-selection--single .select2-selection__arrow b{		border-color:transparent transparent #fff !important;
@@ -3157,7 +3157,7 @@ a:hover {
 		position: relative;
 		margin-top: 0;
 		top: 0;
-		background:#65ad43;
+		background:#232325;
 	}
 	.tg-btnbox .match_btn ul li{
 		float:none;

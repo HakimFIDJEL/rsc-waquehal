@@ -57,7 +57,7 @@ const NewCard = ({ news }: { news: News[] }) => (
         {news.map((newItem, index) => (
             <div className="col-md-12 " key={index}>
                 <div className="ne_re_left_bottom_main_wrapper" style={{ display: "flex" }}>
-                    <div className="ne_re_bottom_img" style={{ maxHeight: "400px" }}>
+                    <div className="ne_re_bottom_img" style={{ maxHeight: "250px" }}>
 
                         <Carousel images={newItem.images} />
 
@@ -70,7 +70,7 @@ const NewCard = ({ news }: { news: News[] }) => (
                                 {newItem.title}
                             </h1>
                             
-                            <p className="cntnt_pp">
+                            <p className="cntnt_pp" style={{ overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 3, WebkitBoxOrient: "vertical", padding:"8px 0 0 0" }}>
                                 {newItem.content}
                             </p>
                         </div>

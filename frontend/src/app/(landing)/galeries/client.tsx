@@ -73,16 +73,7 @@ export default function Index()
 
       <div className="portfolio_gridIII float_left">
         <div className="container">
-          <div className="row">
-            <div className="col-md-12">
-              <div className="ft_left_heading_wraper left_gallery_heading">
-                <h1>
-                  La galerie
-                </h1>
-              </div>
-              
-            </div>
-          </div>
+          
           <div className="row">
 
             {/* A répéter par image */}

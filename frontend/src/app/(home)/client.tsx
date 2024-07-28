@@ -124,7 +124,7 @@ export default function Index()
   return <>
 
     {/* Nav - Done*/}
-    <div className="ft_navi_main_wrapper float_left">
+    <div className="ft_navi_main_wrapper float_left" style={{ zIndex: 1000 }}>
       <div className="ft_logo_wrapper">
        
         <div className="resp_logo_wrapper d-block d-sm-block d-md-block d-lg-none d-xl-none">
@@ -177,11 +177,11 @@ export default function Index()
           </div>
         </div>
       </div>
-      <div className="ft_middle_wrapper d-none d-sm-none d-md-none d-lg-block d-xl-block">
-        <a href="index.html">
+      {/* <div className="ft_middle_wrapper d-none d-sm-none d-md-none d-lg-block d-xl-block">
+        <a href="/" style={{ backgroundColor: "white",  marginTop: "20px" }}>
           <img src="/images/wasquehal/logoRSC.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
         </a>
-      </div>
+      </div> */}
     </div>
 
     {/* Hero - Done*/}
@@ -257,6 +257,11 @@ export default function Index()
               Contact
             </a>
           </li>
+          <li className="common_dropdown_wrapper float_left">
+            <a href="/" title="">
+              <img src="/images/wasquehal/logoRSC.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
+            </a>
+          </li>
         </ul>
       </div>
     </div>
@@ -268,7 +273,6 @@ export default function Index()
           <div className="col-md-12">
             <div className="heading_left">
               <h1>Les derniers matchs</h1>
-              <img src="images/hockey/heading_icon.png" alt="icon" />
             </div>
           </div>
 
@@ -279,6 +283,7 @@ export default function Index()
 
             {matchs.length === 0 && <div className="alert alert-info w-100">Aucun match enregistré</div>}
 
+            
 
           </div>
 
@@ -292,6 +297,14 @@ export default function Index()
               />
             </div>
           </div>
+
+          <div className="hs_btn_wrapper cart_btn news_btn awerer" style={{marginTop: "3rem"}}>
+            <a href="/matchs" className="btn btn-primary pl-5 pr-5">
+              Voir plus
+            </a>
+          </div>
+
+
         </div>
       </div>
     </div>
@@ -311,7 +324,6 @@ export default function Index()
           <div className="col-md-12">
             <div className="heading_left heading_special">
               <h1>La galerie</h1>
-              <img src="/images/hockey/heading_icon.png" alt="icon" />
             </div>
           </div>
         </div>
@@ -320,6 +332,12 @@ export default function Index()
           <GalerieCard galeries={galeries} />
 
           {galeries.length === 0 && <div className="alert alert-info w-100">Aucune image enregistrée</div>}
+
+          <div className="hs_btn_wrapper cart_btn news_btn awerer">
+            <a href="/galeries" className="btn btn-primary pl-5 pr-5">
+              Voir plus
+            </a>
+          </div>
           
         </div>
       </div>
@@ -419,7 +437,6 @@ export default function Index()
           <div className="col-md-12">
             <div className="heading_left heading_special">
               <h1>Les dernières actualités</h1>
-              <img src="images/hockey/heading_icon.png" alt="icon" />
             </div>
           </div>
           <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -462,7 +479,7 @@ export default function Index()
               <div className="col-lg-4 col-md-6 col-xs-12 col-sm-6">
                 <div className="footer_widget section2_about_wrapper">
                   <div className="wrapper_first_image">
-                    <a href="index.html">
+                    <a href="/">
                       <img
                         src="/images/wasquehal/logoRSC.png"
                         className="img-responsive"
@@ -489,7 +506,7 @@ export default function Index()
 
               <div className="col-lg-3 col-md-6 col-xs-12 col-sm-6">
                 <div className="footer_widget section2_useful_wrapper">
-                  <h4>Liens utiles</h4>
+                  <h4 style={{color: "#fff"}}>Liens utiles</h4>
                   <ul>
                     <li>
                       <a href="/">
@@ -540,7 +557,7 @@ export default function Index()
 
               <div className="col-lg-4 col-md-6 col-xs-12 col-sm-6">
                 <div className="footer_widget section2_useful_second_wrapper">
-                  <h4>
+                  <h4 style={{color: "#fff"}}>
                     Informations de contact
                   </h4>
                   <ul>
