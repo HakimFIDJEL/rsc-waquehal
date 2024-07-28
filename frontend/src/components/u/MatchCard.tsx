@@ -7,6 +7,7 @@ type Match = {
     score_ally: number
     score_enemy: number
     localisation: string
+    status: boolean
     date: string
     createdAt: string
 }
@@ -44,6 +45,7 @@ const MatchCard = ({ matches }: { matches: Match[] }) => {
   return (
     <>
       {matches
+        .filter(match => match.status !== false)
         .map((match, index) => (
         <div className="tg-upcomingmatch" key={index}>
           <div className="tg-match">

@@ -106,7 +106,7 @@ export default function Show({ id } : { id: string }) {
 
   
 
-    <div className="news_wrapper float_left">
+    <div className="news_wrapper float_left" style={{marginBottom: "560px"}}>
         <div className="container">
             <div className="row">
                

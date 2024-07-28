@@ -118,10 +118,12 @@ export default function Index()
         </div>
       </div> */}
 
-      <div className="news_wrapper float_left">
+      <div className="news_wrapper float_left" style={{ marginBottom: "560px" }}>
         <div className="container">
             <div className="row">
-                {news.map((newItem, index) => (
+                {news
+                    .filter(newItem => newItem.status !== 'false')
+                    .map((newItem, index) => (
 
                     <div className="col-lg-6 col-md-6 col-sm-12 col-12">
                         <article className="news-post-wrapper clearfix">
@@ -143,13 +145,8 @@ export default function Index()
                                     <p style={{ overflow: "hidden", textOverflow: "ellipsis", display: "-webkit-box", WebkitLineClamp: 2, WebkitBoxOrient: "vertical", paddingBottom: "0", marginBottom: "20px" }}>
                                         {newItem.content}
                                     </p>
-                                    <div className="hs_btn_wrapper">
-                                        <ul>
-                                            <li>
-                                                <a href={`/actualites/${newItem.id}`}>Savoir plus</a>
-                                            </li>
-                                        </ul>
-                                    </div>
+                                    <a href={`/actualites/${newItem.id}`} className="btn btn-primary">Lire la suite</a>
+                                   
                                 </div>
                                 {/* /.entry-content */}
                             </div>

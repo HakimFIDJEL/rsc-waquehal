@@ -170,37 +170,31 @@ export default function Index()
                         <div className="about_welcome_content float_left">
                             <h1>Qui sommes-nous ?</h1>
                             <p>
-                                Un texte décrivant le club
+                                Bienvenue à votre club de Rink-Hockey local, offrant des installations de première classe pour tous les niveaux de jeu. Rejoignez-nous pour des formations personnalisées, des tournois passionnants et des événements sociaux amusants. Contactez-nous dès aujourd'hui pour en savoir plus sur la façon de devenir membre et de rejoindre notre équipe de champions ! 
                             </p>
                             <ul className="welcome_link">
                                 <li>
                                 <a href="#">
                                     <i className="fa fa-check-circle" />
-                                    Information 1
+                                    Un club familial
                                 </a>
                                 </li>
                                 <li>
                                 <a href="#">
                                     <i className="fa fa-check-circle" />
-                                    Information 2
+                                    Une inscription rapide et facile
                                 </a>
                                 </li>
                                 <li>
                                 <a href="#">
                                     <i className="fa fa-check-circle" />
-                                    Information 3
+                                    Des formations personnalisées
                                 </a>
                                 </li>
                                 <li>
                                 <a href="#">
                                     <i className="fa fa-check-circle" />
-                                    Information 4
-                                </a>
-                                </li>
-                                <li>
-                                <a href="#">
-                                    <i className="fa fa-check-circle" />
-                                    Information 5
+                                    Des tournois passionnants
                                 </a>
                                 </li>
                             </ul>
@@ -224,15 +218,24 @@ export default function Index()
                             <ul className="nav nav-tabs">
                                 <li className="nav-item">
                                     <a className="nav-link active" data-toggle="tab" href="#role1">
-                                        Rôle 1
+                                        Bureau
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" data-toggle="tab" href="#role2">
-                                        Rôle 2
+                                        Sportifs
                                     </a>
                                 </li>
-                                
+                                <li className="nav-item">
+                                    <a className="nav-link" data-toggle="tab" href="#role3">
+                                        Réstauration
+                                    </a>
+                                </li>
+                                <li className="nav-item">
+                                    <a className="nav-link" data-toggle="tab" href="#role4">
+                                        Résponsables matériels
+                                    </a>
+                                </li>
                             </ul>
                         </div>
                         <div className="tab-content about_tab_content">
@@ -241,10 +244,23 @@ export default function Index()
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div className="offer_main_boxes_wrapper float_left">
                                             <h1>
-                                                Rôle 1
+                                                Bureau
                                             </h1>
                                             <p>
-                                                Du texte et encore du texte
+                                                <ul>
+                                                    <li>
+                                                        Président : Thomas Poillion (contact : 06 87 06 07 96)
+                                                    </li>
+                                                    <li>
+                                                        Secrétaire : Nathalie Bacqueville
+                                                    </li>
+                                                    <li>
+                                                        Trésorier : Matthieu Cazier (contact : 06 69 22 85 40)
+                                                    </li>
+                                                    <li>
+                                                        Président d’honneur : Franck Bacqueville
+                                                    </li>
+                                                </ul>
                                             </p>
                                         </div>
                                     </div>
@@ -255,10 +271,77 @@ export default function Index()
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div className="offer_main_boxes_wrapper float_left">
                                             <h1>
-                                                Rôle 2
+                                                Sportifs
                                             </h1>
                                             <p>
-                                                Du texte et encore du texte
+                                                <ul>
+                                                    <li>
+                                                        Entraineur N1F / N3 / Prénat / U20 et U18 : Aurelien Joly & Christophe Florencio
+                                                    </li>
+                                                    <li>
+                                                        Entraineur U16 : Sandrine Adams & Chloé DHaese
+                                                    </li>
+                                                    <li>
+                                                        Entraineur U14 : Maxime Roussel & Quentin Rousseau
+                                                    </li>
+                                                    <li>
+                                                        Entraineur U12 : Maxime Roussel & Quentin Rousseau
+                                                    </li>
+                                                    <li>
+                                                        Ecole Patinage : Nathalie Bacqueville, Maxime Roussel, Manon Roussel & Thomas Poillion
+                                                    </li>
+                                                    <li>
+                                                        Entraineur Gardien : Paulo Martins & Thomas Poillion
+                                                    </li>
+                                                    <li>
+                                                        Entraineur Loisirs : Sylvain Clément
+                                                    </li>
+                                                    <li>
+                                                        Responsable Arbitres : Laurent DHaese
+                                                    </li>
+                                                </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="role3" className="tab-pane fade">
+                                <div className="row">
+                                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div className="offer_main_boxes_wrapper float_left">
+                                            <h1>
+                                                Réstauration
+                                            </h1>
+                                            <p>
+                                                <ul>
+                                                    <li>
+                                                        Team Buvette : Camille – Julie
+                                                    </li>
+                                                    <li>
+                                                        Team Repas : Pascal – Carole – Stéphanie – Nathalie – Maryline
+                                                    </li>
+                                                </ul>
+                                            </p>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <div id="role4" className="tab-pane fade">
+                                <div className="row">
+                                    <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
+                                        <div className="offer_main_boxes_wrapper float_left">
+                                            <h1>
+                                                Résponsables matériels
+                                            </h1>
+                                            <p>
+                                                <ul>
+                                                    <li>
+                                                        Responsable Matériel : Sylvain Clément
+                                                    </li>
+                                                    <li>
+                                                        Responsable Communication : Matthieu Cazier
+                                                    </li>
+                                                </ul>
                                             </p>
                                         </div>
                                     </div>
@@ -342,12 +425,12 @@ export default function Index()
                             <ul className="nav nav-tabs">
                                 <li className="nav-item">
                                     <a className="nav-link active" data-toggle="tab" href="#history1">
-                                        Histoire 1
+                                        Création
                                     </a>
                                 </li>
                                 <li className="nav-item">
                                     <a className="nav-link" data-toggle="tab" href="#history2">
-                                        Histoire 2
+                                        Développement
                                     </a>
                                 </li>
                                 
@@ -359,10 +442,13 @@ export default function Index()
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div className="offer_main_boxes_wrapper float_left">
                                             <h1>
-                                                Histoire 1
+                                                Création
                                             </h1>
                                             <p>
-                                                Du texte et encore du texte
+                                                Créé en 1992, par Daniel Adams avec un groupe de passionnés. Il a d’abord fallu transformer les anciens terrains de tennis, laissés à l’abandon, en salle de Rink Hockey. De l’envie, ils en ont montré pour monter toute la piste historique en planches d’aggloméré… D’ailleurs, à peine montée, il fallait déjà tout réajuster avec l’humidité du canal, les planches s’étaient naturellement déformées. Sans se décourager, l’équipe a peu a peu aménagé la salle avec une buvette, une table de marques … puis les abords de la salle en installant « LE » chalet sur le parking, servant de vestiaires, de club house, de rangements …
+                                            </p>
+                                            <p>
+                                                Et rapidement, le club s’est mis à l’honneur en décrochant un titre de champion de France féminin en 1996. 
                                             </p>
                                         </div>
                                     </div>
@@ -373,10 +459,13 @@ export default function Index()
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
                                         <div className="offer_main_boxes_wrapper float_left">
                                             <h1>
-                                                Histoire 2
+                                                Développement
                                             </h1>
                                             <p>
-                                                Du texte et encore du texte
+                                                Pour Daniel, et l’équipe dirigeante, une chose comptait… développer le rink hockey au sein de Wasquehal. Et pour y arriver, cela ne pouvait passer que par la transmission de leur passion. Que ce soit sur la piste dès l’école de patinage pour former les futurs champions des équipes Elite, mais aussi en prenant le temps d’expliquer avec passion, les moindres détails de ce sport eu courant. 
+                                            </p>
+                                            <p>
+                                                Franck Bacqueville a ensuite pris la suite, dans la lignée, et c’est ensuite Thomas Poillion. En 2017, lors des 25 ans du club, la salle de RinkHockey porte désormais le nom de Daniel Adams. 
                                             </p>
                                         </div>
                                     </div>

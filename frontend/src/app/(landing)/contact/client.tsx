@@ -32,6 +32,7 @@ import { Swiper, SwiperSlide } from 'swiper/react';
 import 'swiper/swiper-bundle.css';
 import { Navigation, Pagination, Scrollbar, A11y, Autoplay, Grid } from 'swiper/modules';
 
+
 export default function Index()
 {
 
@@ -138,28 +139,27 @@ export default function Index()
             image=""
         />
 
-        {/* Map */}
-        <div className="map_wrapper float_left bg-dark">
-            <div id="map"></div>
-        </div>
 
         {/* Icônes de contact */}
         <div className="contact_icon_section float_left cont_2_wrapper">
             <div className="container">
             <div className="row">
                 <div className="col-lg-3 col-md-6 col-sm-12">
-                <div className="main cont_2">
-                    <div className="rotate">
-                    <i className="fa fa-map-marker" />
+                    <div className="main cont_2">
+                        <div className="rotate">
+                        <i className="fa fa-map-marker" />
+                        </div>
+                        <h4>
+                        Adresse
+                        </h4>
+                        <p>
+                            <a href="https://maps.app.goo.gl/L95bRPag8b7b3UYeA" target="_blank">
+
+                                50 rue Lavoisier
+                                <br /> 59290, Wasquehal
+                            </a>
+                        </p>
                     </div>
-                    <h4>
-                    <a href="#">Address</a>
-                    </h4>
-                    <p>
-                    512 - omexcity, California
-                    <br /> California, omexcity
-                    </p>
-                </div>
                 </div>
                 <div className="col-lg-3 col-md-6 col-sm-12">
                 <div className="main cont_2">
@@ -170,10 +170,8 @@ export default function Index()
                     <a href="#">Email</a>
                     </h4>
                     <p>
-                    <a href="#">
-                        hello@example.com
-                        <br />
-                        support@example.com
+                    <a href="mailto:rscw.sec@yahoo.com" >
+                        rscw.sec@yahoo.com
                     </a>
                     </p>
                 </div>
@@ -184,11 +182,10 @@ export default function Index()
                     <i className="fa fa-phone" />
                     </div>
                     <h4>
-                    <a href="#">Phone</a>
+                    <a href="#">Téléphone</a>
                     </h4>
                     <p>
-                    +1-804-548-5214
-                    <br /> +1-804-548-5215
+                    +33 6 87 06 07 96
                     </p>
                 </div>
                 </div>
@@ -198,11 +195,12 @@ export default function Index()
                     <i className="fa fa-globe" />
                     </div>
                     <h4>
-                    <a href="#">web address</a>
+                    <a href="#">Inscription</a>
                     </h4>
                     <p>
-                    www.sport.com
-                    <br /> www.hello.com
+                        <a href="/Dossier-Inscription-2024-2025.pdf" className="btn btn-primary" style={{textTransform: 'none'}} download target="_blank">
+                            Télécharger le formulaire
+                        </a>
                     </p>
                 </div>
                 </div>

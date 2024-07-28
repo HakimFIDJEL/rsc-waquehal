@@ -50,12 +50,44 @@ type Image = {
   createdAt: string
 }
 
+
+type Equipe = {
+  id: string
+  image: string
+  category: string
+  categoryId: string
+  players : Player[]
+  status: string
+  createdAt: string
+}
+
+type Player = {
+  id: number;
+  name: string;
+  captain: string;
+}
+
+type Trophees = {
+  id: string
+  ranking: number
+  season: string
+  title: string
+  category: string
+  status: boolean
+  createdAt: string
+}
+
+
 export default function Index()
 {
 
   const [matchs, setMatchs] = useState<Match[]>([]);
   const [galeries, setGaleries] = useState<Galerie[]>([]);
   const [news, setNews] = useState<News[]>([]);
+  const [equipes, setEquipes] = useState<Equipe[]>([]);
+  const [trophees, setTrophees] = useState<Trophees[]>([]);
+
+  const year = new Date().getFullYear();
 
   const fetchData = async () => {
 
@@ -63,12 +95,16 @@ export default function Index()
       const matchsFetched = await axios.get(`${Backend_URL}/match`);
       const galeriesFetched = await axios.get(`${Backend_URL}/galerie`);
       const newsFetched = await axios.get(`${Backend_URL}/news`);
+      const equipesFetched = await axios.get(`${Backend_URL}/match-team`);
+      const palmaresFetched = await axios.get(`${Backend_URL}/palmares`);
 
       setMatchs(matchsFetched.data.slice(0, 3));
       setGaleries(galeriesFetched.data.slice(0, 8));
       setNews(newsFetched.data.slice(0, 3));
+      setEquipes(equipesFetched.data);
+      setTrophees(palmaresFetched.data);
 
-
+     
     } catch (error) {
       console.error(error);
     }
@@ -93,7 +129,7 @@ export default function Index()
        
         <div className="resp_logo_wrapper d-block d-sm-block d-md-block d-lg-none d-xl-none">
           <a href="#">
-            <img src="/images/hockey/logo2.png" alt="logo" />
+            <img src="/images/wasquehal/logoRSC.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
           </a>
           <div className="resp_menu">
             <div className="menu_toggle rotate" id="menu_toggle_icon">
@@ -143,7 +179,7 @@ export default function Index()
       </div>
       <div className="ft_middle_wrapper d-none d-sm-none d-md-none d-lg-block d-xl-block">
         <a href="index.html">
-          <img src="/images/hockey/logo.png" alt="logo" />
+          <img src="/images/wasquehal/logoRSC.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
         </a>
       </div>
     </div>
@@ -290,7 +326,7 @@ export default function Index()
     </div>
 
 
-    {/* Count - Todo*/}
+    {/* Count - Done*/}
     <div className="counter_section float_left">
       <div className="counter-section">
         <div className="container text-center">
@@ -308,7 +344,9 @@ export default function Index()
                 </div>
               </div>
               <div className="count-description">
-                <span className="timer">230</span>+
+                <span className="timer">
+                  {matchs.length}  
+                </span>+
                 <h5 className="con1"> Matchs Joués</h5>
               </div>
             </div>
@@ -342,7 +380,9 @@ export default function Index()
                 </div>
               </div>
               <div className="count-description">
-                <span className="timer">60</span>+
+                <span className="timer">
+                  {equipes.reduce((acc, equipe) => acc + equipe.players.length, 0)}  
+                </span>+
                 <h5 className="con2">Joueurs actifs</h5>
               </div>
             </div>
@@ -358,7 +398,9 @@ export default function Index()
                 </div>
               </div>
               <div className="count-description">
-                <span className="timer">27</span>+
+                <span className="timer">
+                  {trophees.length}  
+                </span>+
                 <h5 className="con4">Trophés gagnés</h5>
               </div>
             </div>
@@ -388,12 +430,14 @@ export default function Index()
 
                 {news.length === 0 && <div className="alert alert-info w-100">Aucune actualité enregistrée</div>}
 
+
+
                 <div className="hs_btn_wrapper cart_btn news_btn awerer">
-                  <a href="/actualites" className="hocky_btn ckeck_btn">
-                    <div className="btn-front">Voir plus</div>
-                    <div className="btn-back">Voir plus</div>
+                  <a href="/actualites" className="btn btn-primary pl-5 pr-5">
+                    Voir plus
                   </a>
                 </div>
+                
               </div>
             </div>
           </div>
@@ -420,20 +464,20 @@ export default function Index()
                   <div className="wrapper_first_image">
                     <a href="index.html">
                       <img
-                        src="images/hockey/logo.png"
+                        src="/images/wasquehal/logoRSC.png"
                         className="img-responsive"
                         alt="logo"
+                        style={{ width: "100px", height: "100px" }}
                       />
                     </a>
                   </div>
                   <div className="abotus_content">
                     <p>
-                      Fusce et sem elementum, mis nibh nec, tincidunt ipsum etiau
-                      euntum, mis nibh nec, tincid ctor.
+                      Club de Rink hockey local, n'hésitez pas à découvrir ce sport peu connu.
                     </p>
+                    <br />
                     <p>
-                      Cras vel dui vel orciarel gravida.rpis. Quisque sitmi
-                      tincidunt ipsum etiau.
+                      Contactez-nous dès aujourd'hui pour en savoir plus sur la façon de devenir membre et de rejoindre notre équipe de champions ! 
                     </p>
                   </div>
                 </div>
@@ -445,37 +489,49 @@ export default function Index()
 
               <div className="col-lg-3 col-md-6 col-xs-12 col-sm-6">
                 <div className="footer_widget section2_useful_wrapper">
-                  <h4>useful links </h4>
+                  <h4>Liens utiles</h4>
                   <ul>
                     <li>
-                      <a href="#">
+                      <a href="/">
                         <i className="fa fa-angle-right" />
-                        About academy
+                        Accueil
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="/galeries">
                         <i className="fa fa-angle-right" />
-                        academy profile
+                        Galerie
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="/matchs">
                         <i className="fa fa-angle-right" />
-                        academy team
+                        Résultats
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="/actualites">
                         <i className="fa fa-angle-right" />
-                        events
+                        Actualités
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="/club">
                         <i className="fa fa-angle-right" />
-                        played matches
-                      </a>{" "}
+                        Club
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/regles">
+                        <i className="fa fa-angle-right" />
+                        Règles
+                      </a>
+                    </li>
+                    <li>
+                      <a href="/contact">
+                        <i className="fa fa-angle-right" />
+                        Contact
+                      </a>
                     </li>
                   </ul>
                 </div>
@@ -485,24 +541,21 @@ export default function Index()
               <div className="col-lg-4 col-md-6 col-xs-12 col-sm-6">
                 <div className="footer_widget section2_useful_second_wrapper">
                   <h4>
-                    contact <span> info </span>
+                    Informations de contact
                   </h4>
                   <ul>
                     <li>
                       <i className="fa fa-location-arrow" />
-                      Timposn, Suite 247 USA
-                    </li>
-                    <li>
-                      <i className="fa fa-flag" /> ABN 11 119 159 741
+                      50 rue Lavoisier, 59290 Wasquehal
                     </li>
                     <li>
                       <i className="fa fa-phone-square" />
-                      +61 3 8376 6284
+                      +33 6 87 06 07 96
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="mailto:rscw.sec@yahoo.com">
                         <i className="fa fa-envelope-square" />
-                        info@example.com
+                        rscw.sec@yahoo.com
                       </a>
                     </li>
                   </ul>
@@ -514,33 +567,27 @@ export default function Index()
           </div>
         </div>
         
-        {/* Do Links */}
         <div className="section2_bottom_wrapper">
           <div className="container">
             <div className="row">
               <div className="col-lg-12 col-md-12 col-xs-12 col-sm-12">
                 <div className="btm_foter_box">
                   <p>
-                    <i className="fa fa-copyright" /> 2024 RSC-Wasquehal.
+                    <i className="fa fa-copyright" /> {year} RSC-Wasquehal.
                   </p>
                   <ul className="aboutus_social_icons">
                     <li>
-                      <a href="#">
+                      <a href="https://fr-fr.facebook.com/RSCWasquehal/" target="_blank">
                         <i className="fa fa-facebook" />
                       </a>
                     </li>
                     <li>
-                      <a href="#">
-                        <i className="fa fa-twitter" />
-                      </a>
-                    </li>
-                    <li>
-                      <a href="#">
+                      <a href="https://www.youtube.com/@rscwasquehal2001" target="_blank">
                         <i className="fa fa-youtube-play" aria-hidden="true" />
                       </a>
                     </li>
                     <li>
-                      <a href="#">
+                      <a href="https://www.instagram.com/rscwasquehal/" target="_blank">
                         <i className="fa fa-instagram" aria-hidden="true" />
                       </a>
                     </li>

@@ -83,6 +83,7 @@ const NewCard = ({ news }: { news: News[] }) => (
                             <a href={`/actualites/${newItem.id}`}>
                                 <button className="btn btn-primary">En savoir plus</button>
                             </a>
+                            
                         </div>
                     </div>
                 </div>

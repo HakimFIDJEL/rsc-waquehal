@@ -1,5 +1,7 @@
 "use client";
 
+
+
 export function Header() {
   return <>
   <div className="ft_navi_main_wrapper float_left">
@@ -19,20 +21,16 @@ export function Header() {
       
     </div>
     <div className="ft_logo_wrapper">
-      <a href="index.html">
-        <img src="/images/inner/logo.png" alt="logo" />
+      <a href="/">
+        <img src="/images/wasquehal/logoRSC.png" alt="logo" style={{ width: "80px", height: "80px" }} className="img-responsive" />
       </a>
     </div>
     <div className="ft_right_wrapper">
       <ul>
         <li>
-          <div className="hs_btn_wrapper d-none d-sm-none d-md-block d-lg-block d-xl-block">
-            <ul>
-              <li>
-                <a href="contact_us.html">contact</a>
-              </li>
-            </ul>
-          </div>
+            <a href="/contact" className="btn btn-primary pl-4 pr-4">
+              Contact
+            </a>
         </li>
       </ul>
     </div>
