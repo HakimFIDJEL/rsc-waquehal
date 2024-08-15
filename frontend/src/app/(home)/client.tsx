@@ -82,6 +82,7 @@ export default function Index()
 {
 
   const [matchs, setMatchs] = useState<Match[]>([]);
+  const [matchsSliced, setMatchsSliced] = useState<Match[]>([]);
   const [galeries, setGaleries] = useState<Galerie[]>([]);
   const [news, setNews] = useState<News[]>([]);
   const [equipes, setEquipes] = useState<Equipe[]>([]);
@@ -98,7 +99,9 @@ export default function Index()
       const equipesFetched = await axios.get(`${Backend_URL}/match-team`);
       const palmaresFetched = await axios.get(`${Backend_URL}/palmares`);
 
-      setMatchs(matchsFetched.data.slice(0, 3));
+      setMatchsSliced(matchsFetched.data.slice(0, 3));
+
+      setMatchs(matchsFetched.data);
       setGaleries(galeriesFetched.data.slice(0, 8));
       setNews(newsFetched.data.slice(0, 3));
       setEquipes(equipesFetched.data);
@@ -279,9 +282,9 @@ export default function Index()
           <div className="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
 
            
-            <MatchCard matches={matchs} />
+            <MatchCard matches={matchsSliced} />
 
-            {matchs.length === 0 && <div className="alert alert-info w-100">Aucun match enregistré</div>}
+            {matchsSliced.length === 0 && <div className="alert alert-info w-100">Aucun match enregistré</div>}
 
             
 

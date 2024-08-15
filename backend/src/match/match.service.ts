@@ -48,6 +48,9 @@ export class MatchService {
       select: {
         team_enemy: true
       },
+      orderBy: {
+        team_enemy: 'asc'
+      },
       distinct: ['team_enemy']
     });
   }

@@ -54,12 +54,18 @@ export default function Index()
         <div className="our_history_wrapper float_left" style={{ marginBottom: "560px" }}>
             <div className="container">
                 <div className="row">
+
+
                     <div className="col-md-12">
                         <div className="ft_left_heading_wraper gallery_heading_center text-center">
                             <h1>Le Rink-Hockey</h1>
                         </div>
                     </div>
+
+
                     <div className="col-md-12 pdtpp">
+
+
                         <div className="welcome_tab">
                             <ul className="nav nav-tabs">
                                 <li className="nav-item">
@@ -90,6 +96,8 @@ export default function Index()
                                 
                             </ul>
                         </div>
+
+
                         <div className="tab-content about_tab_content">
                             <div id="rule1" className="tab-pane active">
                                 <div className="row">
@@ -98,7 +106,7 @@ export default function Index()
                                             <h1>
                                                 Les principes du jeu
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <p>
                                                     Le rink hockey est un sport collectif où deux équipes s’affrontent. Chaque équipe est composée de cinq joueurs dont un gardien. En plus des joueurs sur le terrain, chaque équipe peut compter cinq remplaçants dont un gardien remplaçant ; ainsi une équipe inscrite pour une rencontre compte au maximum dix joueurs dont deux gardiens de buts. Au cours d’une rencontre le nombre de remplacements est illimité : un joueur peut entrer et sortir du terrain autant de fois que souhaité. 
                                                 </p>
@@ -108,11 +116,14 @@ export default function Index()
                                                 <p>
                                                 En sénior, le temps de jeu est de 25 minutes par mi-temps. Le découlement du temps est arrêté à chaque arrêt de jeu, depuis une décision prise par la fédération internationale en 1963 à Porto. 
                                                 </p>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
+
+
+
                             <div id="rule2" className="tab-pane fade">
                                 <div className="row">
                                     <div className="col-xl-12 col-lg-12 col-md-12 col-sm-12 col-12">
@@ -120,7 +131,7 @@ export default function Index()
                                             <h1>
                                                 Les règles du jeu
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <p>
                                                 Le rink hockey, comme tous les sports, possède de nombreuses règles de jeu et interdiction. Parmi elles, il est interdit de:
                                                 </p>
@@ -157,7 +168,7 @@ export default function Index()
                                                     jouer à terre, sauf pour les gardiens qui en ont l’autorisation seulement dans leur surface de réparation.
                                                     </li>
                                                 </ul>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -169,7 +180,7 @@ export default function Index()
                                             <h1>
                                                 Les pénalités
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <p>
                                                 Ces fautes sont sanctionnées en fonction de leur gravité, éventuellement par une sanction adressée au joueur, mais principalement par une pénalisation de l’équipe lors de la reprise du jeu.
                                                 </p>
@@ -216,7 +227,7 @@ export default function Index()
                                                     </li>
                                                 </ul>
 
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -228,7 +239,7 @@ export default function Index()
                                             <h1>
                                                 L'aire de jeu, le terrain de rink hockey
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <p>
                                                 Le rink hockey se joue en salle, couverte ou à l’air libre. La piste (rink) est doublement symétrique, en longueur et en largeur. Elle est rectangulaire et peut mesurer de 34 m à 44 m de long sur une largeur de 17 m à 22 m en respectant toujours un ratio de 2:1, mais les matchs internationaux ne se déroulent que sur des pistes de 40 m sur 20 m. Les coins de la piste sont arrondis formant un quart de cercle mesurant entre 3 et 1 m de diamètre. La piste est entourée par une barrière d’au moins 0,20 m de haut et de 1 m de haut dans les matchs internationaux. Le sol peut être en béton, résine, plancher ou même marbre. 
                                                 </p>
@@ -238,7 +249,7 @@ export default function Index()
                                                 <p>
                                                 Une ligne médiane sépare le terrain en deux zones, avec un cercle central au milieu duquel s’effectuent les engagements. La surface de réparation mesure 9 m sur 5,40 m. À son extrémité se tient le point de penalty. Un demi-cercle du diamètre de la cage constitue une zone de protection pour gardien. À 7,40 m de la ligne de but, se tient le point de coup franc direct.
                                                 </p>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -250,7 +261,7 @@ export default function Index()
                                             <h1>
                                                 L'équipement
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <p>
                                                 Le rink hockey se joue avec une balle sphérique en liège pressé, recouverte d’un plastique dur. Elle mesure 23 cm de périmètre, soit 7,2 cm de diamètre et elle pèse 155 g. La balle de rink hockey doit être de couleur unie. Elle est généralement noire, mais sa couleur peut varier pour contraster avec la couleur de la salle. Sur un sol dur, la balle rebondit peu. 
                                                 </p>
@@ -266,14 +277,19 @@ export default function Index()
                                                 <p>
                                                 L’équipement du gardien de but est plus complet que celui des joueurs de champ. Pour sa protection il porte jambières, coquille, plastron, protège-cou, coudières, gants spéciaux, maillot flottant matelassé et casque. Mis à part les jambières et les gants, les autres protections (plastron, coudières…) ne doivent pas avoir pour objectif de couvrir plus de surface de but. Le gardien peut au choix porter un casque ou un masque intégral, avec soit une visière, soit une grille. 
                                                 </p>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
                             </div>
                         
                         </div>
+
+                        
                     </div>
+
+
+
                 </div>
             </div>
         </div>

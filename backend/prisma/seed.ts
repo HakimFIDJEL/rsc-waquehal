@@ -10,10 +10,10 @@ async function main() {
     const app = await NestFactory.create(AppModule);
     const userService = app.get(UserService);
 
-    const user = userService.findByEmail("hakimfidjel.spam@gmail.com");
+    // Ajout du await ici
+    const user = await userService.findByEmail("hakimfidjel.spam@gmail.com");
 
-    if(!user)
-    {
+    if (!user) {
         await userService.create({
             email: "hakimfidjel.spam@gmail.com",
             password: "password",
@@ -23,8 +23,6 @@ async function main() {
             passwordToken: null,
         });
     }
-
-
 
     await app.close();
 }
@@ -36,4 +34,4 @@ main()
     })
     .finally(async () => {
         await prisma.$disconnect();
-    })
+    });

@@ -72,9 +72,9 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         header: "Statut",
         cell: ({ cell }) => (
             cell.getValue<boolean>() === true ? (
-                <Badge variant="default">En ligne</Badge>
+                <Badge variant="default"style={{ whiteSpace: "nowrap" }}>En ligne</Badge>
             ) : (
-                <Badge variant="secondary">Hors ligne</Badge>
+                <Badge variant="secondary"style={{ whiteSpace: "nowrap" }}>Hors ligne</Badge>
             )
         ),
     },

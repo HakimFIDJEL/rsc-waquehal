@@ -73,9 +73,10 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         header: "Statut",
         cell: ({ cell }) => (
             cell.getValue<boolean>() === true ? (
-                <Badge variant="default">En ligne</Badge>
+                <Badge variant="default" style={{ whiteSpace: "nowrap" }}
+                >En ligne</Badge>
             ) : (
-                <Badge variant="secondary">Hors ligne</Badge>
+                <Badge variant="secondary" style={{ whiteSpace: "nowrap" }}>Hors ligne</Badge>
             )
         ),
     },
@@ -84,11 +85,11 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         cell: ({ cell }) => (
             // place a badge with a success, danger or warning color depending on the results, calculated from the score
             cell.row.original.score_ally > cell.row.original.score_enemy ? (
-                <Badge variant="secondary">Victoire</Badge>
+                <Badge variant="secondary" style={{ whiteSpace: "nowrap" }}>Victoire</Badge>
             ) : cell.row.original.score_ally < cell.row.original.score_enemy ? (
-                <Badge variant="destructive">Défaite</Badge>
+                <Badge variant="destructive" style={{ whiteSpace: "nowrap" }}>Défaite</Badge>
             ) : (
-                <Badge variant="outline">Match nul</Badge>
+                <Badge variant="outline" style={{ whiteSpace: "nowrap" }}>Match nul</Badge>
             )
             
         ),
@@ -117,7 +118,7 @@ export const columns = (deleteData: (id: string | number) => void): ColumnDef<da
         header: "Lieu",
     },
     {
-        accessorKey: "createdAt",
+        accessorKey: "date",
         // sortable
         header: ({ column }) => {
             return (

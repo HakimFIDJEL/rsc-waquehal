@@ -50,6 +50,7 @@ export default function Index()
   const [equipes, setEquipes] = useState<Equipe[]>([]);
   const [equipeSelected, setEquipeSelected] = useState<Equipe | null>(null);
   const [matchs, setMatchs] = useState<Match[]>([]);
+  const [matchsSelected, setMatchsSelected] = useState<Match[]>([]);
 
   const fetchData = async () => {
     try {
@@ -59,11 +60,19 @@ export default function Index()
 
       setMatchs(matchsFetched.data);
       setCategories(categoriesFetched.data);
-      setCategorySelected(categoriesFetched.data[0]);
       setEquipes(equipesFetched.data);
-      setEquipeSelected(equipesFetched.data[0]);
 
-      console.log('matchs', matchsFetched.data);
+      const matchsTeam = matchsFetched.data.filter(match => match.category.id === categoriesFetched.data[0].id);
+      setMatchsSelected(matchsTeam);
+
+      const team = equipesFetched.data.find(equipe => equipe.categoryId === categoriesFetched.data[0].id) || null;
+      setEquipeSelected(team);
+
+      setCategorySelected(categoriesFetched.data[0]);
+
+
+
+
 
 
     } catch (error) {
@@ -76,6 +85,15 @@ export default function Index()
     console.log('team', team, 'category', category);
     setEquipeSelected(team);
     setCategorySelected(category);
+
+    if (team) {
+      const matchsTeam = matchs.filter(match => match.category.id === category?.id);
+      setMatchsSelected(matchsTeam);
+    }
+
+    // scroll to top
+    window.scrollTo(0, 0);
+
   };
 
   useEffect(() => {
@@ -213,7 +231,7 @@ export default function Index()
                     <div className="col-lg-12 col-md-12 col-sm-12">
                       <div className="widget_heading">
                         <h2>
-                          Matchs ({matchs.length})
+                          Matchs ({matchsSelected.length})
                         </h2>
                       </div>
                       <div>
@@ -225,7 +243,7 @@ export default function Index()
 
 
                                 
-                            <MatchCard matches={matchs} />
+                            <MatchCard matches={matchsSelected} />
                                 
 
                         </div>
