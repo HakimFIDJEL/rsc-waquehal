@@ -101,7 +101,7 @@ export default function Show({ id } : { id: string }) {
                 link: `/actualites/${id}`
             }   
         ]}
-        image=""
+        image="/images/wasquehal/img5.jpg"
       />
 
   

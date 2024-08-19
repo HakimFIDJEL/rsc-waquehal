@@ -110,7 +110,7 @@ ul{
 }
 /*-- cursor css start --*/
 * {
-	cursor: none;
+	/* cursor: none; */
 }
 .cursor {
     --size: 10px;
@@ -323,18 +323,6 @@ a:hover {
 	font-size:14px;
 	color:#777;
 }
-.menu_main_wrapper:after{
-	content: '';
-    position: absolute;
-    border-top: 150px solid #05955a;
-    left: 0;
-    right: 0;
-    bottom: -70px;
-    margin: 0px auto;
-    border-bottom-left-radius: 130%;
-    border-bottom-right-radius: 130%;
-    z-index: -1;
-}
 .ft_middle_wrapper {
     float: left;
     width: 20%;
@@ -361,18 +349,7 @@ a:hover {
 	float:left;
 	background:#fff;
 	position:relative;
-	padding-top:50px;
-}
-.menu_wrapper_2:before {
-    content: '';
-    position: absolute;
-    border-top: 107px solid #fff;
-    left: 0;
-    right: 0;
-    bottom: -84px;
-    margin: 0px auto;
-    border-bottom-left-radius: 130%;
-    border-bottom-right-radius: 130%;
+	/* padding:40px 0; */
 }
 .menu_wrapper_2 li a:hover {
     color: #fff;
@@ -399,7 +376,7 @@ a:hover {
     -ms-transition: all 0.5s;
     -moz-transition: all 0.5s;
     transition: all 0.5s;
-	border-bottom:1px solid rgba(101, 173, 67, 0.41);
+	border-bottom: #1c1d1f solid 0.5px;
 }
 .ft_middle_wrapper a{
 	float:left;
@@ -1610,7 +1587,8 @@ a:hover {
   content: "";
   width: 50%;
   height: 50%;
-  background-color: rgba(101, 173, 67, 0.7);
+  background-color: rgba(35, 35, 37, 0.5);
+
   position: absolute;
   top: 0;
   left: 0;
@@ -1621,7 +1599,8 @@ a:hover {
   content: "";
   width: 50%;
   height: 50%;
-  background-color: rgba(101, 173, 67, 0.7);
+  background-color: rgba(35, 35, 37, 0.5);
+
   position: absolute;
   top: 50%;
   left: 0;
@@ -1644,7 +1623,8 @@ a:hover {
   content: "";
   width: 50%;
   height: 50%;
- background-color: rgba(101, 173, 67, 0.7);
+  background-color: rgba(35, 35, 37, 0.5);
+
   position: absolute;
   top: 0;
   left: 50%;
@@ -1655,7 +1635,8 @@ a:hover {
   content: "";
   width: 50%;
   height: 50%;
-  background-color: rgba(101, 173, 67, 0.7);
+  background-color: rgba(35, 35, 37, 0.5);
+
   position: absolute;
   top: 50%;
   left: 50%;
@@ -1663,7 +1644,7 @@ a:hover {
   transition: all 0.5s ease 0s;
 }
 .portfolio_grid .portfolio_item .portfolio_hover a {
-  color: #fff;
+  color: #1c1d1f;
   font-size:20px;
   text-transform:capitalize;
   text-align: center;
@@ -1826,6 +1807,7 @@ a:hover {
 	float:left;
 	width:470px;
 	position:relative;
+	cursor: pointer;
 }
 .ne_re_bottom_img img{
 	width:100%;
@@ -1967,20 +1949,10 @@ a:hover {
     -ms-transition:all 0.55s linear;
     -o-transition:all 0.55s linear;
     transition:all 0.55s linear;
+	cursor:pointer;
 }
 .ne_re_left_bottom_main_wrapper:hover .news_overlay{
-	position:absolute;
-	top:0;
-	right:0;
-	left:0;
-	bottom:0;
-	background:rgba(101, 173, 67, 0.7);
-	opacity:1;
-	-webkit-transition:all 0.35s linear;
-    -moz-transition:all 0.35s linear;
-    -ms-transition:all 0.35s linear;
-    -o-transition:all 0.35s linear;
-    transition:all 0.35s linear;
+	cursor: pointer;
 }
 .ne_re_left_bottom_main_wrapper:hover .lest_news_date_wrapper{
 	background:#fff;

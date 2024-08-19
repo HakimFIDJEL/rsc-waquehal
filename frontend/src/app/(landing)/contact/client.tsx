@@ -136,7 +136,7 @@ export default function Index()
                 link: "/contact"
                 }
             ]}
-            image=""
+            image="/images/wasquehal/img4.jpg"
         />
 
 
@@ -323,7 +323,7 @@ export default function Index()
                                     </span>
                                 </a>
                                 <div className="zoom_popup">
-                                    <a className="img-link" href={activite.website}>
+                                    <a className="img-link" href={activite.website} target="_blank">
                                         <i className="flaticon-search" />
                                     </a>
                                 </div>

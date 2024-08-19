@@ -20,7 +20,7 @@ export function Footer() {
                   <div className="wrapper_first_image">
                     <a href="index.html">
                       <img
-                        src="/images/wasquehal/logoRSC.png"
+                        src="/images/wasquehal/logoRSCBlanc.png"
                         className="img-responsive"
                         alt="logo"
                         style={{ width: "100px", height: "100px" }}

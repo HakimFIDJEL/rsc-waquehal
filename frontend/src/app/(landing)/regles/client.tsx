@@ -47,7 +47,7 @@ export default function Index()
             link: "/regles"
           }
         ]}
-        image=""
+        image="/images/wasquehal/img2.webp"
       />
 
 

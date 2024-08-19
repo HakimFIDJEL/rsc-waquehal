@@ -83,6 +83,7 @@ export default function Index()
 
   const [matchs, setMatchs] = useState<Match[]>([]);
   const [matchsSliced, setMatchsSliced] = useState<Match[]>([]);
+  const [latestsMatchs, setLatestsMatchs] = useState<Match[]>([]);
   const [galeries, setGaleries] = useState<Galerie[]>([]);
   const [news, setNews] = useState<News[]>([]);
   const [equipes, setEquipes] = useState<Equipe[]>([]);
@@ -106,6 +107,10 @@ export default function Index()
       setNews(newsFetched.data.slice(0, 3));
       setEquipes(equipesFetched.data);
       setTrophees(palmaresFetched.data);
+
+      // Latests matchs, order the matchs by the date field and slice the first 3
+      const latestsMatchs = matchsFetched.data.sort((a: Match, b: Match) => new Date(b.date).getTime() - new Date(a.date).getTime()).slice(0, 3);
+      setLatestsMatchs(latestsMatchs);
 
      
     } catch (error) {
@@ -132,7 +137,7 @@ export default function Index()
        
         <div className="resp_logo_wrapper d-block d-sm-block d-md-block d-lg-none d-xl-none">
           <a href="#">
-            <img src="/images/wasquehal/logoRSC.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
+            <img src="/images/wasquehal/logoRSCBlanc.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
           </a>
           <div className="resp_menu">
             <div className="menu_toggle rotate" id="menu_toggle_icon">
@@ -202,7 +207,7 @@ export default function Index()
           muted
           style={{ width: "100%", height: "100%", objectFit: "cover", position: "absolute", zIndex: "1" }}
         >
-          <source src="/images/hockey/video.mp4" type="video/mp4" />
+          <source src="/images/wasquehal/video.mp4" type="video/mp4" />
         </video>
 
         {/* Shade cover for the video */}
@@ -213,7 +218,7 @@ export default function Index()
 
         {/* Title & subtitle that fade in */}
         <div className="fullscreen-bg-title" style={{ zIndex: "3", position: "absolute", top: "50%", left: "50%", transform: "translate(-50%, -50%)", fontFamily: "Poppins" }}>
-          <h1 style={{ color: "white", fontSize: "5.4em", textAlign: "center" }}>
+          <h1 style={{ color: "white", fontSize: "6vw", textAlign: "center" }}>
             Rsc Wasquehal
           </h1>
           <p style={{ color: "white", fontSize: "2em", textAlign: "center", marginTop: "1rem", fontWeight: "200"  }}>
@@ -225,6 +230,12 @@ export default function Index()
 
       <div className="menu_main_wrapper d-none d-sm-none d-md-none d-lg-block d-xl-block" style={{ zIndex: "5" }}>
         <ul className="menu_wrapper_2">
+          <li className="common_dropdown_wrapper float_left">
+            <span className="logo" style={{display: "flex", justifyContent: "center", alignItems: "center", padding: "20px 0"}} >
+
+              <img src="/images/wasquehal/logoRSC.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
+            </span>
+          </li>
           <li>
             <a href="/" title="">
               Accueil
@@ -260,11 +271,7 @@ export default function Index()
               Contact
             </a>
           </li>
-          <li className="common_dropdown_wrapper float_left">
-            <a href="/" title="">
-              <img src="/images/wasquehal/logoRSC.png" alt="logo" className="img-responsive" style={{ width: "100px", height: "100px" }} />
-            </a>
-          </li>
+          
         </ul>
       </div>
     </div>
@@ -282,9 +289,9 @@ export default function Index()
           <div className="col-xl-7 col-lg-7 col-md-12 col-sm-12 col-12">
 
            
-            <MatchCard matches={matchsSliced} />
+            <MatchCard matches={latestsMatchs} />
 
-            {matchsSliced.length === 0 && <div className="alert alert-info w-100">Aucun match enregistré</div>}
+            {latestsMatchs.length === 0 && <div className="alert alert-info w-100">Aucun match enregistré</div>}
 
             
 
@@ -292,16 +299,17 @@ export default function Index()
 
 
           <div className="col-xl-5 col-lg-5 col-md-12 col-sm-12 col-12">
-            <div className="upcoming_match_img float_left">
+            <div className="upcoming_match_img float_left" style={{ height: "100%" }}>
               <img
-                src="/images/hockey/upmatch.jpg"
+                src="/images/wasquehal/img1.jpg"
                 className="img-responsive"
                 alt="img"
+                style={{ width: "100%", height: "100%", objectFit: "cover" }}
               />
             </div>
           </div>
 
-          <div className="hs_btn_wrapper cart_btn news_btn awerer" style={{marginTop: "3rem"}}>
+          <div className="hs_btn_wrapper cart_btn news_btn awerer" style={{marginTop: "3rem", display: "flex", justifyContent: "center"}}>
             <a href="/matchs" className="btn btn-primary pl-5 pr-5">
               Voir plus
             </a>
@@ -313,9 +321,9 @@ export default function Index()
     </div>
 
     {/* Banner - Done*/}
-    <div className="next_match_new float_left">
+    <div className="next_match_new float_left" style={{backgroundImage: "url(/images/wasquehal/img2.webp)", backgroundSize: "cover", backgroundPosition: "center", backgroundRepeat: "no-repeat", height: "30vh", position: "relative"}}>
       <div className="next_match_overlay">
-        <img src="" alt="" className="img-responsive" style={{ width: "100%", height: "100%", objectFit: "cover", position: "fixed" }} />
+        {/* <img src="/images/wasquehal/img2.webp" alt="" className="img-responsive" style={{ width: "100%", height: "100%", objectFit: "cover", position: "fixed" }} /> */}
       </div>
      
     </div>
@@ -336,7 +344,7 @@ export default function Index()
 
           {galeries.length === 0 && <div className="alert alert-info w-100">Aucune image enregistrée</div>}
 
-          <div className="hs_btn_wrapper cart_btn news_btn awerer">
+          <div className="hs_btn_wrapper cart_btn news_btn awerer" style={{display: "flex", justifyContent: "center"}}>
             <a href="/galeries" className="btn btn-primary pl-5 pr-5">
               Voir plus
             </a>
@@ -383,8 +391,8 @@ export default function Index()
                 </div>
               </div>
               <div className="count-description">
-                <span className="timer">4</span>+
-                <h5 className="con2">Années d'existence</h5>
+                <span className="timer">20</span>+
+                <h5 className="con2">Ans d'ancienneté</h5>
               </div>
             </div>
 
@@ -452,7 +460,7 @@ export default function Index()
 
 
 
-                <div className="hs_btn_wrapper cart_btn news_btn awerer">
+                <div className="hs_btn_wrapper cart_btn news_btn awerer" style={{display: "flex", justifyContent: "center"}}>
                   <a href="/actualites" className="btn btn-primary pl-5 pr-5">
                     Voir plus
                   </a>
@@ -484,7 +492,7 @@ export default function Index()
                   <div className="wrapper_first_image">
                     <a href="/">
                       <img
-                        src="/images/wasquehal/logoRSC.png"
+                        src="/images/wasquehal/logoRSCBlanc.png"
                         className="img-responsive"
                         alt="logo"
                         style={{ width: "100px", height: "100px" }}

@@ -95,7 +95,7 @@ export default function Index()
             link: "/actualites"
           }
         ]}
-        image=""
+        image="/images/wasquehal/img5.jpg"
       />
 
       {/* <div className="portfolio_gridIII float_left">

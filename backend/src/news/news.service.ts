@@ -45,6 +45,9 @@ export class NewsService {
     return await this.prisma.news.findMany({
       include: {
         images: true
+      },
+      orderBy: {
+        createdAt: 'desc'
       }
     });
   }

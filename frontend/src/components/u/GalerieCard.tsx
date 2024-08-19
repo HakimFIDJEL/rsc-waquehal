@@ -23,7 +23,7 @@ const GalerieCard = ({ galeries }: { galeries: Galerie[] }) => (
                             </a>
                             <div className="zoom_popup">
                                 <a className="img-link" href={`${Backend_URL}${galerie.image}`} target="_blank">
-                                    <i className="flaticon-search" />
+                                    Voir
                                 </a>
                             </div>
                         </div>

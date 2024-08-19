@@ -45,8 +45,8 @@ export default function  HomeLayout({
     </head>
     <body>
       <Preloader />
-      <div className="cursor cursor-shadow"></div>
-      <div className="cursor cursor-dot"></div>
+      {/* <div className="cursor cursor-shadow"></div>
+      <div className="cursor cursor-dot"></div> */}
 
       <a href="javascript:" id="return-to-top"><i className="flaticon-up-arrow"></i></a>
 
@@ -83,7 +83,7 @@ export default function  HomeLayout({
       <script src="/js/plugin/rs_slider/revolution.extension.slideanims.min.js"></script>
       <script src="/js/plugin/rs_slider/revolution.extension.video.min.js"></script>
       <script src="/js/plugin/rs_slider/revolution.addon.snow.min.js"></script>
-      <script src="/js/cursor.js"></script>
+      {/* <script src="/js/cursor.js"></script> */}
       <script src="/js/hockey.js"></script>
 
       

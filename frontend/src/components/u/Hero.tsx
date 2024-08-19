@@ -1,7 +1,7 @@
 export function Hero({title, breadcrumbs, image}: {title: string, breadcrumbs: {title: string, link: string}[], image?: string})
 {
     return <>
-    <div className="indx_title_main_wrapper float_left">
+    <div className="indx_title_main_wrapper float_left" style={{backgroundImage: `url(${image})`}}>
         <div className="title_img_overlay" />
         <div className="container">
             <div className="row">

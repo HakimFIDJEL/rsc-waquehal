@@ -68,7 +68,7 @@ export default function Index()
             link: "/galeries"
           }
         ]}
-        image=""
+        image="/images/wasquehal/img2.webp"
       />
 
       <div className="portfolio_gridIII float_left">

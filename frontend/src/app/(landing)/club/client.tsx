@@ -83,6 +83,24 @@ export default function Index()
             navigation
             autoplay={{ delay: 5000 }}
             style={{ width: "100%", height: "100%" }}
+            breakpoints={{
+                0: {
+                    slidesPerView: 1,
+                    spaceBetween: 10
+                },
+                640: {
+                    slidesPerView: 2,
+                    spaceBetween: 20
+                },
+                768: {
+                    slidesPerView: 3,
+                    spaceBetween: 40
+                },
+                1024: {
+                    slidesPerView: 3,
+                    spaceBetween: 50
+                }
+            }}
         >
             {trophees
                 .filter(trophee => trophee.status !== false)
@@ -113,6 +131,24 @@ export default function Index()
                 navigation
                 autoplay={{ delay: 5000 }}
                 style={{ width: "100%", height: "100%" }}
+                breakpoints={{
+                    0: {
+                        slidesPerView: 1,
+                        spaceBetween: 10
+                    },
+                    640: {
+                        slidesPerView: 2,
+                        spaceBetween: 20
+                    },
+                    768: {
+                        slidesPerView: 3,
+                        spaceBetween: 40
+                    },
+                    1024: {
+                        slidesPerView: 3,
+                        spaceBetween: 50
+                    }
+                }}
             >
                 {sponsors
                     .filter(sponsor => sponsor.status !== 'false')
@@ -146,7 +182,7 @@ export default function Index()
             link: "/club"
           }
         ]}
-        image=""
+        image="/images/wasquehal/img1.jpg"
       />
 
         {/* Qui sommes nous ? */}
@@ -158,7 +194,7 @@ export default function Index()
                             <div className="item">
                                 <div className="about_image">
                                     <img
-                                        src="/images/inner/abt1.jpg"
+                                        src="/images/wasquehal/img6.jpg"
                                         className="img-responsive w-100"
                                         alt=""
                                     />
@@ -246,7 +282,7 @@ export default function Index()
                                             <h1>
                                                 Bureau
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <ul>
                                                     <li>
                                                         Président : Thomas Poillion (contact : 06 87 06 07 96)
@@ -261,7 +297,7 @@ export default function Index()
                                                         Président d’honneur : Franck Bacqueville
                                                     </li>
                                                 </ul>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -273,7 +309,7 @@ export default function Index()
                                             <h1>
                                                 Sportifs
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <ul>
                                                     <li>
                                                         Entraineur N1F / N3 / Prénat / U20 et U18 : Aurelien Joly & Christophe Florencio
@@ -300,7 +336,7 @@ export default function Index()
                                                         Responsable Arbitres : Laurent DHaese
                                                     </li>
                                                 </ul>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -312,7 +348,7 @@ export default function Index()
                                             <h1>
                                                 Réstauration
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <ul>
                                                     <li>
                                                         Team Buvette : Camille – Julie
@@ -321,7 +357,7 @@ export default function Index()
                                                         Team Repas : Pascal – Carole – Stéphanie – Nathalie – Maryline
                                                     </li>
                                                 </ul>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
@@ -333,7 +369,7 @@ export default function Index()
                                             <h1>
                                                 Résponsables matériels
                                             </h1>
-                                            <p>
+                                            <div>
                                                 <ul>
                                                     <li>
                                                         Responsable Matériel : Sylvain Clément
@@ -342,7 +378,7 @@ export default function Index()
                                                         Responsable Communication : Matthieu Cazier
                                                     </li>
                                                 </ul>
-                                            </p>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

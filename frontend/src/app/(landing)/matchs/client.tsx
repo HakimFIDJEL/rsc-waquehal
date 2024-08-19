@@ -118,7 +118,7 @@ export default function Index()
             link: "/matchs"
           }
         ]}
-        image=""
+        image="/images/wasquehal/img4.jpg"
       />
 
       <div className="news_wrapper float_left" style={{marginBottom: "560px"}}>
